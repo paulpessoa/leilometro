@@ -1,4 +1,4 @@
-# 🏎️ LeilãoIntel — Roteiro de Testes + Estratégia de Produto
+# Leilômetro — Roteiro de Testes + Estratégia de Produto
 
 ---
 
@@ -9,6 +9,7 @@
 ### O que você tem de verdade agora
 
 Um **skeleton funcional** que:
+
 - Injeta um painel no DOM de sites de leilão
 - Faz scraping genérico por seletores CSS
 - Calcula custo real com taxas fixas
@@ -35,6 +36,7 @@ Um **skeleton funcional** que:
 **Uma coisa de cada vez. Valide antes de construir.**
 
 Ordem correta:
+
 1. Fazer funcionar em 1 site (Leilo)
 2. Um usuário real usar e achar útil
 3. Repetir para os outros 4 sites
@@ -47,6 +49,7 @@ Ordem correta:
 ### Ambiente de teste
 
 Antes de começar, abra o Chrome com:
+
 1. `chrome://extensions/` → extensão carregada
 2. Console DevTools aberto (`F12` → aba Console)
 3. Um bloco de notas para anotar o que funciona/quebra
@@ -74,6 +77,7 @@ Procure por:
 ```
 
 **Checklist de validação — Leilo:**
+
 ```
 □ Painel apareceu na tela?
 □ Lance detectado automaticamente?  Valor: ________
@@ -91,6 +95,7 @@ Procure por:
 ```
 
 **Seletores a investigar na Leilo (exemplos — confirme no DevTools):**
+
 ```css
 /* Lance atual — inspecionar o número principal */
 .bid-value, .current-bid, [class*="CurrentBid"]
@@ -106,9 +111,10 @@ Procure por:
 ```
 
 **Se algo não funcionar:** Abra o console e teste:
+
 ```javascript
 // Cole no console para testar seletores manualmente
-document.querySelector('.SEU-SELETOR-AQUI')?.textContent
+document.querySelector(".SEU-SELETOR-AQUI")?.textContent;
 ```
 
 ---
@@ -116,11 +122,13 @@ document.querySelector('.SEU-SELETOR-AQUI')?.textContent
 ### 🟣 SITE 2 — vipleiloes.com.br
 
 **O que é diferente aqui:**
+
 - Layout pode ser mais simples
 - Verificar se tem contador de lances visível
 - Verificar se mostra incremento na tela
 
 **Checklist de validação — VIP Leilões:**
+
 ```
 □ Painel apareceu?
 □ Lance detectado?                  Valor: ________
@@ -139,11 +147,13 @@ recarregar ao navegar entre lotes. Verifique se o MutationObserver detecta a mud
 ### 🟡 SITE 3 — guariglialeiloes.com.br
 
 **O que verificar:**
+
 - Layout geralmente mais tradicional/table-based
 - Informações de taxas podem estar no edital (PDF), não na página
 - Comissão pode estar nos termos de uso
 
 **Checklist — Guariglia:**
+
 ```
 □ Painel apareceu?
 □ Lance detectado?                  Valor: ________
@@ -158,10 +168,12 @@ recarregar ao navegar entre lotes. Verifique se o MutationObserver detecta a mud
 ### 🟢 SITE 4 — freitasleiloeiro.com.br
 
 **O que verificar:**
+
 - Site pode ter lotes em catálogo estático (sem lance ao vivo na mesma página)
 - Verificar se o lance é exibido inline ou em modal/popup
 
 **Checklist — Freitas:**
+
 ```
 □ Painel apareceu?
 □ O lance fica na mesma URL ou abre modal?
@@ -176,12 +188,14 @@ recarregar ao navegar entre lotes. Verifique se o MutationObserver detecta a mud
 ### 🔴 SITE 5 — copart.com.br
 
 **O que é diferente aqui:**
+
 - Site mais robusto, maior
 - Provavelmente usa React/Angular — seletores dinâmicos
 - Tem KM em milhas (importados) — verificar conversão
 - FIPE não disponível (carros importados/salvados)
 
 **Checklist — Copart:**
+
 ```
 □ Painel apareceu?
 □ Lance em BRL ou USD?
@@ -199,13 +213,13 @@ recarregar ao navegar entre lotes. Verifique se o MutationObserver detecta a mud
 
 > Pesquise e preencha antes de codar os valores fixos
 
-| Leiloeiro | Comissão | Depósito Bens | Taxa Remoção | Vistoria | Observações |
-|-----------|----------|---------------|--------------|----------|-------------|
-| Leilo     | 4–5%     | Verificar     | Verificar    | Verificar| Varia por lote |
-| VIP Leilões | 5%    | —             | —            | —        | Confirmar no edital |
-| Guariglia | Verificar| Verificar     | Verificar    | Verificar| — |
-| Freitas   | Verificar| —             | —            | —        | — |
-| Copart BR | Verificar| Verificar     | Verificar    | Verificar| Buyer's Fee |
+| Leiloeiro   | Comissão  | Depósito Bens | Taxa Remoção | Vistoria  | Observações         |
+| ----------- | --------- | ------------- | ------------ | --------- | ------------------- |
+| Leilo       | 4–5%      | Verificar     | Verificar    | Verificar | Varia por lote      |
+| VIP Leilões | 5%        | —             | —            | —         | Confirmar no edital |
+| Guariglia   | Verificar | Verificar     | Verificar    | Verificar | —                   |
+| Freitas     | Verificar | —             | —            | —         | —                   |
+| Copart BR   | Verificar | Verificar     | Verificar    | Verificar | Buyer's Fee         |
 
 **Fontes para pesquisar:** Edital de cada leilão + FAQ/Termos dos sites
 
@@ -268,7 +282,7 @@ Baseado no que você pediu, a ordem correta dos blocos é:
 
 ```
 ┌─────────────────────────────────────┐
-│ 🏎️ LeilãoIntel              [−][×] │
+│ Leilômetro              [−][×] │
 ├─────────────────────────────────────┤
 │ NOME DO VEÍCULO / LOTE              │
 │                                     │
@@ -317,27 +331,33 @@ Baseado no que você pediu, a ordem correta dos blocos é:
 ## PARTE 6 — DADOS E PRIVACIDADE
 
 ### O que a extensão LÊ
+
 - Texto público visível na tela (preços, características)
 - Nada que o usuário não pudesse anotar manualmente
 
 ### O que a extensão NÃO LÊ
+
 - Senhas, sessões, cookies de autenticação
 - Dados de pagamento
 - Histórico de navegação de outras abas
 
 ### Permissões necessárias no manifest.json
+
 ```json
 "permissions": ["storage", "activeTab"]
 ```
+
 - `storage`: salvar configurações do usuário (FIPE, margem)
 - `activeTab`: ler conteúdo da aba atual
 
 **Não precisar de:** `tabs`, `history`, `cookies`, `webRequest`
 
 ### Comunicar isso claramente
+
 Na landing page e na descrição da Chrome Web Store, deixe explícito:
+
 > "Lemos apenas o conteúdo público visível na tela.
->  Nenhum dado seu é enviado para servidores externos."
+> Nenhum dado seu é enviado para servidores externos."
 
 ---
 
@@ -346,25 +366,30 @@ Na landing page e na descrição da Chrome Web Store, deixe explícito:
 ### O que funciona para extensões Chrome
 
 **Freemium com paywall suave** (recomendado para começar):
+
 - Versão free: painel básico, 2 leiloeiros, sem score
 - Versão paga: tudo + score + histórico + todos os sites
 - Preço: R$ 37–57/mês (1–2 arremates cobrem o custo)
 
 **O argumento de venda é simples:**
-> "Se o LeilãoIntel te salvar de pagar R$ 2.000 a mais em um único
->  leilão, ele se paga por 3 anos."
+
+> "Se o Leilômetro te salvar de pagar R$ 2.000 a mais em um único
+> leilão, ele se paga por 3 anos."
 
 ### Como cobrar (sem backend no começo)
+
 1. **Gumroad** → vende licenças de 1 ano, entrega um código de ativação
 2. **Hotmart / Kiwify** → assinatura mensal
 3. **Stripe** + verificação no popup (requer backend mínimo)
 
 ### O que validar ANTES de criar o sistema de pagamento
+
 - 10 pessoas usando a versão gratuita consistentemente
 - Pelo menos 3 dizendo "pagaria por isso"
 - Um caso real onde ajudou a não errar o lance
 
 ### Canais para adquirir os primeiros usuários
+
 ```
 1. Grupos de WhatsApp/Telegram de leilão de carros
    → "Criei uma extensão, quem quer testar grátis?"
@@ -433,5 +458,5 @@ Semana 4 — Primeiro usuário real testando
 
 ---
 
-*"A ferramenta útil e simples que 10 pessoas usam toda semana
-  vale mais do que a plataforma completa que ninguém usa."*
+_"A ferramenta útil e simples que 10 pessoas usam toda semana
+vale mais do que a plataforma completa que ninguém usa."_

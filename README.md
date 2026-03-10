@@ -1,4 +1,4 @@
-# 🏎️ LeilãoIntel — Extensão Chrome para Análise de Leilões
+# Leilômetro — Extensão Chrome para Análise de Leilões
 
 > Camada de inteligência injetada em sites de leilão de veículos.  
 > Calcule o preço ideal, comissões e KM/Ano em tempo real — sem erros matemáticos no calor do lance.
@@ -10,21 +10,21 @@
 1. **Abra o Chrome** e acesse: `chrome://extensions/`
 2. Ative o **"Modo do desenvolvedor"** (toggle no canto superior direito)
 3. Clique em **"Carregar sem compactação"**
-4. Selecione a pasta **`leilao-intel/`** (esta pasta)
-5. O ícone 🏎️ aparecerá na barra do Chrome — pronto!
+4. Selecione a pasta **`leilometro/`** (esta pasta)
+5. O ícone aparecerá na barra do Chrome — pronto!
 
 ---
 
 ## 🌐 Sites Suportados
 
-| Site | Status |
-|------|--------|
-| leilo.com.br | ✅ Configurado |
-| vipleiloes.com.br | ✅ Configurado |
-| copart.com.br | ✅ Configurado |
+| Site                    | Status         |
+| ----------------------- | -------------- |
+| leilo.com.br            | ✅ Configurado |
+| vipleiloes.com.br       | ✅ Configurado |
+| copart.com.br           | ✅ Configurado |
 | guariglialeiloes.com.br | ✅ Configurado |
 | freitasleiloeiro.com.br | ✅ Configurado |
-| copart.com (US) | ✅ Configurado |
+| copart.com (US)         | ✅ Configurado |
 
 ---
 
@@ -42,7 +42,7 @@ Antes de usar, clique no ícone da extensão e configure:
 
 ```
 ┌─────────────────────────────────┐
-│ 🏎️ LeilãoIntel          [−][×] │
+│ Leilômetro          [−][×] │
 ├─────────────────────────────────┤
 │ HONDA CIVIC EXL 2019            │
 │                                 │
@@ -93,19 +93,19 @@ Score (0-100):
 
 ## ⌨️ Atalhos
 
-| Atalho | Ação |
-|--------|------|
-| `Ctrl+Shift+L` | Abre / fecha o painel |
-| Arrastar o cabeçalho | Move o painel na tela |
-| Botão `↻` | Atualiza a leitura dos dados |
-| Botão `−` | Minimiza o painel |
+| Atalho               | Ação                         |
+| -------------------- | ---------------------------- |
+| `Ctrl+Shift+L`       | Abre / fecha o painel        |
+| Arrastar o cabeçalho | Move o painel na tela        |
+| Botão `↻`            | Atualiza a leitura dos dados |
+| Botão `−`            | Minimiza o painel            |
 
 ---
 
 ## 📁 Estrutura de Arquivos
 
 ```
-leilao-intel/
+leilometro/
 ├── manifest.json          # Manifest V3
 ├── content.js             # Scraping + cálculos + UI injetada
 ├── styles.css             # Estilos do painel (dark, premium)
@@ -131,4 +131,4 @@ leilao-intel/
 
 ---
 
-*LeilãoIntel v1.0.0 — Manifest V3 — Desenvolvido para compradores inteligentes* 🏎️
+_Leilômetro v1.0.0 — Manifest V3 — Desenvolvido para compradores inteligentes_
