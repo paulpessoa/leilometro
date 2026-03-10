@@ -291,6 +291,26 @@
   line-height: 1 !important;
 }
 
+#leilao-intel-panel .li-km-explanation {
+  margin: 12px 0 !important;
+  padding: 10px !important;
+  background: rgba(245, 158, 11, 0.05) !important;
+  border-left: 3px solid #f59e0b !important;
+  border-radius: 4px !important;
+  font-size: 10px !important;
+  color: #94a3b8 !important;
+  line-height: 1.5 !important;
+}
+
+#leilao-intel-panel .li-km-explanation strong {
+  color: #f0ba32 !important;
+}
+
+#leilao-intel-panel .li-item-value.li-auto-found {
+  color: #22c55e !important;
+  font-weight: 800 !important;
+}
+
 /* ─── FOOTER ─────────────────────────────────────────────────────────────── */
 
 #leilao-intel-panel .li-footer {
