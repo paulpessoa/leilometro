@@ -1113,6 +1113,22 @@
       color: var(--muted);
     }
 
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
     /* ANIMATIONS */
     @keyframes fadeUp {
       from {
@@ -1591,7 +1607,11 @@
 
   <footer>
     <div class="footer-logo">Leilômetro</div>
-    <div class="footer-note">© 2025 Leilômetro · Extensão Chrome · Não afiliado a nenhum leiloeiro</div>
+    <div class="footer-note">© 2026 Leilômetro · Extensão Chrome · Não afiliado a nenhum leiloeiro</div>
+    <div class="footer-links">
+      <a href="privacidade.html">Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+    </div>
   </footer>
 
   <script>
