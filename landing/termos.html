@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termos de Uso — Leilômetro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #F0B429;
+      --dark: #080C10;
+      --dark2: #0F1419;
+      --dark3: #161D26;
+      --border: rgba(240, 180, 41, 0.12);
+      --text: #E8EDF2;
+      --muted: #6B7A8D;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8, 12, 16, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 100px;
+    }
+    .page-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .updated {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 48px;
+      font-family: 'DM Mono', monospace;
+    }
+    .highlight-box {
+      background: rgba(240, 180, 41, 0.06);
+      border: 1px solid rgba(240, 180, 41, 0.2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .highlight-box strong { color: var(--gold); }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin: 40px 0 12px;
+    }
+    p { margin-bottom: 16px; color: var(--text); }
+    p.muted { color: var(--muted); font-size: 14px; }
+    ul {
+      list-style: none;
+      margin: 0 0 20px 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    ul li {
+      padding-left: 20px;
+      position: relative;
+      color: var(--text);
+      font-size: 15px;
+    }
+    ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--gold); }
+    @media (max-width: 600px) {
+      nav, footer { padding: 16px 20px; }
+      .container { padding: 40px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Leilômetro</a>
+    <a href="index.html" class="nav-back">← Voltar ao início</a>
+  </nav>
+
+  <div class="container">
+    <span class="page-tag">Legal</span>
+    <h1>TERMOS<br />DE USO</h1>
+    <p class="updated">Última atualização: março de 2026</p>
+
+    <div class="highlight-box">
+      <strong>Importante:</strong> o Leilômetro é uma <strong>ferramenta de apoio à decisão</strong>,
+      não um serviço de consultoria financeira. Os cálculos são estimativas baseadas nos dados
+      que você fornece. Sempre leia o edital do leilão e faça sua própria análise antes de lançar.
+    </div>
+
+    <h2>1. Aceitação dos termos</h2>
+    <p>
+      Ao instalar e utilizar a extensão Leilômetro, você declara ter lido, compreendido e
+      concordado com estes Termos de Uso. Se não concordar com algum ponto, não instale ou
+      desinstale a extensão.
+    </p>
+
+    <h2>2. Descrição do serviço</h2>
+    <p>
+      O Leilômetro é uma extensão para o Google Chrome que injeta um painel de análise em
+      sites de leilão de veículos. A extensão realiza as seguintes funções:
+    </p>
+    <ul>
+      <li>Leitura de dados públicos exibidos na tela dos sites de leilão (lance, KM, ano, modelo)</li>
+      <li>Cálculo estimado de custo real, preço limite, score de oportunidade e classificação de uso por KM/ano</li>
+      <li>Armazenamento local de configurações e anotações por lote</li>
+    </ul>
+
+    <h2>3. Isenção de responsabilidade</h2>
+    <p>
+      O Leilômetro <strong>não garante a precisão dos dados</strong> extraídos automaticamente das
+      páginas dos leiloeiros, pois esses sites podem alterar sua estrutura a qualquer momento,
+      tornando a leitura temporariamente incorreta ou indisponível.
+    </p>
+    <p>
+      Os valores de FIPE, custos de conserto, documentação e IPVA são <strong>estimativas de
+      referência</strong>. O usuário é inteiramente responsável por verificar os valores reais
+      junto às fontes oficiais (tabela FIPE, DETRAN, editais do leilão) antes de tomar qualquer
+      decisão de compra.
+    </p>
+    <p>
+      <strong>Não nos responsabilizamos por perdas financeiras</strong>, negócios malsucedidos ou
+      decisões de compra tomadas com base, total ou parcial, nos cálculos e análises apresentados
+      pela extensão.
+    </p>
+
+    <h2>4. Planos e pagamentos</h2>
+    <p>
+      O Leilômetro oferece um plano gratuito com funcionalidades básicas e planos pagos com
+      recursos adicionais. Os planos pagos são cobrados via plataformas de pagamento terceiras
+      (Hotmart, Kiwify ou similares), sujeitas às condições de cada plataforma.
+    </p>
+    <ul>
+      <li>O cancelamento pode ser feito a qualquer momento, sem multa</li>
+      <li>Não há reembolso de períodos já cobrados, exceto quando exigido por lei</li>
+      <li>O acesso às funcionalidades premium é encerrado ao fim do período pago</li>
+      <li>Podemos alterar os preços dos planos com aviso prévio de 30 dias</li>
+    </ul>
+
+    <h2>5. Uso permitido</h2>
+    <p>Você pode:</p>
+    <ul>
+      <li>Usar a extensão para análise pessoal ou profissional de leilões de veículos</li>
+      <li>Compartilhar análises geradas pela extensão com terceiros, desde que com atribuição</li>
+    </ul>
+    <p>Você <strong>não pode</strong>:</p>
+    <ul>
+      <li>Reverter, descompilar ou reproduzir o código da extensão sem autorização</li>
+      <li>Redistribuir a extensão modificada como produto próprio</li>
+      <li>Usar a extensão para fins ilegais ou para prejudicar sites de leilão</li>
+      <li>Contornar mecanismos de licença ou acesso a funcionalidades premium</li>
+    </ul>
+
+    <h2>6. Disponibilidade e suporte</h2>
+    <p>
+      Fornecemos a extensão "no estado em que se encontra" (<em>as is</em>). Não garantimos
+      disponibilidade ininterrupta, especialmente porque a extensão depende da estrutura de
+      HTML de sites de terceiros, que podem mudar sem aviso.
+    </p>
+    <p>
+      Nos comprometemos a corrigir incompatibilidades identificadas com os sites suportados
+      no menor prazo possível, mas não garantimos prazo máximo de correção.
+    </p>
+
+    <h2>7. Propriedade intelectual</h2>
+    <p>
+      O código, design, nome "Leilômetro" e demais elementos visuais da extensão são propriedade
+      dos seus criadores. O uso da extensão não transfere nenhum direito de propriedade intelectual
+      ao usuário.
+    </p>
+
+    <h2>8. Alterações nos termos</h2>
+    <p>
+      Podemos atualizar estes termos a qualquer momento. Alterações relevantes serão comunicadas
+      via atualização da extensão ou por e-mail (quando disponível). O uso continuado após as
+      alterações implica aceitação das novas condições.
+    </p>
+
+    <h2>9. Lei aplicável</h2>
+    <p>
+      Estes termos são regidos pelas leis da República Federativa do Brasil. O foro eleito
+      para resolução de disputas é o da comarca de domicílio do usuário, conforme previsto
+      pelo Código de Defesa do Consumidor.
+    </p>
+
+    <h2>10. Contato</h2>
+    <p>
+      Dúvidas sobre estes termos: <a href="mailto:contato@leilometro.com.br">contato@leilometro.com.br</a>
+    </p>
+
+    <div class="divider"></div>
+    <p class="muted">
+      Estes termos complementam a <a href="privacidade.html">Política de Privacidade</a>.
+      Leia ambos os documentos antes de usar a extensão.
+    </p>
+  </div>
+
+  <footer>
+    <span>© 2026 Leilômetro</span>
+    <span>
+      <a href="privacidade.html">Privacidade</a> ·
+      <a href="termos.html">Termos de Uso</a> ·
+      <a href="index.html">Início</a>
+    </span>
+  </footer>
+
+</body>
+</html>

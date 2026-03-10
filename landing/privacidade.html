@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade — Leilômetro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #F0B429;
+      --dark: #080C10;
+      --dark2: #0F1419;
+      --dark3: #161D26;
+      --border: rgba(240, 180, 41, 0.12);
+      --text: #E8EDF2;
+      --muted: #6B7A8D;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8, 12, 16, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 100px;
+    }
+    .page-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .updated {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 48px;
+      font-family: 'DM Mono', monospace;
+    }
+    .highlight-box {
+      background: rgba(240, 180, 41, 0.06);
+      border: 1px solid rgba(240, 180, 41, 0.2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .highlight-box strong { color: var(--gold); }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin: 40px 0 12px;
+    }
+    p { margin-bottom: 16px; color: var(--text); }
+    p.muted { color: var(--muted); font-size: 14px; }
+    ul {
+      list-style: none;
+      margin: 0 0 20px 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    ul li {
+      padding-left: 20px;
+      position: relative;
+      color: var(--text);
+      font-size: 15px;
+    }
+    ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--gold); }
+    @media (max-width: 600px) {
+      nav, footer { padding: 16px 20px; }
+      .container { padding: 40px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Leilômetro</a>
+    <a href="index.html" class="nav-back">← Voltar ao início</a>
+  </nav>
+
+  <div class="container">
+    <span class="page-tag">Legal</span>
+    <h1>POLÍTICA DE<br />PRIVACIDADE</h1>
+    <p class="updated">Última atualização: março de 2026</p>
+
+    <div class="highlight-box">
+      <strong>Resumo direto:</strong> o Leilômetro <strong>não coleta, não armazena e não transmite nenhum dado pessoal</strong>.
+      Todas as informações geradas pelo uso da extensão ficam exclusivamente no seu navegador.
+    </div>
+
+    <h2>1. Quem somos</h2>
+    <p>
+      O Leilômetro é uma extensão para o navegador Google Chrome desenvolvida para auxiliar
+      compradores em leilões de veículos brasileiros. Esta Política de Privacidade descreve como
+      tratamos (ou melhor: como <em>não</em> tratamos) seus dados.
+    </p>
+
+    <h2>2. Dados que a extensão NÃO coleta</h2>
+    <p>O Leilômetro não coleta, não acessa e não transmite:</p>
+    <ul>
+      <li>Nome, e-mail, CPF ou qualquer dado de identificação pessoal</li>
+      <li>Credenciais de login nos sites de leilão</li>
+      <li>Histórico de navegação ou URLs visitadas além do necessário para funcionar</li>
+      <li>Informações financeiras ou bancárias</li>
+      <li>Dados de localização</li>
+      <li>Qualquer informação para servidores externos</li>
+    </ul>
+
+    <h2>3. O que a extensão lê da página</h2>
+    <p>
+      Para funcionar, a extensão lê o <strong>conteúdo público visível na tela</strong> dos sites
+      de leilão suportados — especificamente os valores de lance, ano do veículo, quilometragem,
+      modelo e taxas do leiloeiro. Esses dados são processados localmente no seu navegador e
+      exibidos no painel de análise. Eles <strong>nunca saem do seu computador</strong>.
+    </p>
+
+    <h2>4. Armazenamento local</h2>
+    <p>
+      As configurações que você define (margem de revenda, custos estimados, valor FIPE) são
+      salvas localmente através da API <code>chrome.storage.sync</code> do Chrome. Se você
+      estiver logado na conta Google no Chrome, o Chrome pode sincronizar essas preferências
+      entre seus dispositivos — esse processo é feito pela Google, fora do controle do Leilômetro,
+      e está sujeito à
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidade da Google</a>.
+    </p>
+    <p>
+      O histórico de lotes analisados (quando disponível) é armazenado via <code>localStorage</code>
+      do navegador, exclusivamente no seu dispositivo.
+    </p>
+
+    <h2>5. Permissões declaradas no manifest</h2>
+    <p>A extensão solicita as seguintes permissões, todas com finalidade exclusiva de funcionamento:</p>
+    <ul>
+      <li><strong>storage</strong> — para salvar suas configurações localmente</li>
+      <li><strong>activeTab</strong> — para ler o conteúdo da aba atual nos sites de leilão</li>
+      <li><strong>host_permissions</strong> para os domínios dos leiloeiros — para injetar o painel de análise nesses sites</li>
+    </ul>
+    <p class="muted">Nenhuma outra permissão é solicitada ou utilizada.</p>
+
+    <h2>6. Sem rastreamento, sem analytics</h2>
+    <p>
+      O Leilômetro não utiliza Google Analytics, Facebook Pixel, Hotjar, Sentry, ou qualquer
+      ferramenta de rastreamento ou monitoramento de uso. Não sabemos quantas vezes você usou
+      a extensão, em quais lotes, nem quanto você pagou.
+    </p>
+
+    <h2>7. Compartilhamento de dados</h2>
+    <p>
+      Não há dados coletados e, portanto, não há dados a compartilhar com terceiros.
+      Nunca vendemos, alugamos ou fornecemos informações de usuários a anunciantes ou parceiros.
+    </p>
+
+    <h2>8. Segurança</h2>
+    <p>
+      Como todos os dados ficam no seu próprio navegador, a segurança das suas informações
+      depende da segurança do seu dispositivo e da sua conta Google (para sincronização de
+      configurações). Recomendamos manter o Chrome e o sistema operacional sempre atualizados.
+    </p>
+
+    <h2>9. Crianças</h2>
+    <p>
+      O Leilômetro é destinado a adultos que participam de leilões de veículos.
+      Não coletamos intencionalmente dados de menores de 18 anos.
+    </p>
+
+    <h2>10. Alterações nesta política</h2>
+    <p>
+      Se esta política for alterada de forma relevante, atualizaremos a data no topo da página
+      e, quando possível, comunicaremos aos usuários. O uso continuado da extensão após as
+      alterações implica aceitação da nova política.
+    </p>
+
+    <h2>11. Contato</h2>
+    <p>
+      Dúvidas, solicitações de remoção de dados ou qualquer questão relacionada à privacidade:
+      envie um e-mail para <a href="mailto:contato@leilometro.com.br">contato@leilometro.com.br</a>.
+    </p>
+
+    <div class="divider"></div>
+    <p class="muted">Esta política foi escrita em linguagem acessível com o objetivo de ser transparente com os usuários.
+    Ela é válida para a extensão Leilômetro para Google Chrome e para este site de divulgação.</p>
+  </div>
+
+  <footer>
+    <span>© 2026 Leilômetro</span>
+    <span>
+      <a href="privacidade.html">Privacidade</a> ·
+      <a href="termos.html">Termos de Uso</a> ·
+      <a href="index.html">Início</a>
+    </span>
+  </footer>
+
+</body>
+</html>
