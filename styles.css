@@ -1,9 +1,11 @@
-/* ─── LeilãoIntel — Estilos do Painel Injetado ─────────────────────────── */
+/* ─── Leilômetro — Estilos do Painel Injetado ─────────────────────────── */
 /* Design: Dashboard financeiro premium, dark theme, toque industrial-analítico */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
-#leilao-intel-panel {
+/* ─── PAINEL BASE (seu CSS original preservado) ──────────────────────────── */
+
+#leilometro-panel {
   all: initial;
   position: fixed !important;
   top: 80px !important;
@@ -15,9 +17,13 @@
   border-radius: 12px !important;
   box-shadow:
     0 0 0 1px rgba(240, 186, 50, 0.08),
-    0 24px 48px rgba(0,0,0,0.6),
+    0 24px 48px rgba(0, 0, 0, 0.6),
     0 0 60px rgba(240, 186, 50, 0.04) !important;
-  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-family:
+    "Space Grotesk",
+    system-ui,
+    -apple-system,
+    sans-serif !important;
   font-size: 13px !important;
   color: #e6edf3 !important;
   overflow: hidden !important;
@@ -25,16 +31,16 @@
   transition: box-shadow 0.2s ease !important;
 }
 
-#leilao-intel-panel:hover {
+#leilometro-panel:hover {
   box-shadow:
     0 0 0 1px rgba(240, 186, 50, 0.15),
-    0 24px 64px rgba(0,0,0,0.7),
+    0 24px 64px rgba(0, 0, 0, 0.7),
     0 0 80px rgba(240, 186, 50, 0.06) !important;
 }
 
 /* ─── HEADER ─────────────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-header {
+#leilometro-panel .li-header {
   all: unset !important;
   display: flex !important;
   align-items: center !important;
@@ -44,22 +50,22 @@
   border-bottom: 1px solid #21262d !important;
 }
 
-#leilao-intel-panel .li-brand {
+#leilometro-panel .li-brand {
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
 }
 
-#leilao-intel-panel .li-brand-name {
-  font-family: 'JetBrains Mono', monospace !important;
+#leilometro-panel .li-brand-name {
+  font-family: "JetBrains Mono", monospace !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   color: #f0ba32 !important;
   letter-spacing: 0.5px !important;
 }
 
-#leilao-intel-panel .li-badge {
-  font-family: 'JetBrains Mono', monospace !important;
+#leilometro-panel .li-badge {
+  font-family: "JetBrains Mono", monospace !important;
   font-size: 9px !important;
   font-weight: 600 !important;
   color: #f0ba32 !important;
@@ -70,12 +76,22 @@
   letter-spacing: 1px !important;
 }
 
-#leilao-intel-panel .li-controls {
+/* v3: badge "salvo" */
+#leilometro-panel .li-saved-badge {
+  font-size: 9px !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+  color: #22c55e !important;
+  padding: 1px 6px !important;
+  border-radius: 3px !important;
+}
+
+#leilometro-panel .li-controls {
   display: flex !important;
   gap: 4px !important;
 }
 
-#leilao-intel-panel .li-controls button {
+#leilometro-panel .li-controls button {
   all: unset !important;
   display: flex !important;
   align-items: center !important;
@@ -89,19 +105,24 @@
   transition: all 0.15s ease !important;
 }
 
-#leilao-intel-panel .li-controls button:hover {
+#leilometro-panel .li-controls button:hover {
   background: #21262d !important;
   color: #e6edf3 !important;
 }
 
-#leilao-intel-panel .li-btn-close:hover {
+#leilometro-panel .li-btn-close:hover {
   background: rgba(248, 81, 73, 0.2) !important;
   color: #f85149 !important;
 }
 
+#leilometro-panel .li-btn-print:hover {
+  background: rgba(240, 186, 50, 0.15) !important;
+  color: #f0ba32 !important;
+}
+
 /* ─── BODY ───────────────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-body {
+#leilometro-panel .li-body {
   all: unset !important;
   display: block !important;
   padding: 14px !important;
@@ -111,11 +132,11 @@
   scrollbar-color: #21262d transparent !important;
 }
 
-#leilao-intel-panel .li-vehicle-name {
+#leilometro-panel .li-vehicle-name {
   font-size: 12px !important;
   font-weight: 600 !important;
   color: #8b949e !important;
-  margin-bottom: 14px !important;
+  margin-bottom: 4px !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px !important;
   line-height: 1.4 !important;
@@ -124,16 +145,25 @@
   text-overflow: ellipsis !important;
 }
 
+/* v3: ID do lote */
+#leilometro-panel .li-lote-id {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 9px !important;
+  color: #6e7681 !important;
+  margin-bottom: 12px !important;
+  letter-spacing: 0.5px !important;
+}
+
 /* ─── SCORE RING ─────────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-score-row {
+#leilometro-panel .li-score-row {
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
   margin-bottom: 14px !important;
 }
 
-#leilao-intel-panel .li-score-ring {
+#leilometro-panel .li-score-ring {
   width: 64px !important;
   height: 64px !important;
   border-radius: 50% !important;
@@ -144,7 +174,7 @@
   padding: 4px !important;
 }
 
-#leilao-intel-panel .li-score-inner {
+#leilometro-panel .li-score-inner {
   width: 100% !important;
   height: 100% !important;
   background: #0d1117 !important;
@@ -155,15 +185,15 @@
   justify-content: center !important;
 }
 
-#leilao-intel-panel .li-score-num {
-  font-family: 'JetBrains Mono', monospace !important;
+#leilometro-panel .li-score-num {
+  font-family: "JetBrains Mono", monospace !important;
   font-size: 20px !important;
   font-weight: 700 !important;
   color: #e6edf3 !important;
   line-height: 1 !important;
 }
 
-#leilao-intel-panel .li-score-label {
+#leilometro-panel .li-score-label {
   font-size: 8px !important;
   font-weight: 600 !important;
   color: #8b949e !important;
@@ -171,7 +201,7 @@
   margin-top: 2px !important;
 }
 
-#leilao-intel-panel .li-oport-badge {
+#leilometro-panel .li-oport-badge {
   flex: 1 !important;
   padding: 10px 12px !important;
   border-radius: 8px !important;
@@ -181,7 +211,7 @@
   line-height: 1.4 !important;
 }
 
-#leilao-intel-panel .li-oport-badge strong {
+#leilometro-panel .li-oport-badge strong {
   display: block !important;
   font-size: 16px !important;
   font-weight: 700 !important;
@@ -190,13 +220,13 @@
 
 /* ─── DIVIDER ────────────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-divider {
+#leilometro-panel .li-divider {
   height: 1px !important;
   background: #21262d !important;
   margin: 12px 0 !important;
 }
 
-#leilao-intel-panel .li-section-title {
+#leilometro-panel .li-section-title {
   font-size: 10px !important;
   font-weight: 700 !important;
   color: #8b949e !important;
@@ -207,13 +237,13 @@
 
 /* ─── GRID DE DADOS ──────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-grid {
+#leilometro-panel .li-grid {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
   gap: 8px !important;
 }
 
-#leilao-intel-panel .li-item {
+#leilometro-panel .li-item {
   background: #161b22 !important;
   border: 1px solid #21262d !important;
   border-radius: 7px !important;
@@ -223,40 +253,75 @@
   gap: 3px !important;
 }
 
-#leilao-intel-panel .li-item-full {
+#leilometro-panel .li-item-full {
   grid-column: 1 / -1 !important;
 }
 
-#leilao-intel-panel .li-item-highlight {
+#leilometro-panel .li-item-highlight {
   border-color: rgba(240, 186, 50, 0.25) !important;
   background: rgba(240, 186, 50, 0.05) !important;
 }
 
-#leilao-intel-panel .li-item-label {
+#leilometro-panel .li-item-label {
   font-size: 10px !important;
   color: #8b949e !important;
   font-weight: 500 !important;
   white-space: nowrap !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
 }
 
-#leilao-intel-panel .li-item-value {
-  font-family: 'JetBrains Mono', monospace !important;
+#leilometro-panel .li-item-value {
+  font-family: "JetBrains Mono", monospace !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   color: #e6edf3 !important;
 }
 
-#leilao-intel-panel .li-item-value.li-warn  { color: #f59e0b !important; }
-#leilao-intel-panel .li-item-value.li-limit { color: #f0ba32 !important; font-size: 14px !important; }
-#leilao-intel-panel .li-item-value.li-profit { color: #22c55e !important; }
-#leilao-intel-panel .li-item-value.li-loss   { color: #ef4444 !important; }
-#leilao-intel-panel .li-item-value.li-cost   { color: #f87171 !important; }
-#leilao-intel-panel .li-item-value.li-not-found { color: #8b949e !important; font-style: italic !important; font-size: 11px !important; }
+#leilometro-panel .li-item-value.li-warn {
+  color: #f59e0b !important;
+}
+#leilometro-panel .li-item-value.li-limit {
+  color: #f0ba32 !important;
+  font-size: 14px !important;
+}
+#leilometro-panel .li-item-value.li-profit {
+  color: #22c55e !important;
+}
+#leilometro-panel .li-item-value.li-loss {
+  color: #ef4444 !important;
+}
+#leilometro-panel .li-item-value.li-cost {
+  color: #f87171 !important;
+}
+#leilometro-panel .li-item-value.li-not-found {
+  color: #8b949e !important;
+  font-style: italic !important;
+  font-size: 11px !important;
+}
+
+/* seu estilo original */
+#leilometro-panel .li-item-value.li-auto-found {
+  color: #22c55e !important;
+  font-weight: 800 !important;
+}
+
+/* v3: tag "auto" inline */
+#leilometro-panel .li-auto-tag {
+  font-size: 8px !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+  color: #22c55e !important;
+  padding: 0 4px !important;
+  border-radius: 3px !important;
+  letter-spacing: 0.5px !important;
+}
 
 /* ─── LANCES BADGE ───────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-lances-badge {
-  font-family: 'JetBrains Mono', monospace !important;
+#leilometro-panel .li-lances-badge {
+  font-family: "JetBrains Mono", monospace !important;
   font-size: 16px !important;
   font-weight: 700 !important;
   color: #22c55e !important;
@@ -266,19 +331,19 @@
   margin-top: 2px !important;
 }
 
-#leilao-intel-panel .li-lances-badge.li-lances-danger {
+#leilometro-panel .li-lances-badge.li-lances-danger {
   color: #ef4444 !important;
 }
 
-#leilao-intel-panel .li-lances-sub {
+#leilometro-panel .li-lances-sub {
   font-size: 10px !important;
   font-weight: 500 !important;
   color: #8b949e !important;
 }
 
-/* ─── KM BADGE ───────────────────────────────────────────────────────────── */
+/* ─── KM BADGE + EXPLANATION (seu CSS original) ──────────────────────────── */
 
-#leilao-intel-panel .li-km-badge {
+#leilometro-panel .li-km-badge {
   display: inline-flex !important;
   align-items: center !important;
   gap: 5px !important;
@@ -291,7 +356,7 @@
   line-height: 1 !important;
 }
 
-#leilao-intel-panel .li-km-explanation {
+#leilometro-panel .li-km-explanation {
   margin: 12px 0 !important;
   padding: 10px !important;
   background: rgba(245, 158, 11, 0.05) !important;
@@ -302,31 +367,148 @@
   line-height: 1.5 !important;
 }
 
-#leilao-intel-panel .li-km-explanation strong {
+#leilometro-panel .li-km-explanation strong {
   color: #f0ba32 !important;
 }
 
-#leilao-intel-panel .li-item-value.li-auto-found {
-  color: #22c55e !important;
-  font-weight: 800 !important;
+/* ─── FIPE EDITÁVEL (v3) ─────────────────────────────────────────────────── */
+
+#leilometro-panel .li-fipe-edit-box,
+#leilometro-panel .li-margem-edit-box {
+  background: #161b22 !important;
+  border: 1px solid #21262d !important;
+  border-radius: 7px !important;
+  padding: 8px 10px !important;
+  margin-bottom: 8px !important;
+}
+
+#leilometro-panel .li-fipe-edit-box {
+  border-color: rgba(240, 186, 50, 0.2) !important;
+  background: rgba(240, 186, 50, 0.04) !important;
+}
+
+#leilometro-panel .li-fipe-row,
+#leilometro-panel .li-margem-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 4px !important;
+}
+
+#leilometro-panel .li-fipe-input {
+  all: unset !important;
+  background: #0d1117 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #e6edf3 !important;
+  width: 100% !important;
+  transition: border-color 0.15s !important;
+}
+
+#leilometro-panel .li-fipe-input:focus {
+  border-color: #f0ba32 !important;
+}
+
+#leilometro-panel .li-input-sm {
+  width: 64px !important;
+}
+
+#leilometro-panel .li-fipe-preview {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 12px !important;
+  color: #f0ba32 !important;
+  white-space: nowrap !important;
+}
+
+#leilometro-panel .li-hint {
+  font-size: 10px !important;
+  color: #6e7681 !important;
+  margin-top: 3px !important;
+  display: block !important;
+}
+
+#leilometro-panel .li-hint-inline {
+  font-size: 10px !important;
+  color: #6e7681 !important;
+}
+
+/* ─── ANOTAÇÕES (v3) ─────────────────────────────────────────────────────── */
+
+#leilometro-panel .li-notas-box {
+  background: #161b22 !important;
+  border: 1px solid #21262d !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+#leilometro-panel .li-textarea {
+  all: unset !important;
+  display: block !important;
+  width: 100% !important;
+  min-height: 72px !important;
+  padding: 10px !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  color: #e6edf3 !important;
+  resize: vertical !important;
+}
+
+#leilometro-panel .li-textarea::placeholder {
+  color: #6e7681 !important;
+}
+
+#leilometro-panel .li-notas-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 6px 10px !important;
+  border-top: 1px solid #21262d !important;
+  background: #0d1117 !important;
+}
+
+#leilometro-panel .li-save-btn {
+  all: unset !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #f0ba32 !important;
+  cursor: pointer !important;
+  padding: 3px 8px !important;
+  border: 1px solid rgba(240, 186, 50, 0.3) !important;
+  border-radius: 5px !important;
+  transition: all 0.15s !important;
+}
+
+#leilometro-panel .li-save-btn:hover {
+  background: rgba(240, 186, 50, 0.1) !important;
 }
 
 /* ─── FOOTER ─────────────────────────────────────────────────────────────── */
 
-#leilao-intel-panel .li-footer {
+#leilometro-panel .li-footer {
   margin-top: 14px !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 8px !important;
 }
 
-#leilao-intel-panel .li-scrape-note {
+#leilometro-panel .li-scrape-note {
   font-size: 10px !important;
   color: #8b949e !important;
   line-height: 1.4 !important;
 }
 
-#leilao-intel-panel .li-btn-settings {
+#leilometro-panel .li-footer-btns {
+  display: flex !important;
+  gap: 6px !important;
+}
+
+#leilometro-panel .li-btn-settings {
   all: unset !important;
   display: flex !important;
   align-items: center !important;
@@ -342,10 +524,45 @@
   cursor: pointer !important;
   transition: all 0.15s ease !important;
   font-family: inherit !important;
+  flex: 1 !important;
 }
 
-#leilao-intel-panel .li-btn-settings:hover {
+#leilometro-panel .li-btn-settings:hover {
   background: #30363d !important;
   color: #e6edf3 !important;
   border-color: #f0ba32 !important;
+}
+
+/* botão imprimir no footer — dourado */
+#leilometro-panel .li-btn-print-footer {
+  background: #f0ba32 !important;
+  color: #0d1117 !important;
+  border-color: #f0ba32 !important;
+}
+
+#leilometro-panel .li-btn-print-footer:hover {
+  background: #f5c842 !important;
+}
+
+/* botão reset — vermelho suave */
+#leilometro-panel .li-btn-reset {
+  all: unset !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 10px !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  border-radius: 7px !important;
+  color: #f87171 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.15s !important;
+  font-family: inherit !important;
+}
+
+#leilometro-panel .li-btn-reset:hover {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: #ef4444 !important;
 }

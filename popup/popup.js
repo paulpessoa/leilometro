@@ -1,15 +1,15 @@
-// LeilãoIntel — Popup Script
+// Leilômetro — Popup Script v3.0
 // Salva e carrega configurações via chrome.storage.sync
 
 const FIELDS = [
-  { id: 'fipeMock',           type: 'number', default: 45000  },
-  { id: 'margemRevenda',      type: 'pct',    default: 0.15   },
-  { id: 'comissaoLeiloeiro',  type: 'pct',    default: 0.05   },
-  { id: 'incrementoLance',    type: 'number', default: 200    },
-  { id: 'taxaPatio',          type: 'number', default: 350    },
-  { id: 'custoDocumentacao',  type: 'number', default: 800    },
-  { id: 'custoIPVA',          type: 'number', default: 1200   },
-  { id: 'custoConserto',      type: 'number', default: 2500   },
+  { id: 'fipeMock',          type: 'number', default: 0     },
+  { id: 'margemRevenda',     type: 'pct',    default: 0.20  },
+  { id: 'comissaoLeiloeiro', type: 'pct',    default: 0.05  },
+  { id: 'incrementoLance',   type: 'number', default: 0     },
+  { id: 'taxaPatio',         type: 'number', default: 0     },
+  { id: 'custoDocumentacao', type: 'number', default: 0     },
+  { id: 'custoIPVA',         type: 'number', default: 0     },
+  { id: 'custoConserto',     type: 'number', default: 0     },
 ];
 
 // Carrega valores salvos
@@ -20,6 +20,8 @@ chrome.storage.sync.get(
       const el = document.getElementById(id);
       if (!el) return;
       const val = data[id];
+      // Não preenche se for 0 — deixa placeholder visível
+      if (val === 0 || val === null) { el.value = ''; return; }
       el.value = type === 'pct' ? Math.round(val * 100) : val;
     });
   }
