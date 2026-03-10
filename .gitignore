@@ -1,0 +1,38 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Node (se usar build tools no futuro)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# Build / empacotamento
+dist/
+build/
+*.zip
+*.crx
+*.pem
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Temporários
+*.tmp
+*.bak
+*.swp
+*~
