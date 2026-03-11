@@ -502,6 +502,7 @@
 }
 
 #leilometro-panel .li-scrape-note {
+  display: none;
   font-size: 10px !important;
   color: #8b949e !important;
   line-height: 1.4 !important;
@@ -537,15 +538,16 @@
   border-color: #f0ba32 !important;
 }
 
-/* botão imprimir no footer — dourado */
+/* botão imprimir no footer — branco */
 #leilometro-panel .li-btn-print-footer {
-  background: #f0ba32 !important;
+  background: #ffffff !important;
   color: #0d1117 !important;
-  border-color: #f0ba32 !important;
+  border-color: #ffffff !important;
 }
 
 #leilometro-panel .li-btn-print-footer:hover {
-  background: #f5c842 !important;
+  background: #e0e0e0 !important;
+  color: #333333 !important;
 }
 
 /* botão reset — vermelho suave */
@@ -569,4 +571,15 @@
 #leilometro-panel .li-btn-reset:hover {
   background: rgba(239, 68, 68, 0.2) !important;
   border-color: #ef4444 !important;
+}
+
+/* botão salvar — amarelo */
+#leilometro-panel .li-save-btn {
+  background: #f0ba32 !important;
+  color: #0d1117 !important;
+  border-color: #f0ba32 !important;
+}
+
+#leilometro-panel .li-save-btn:hover {
+  background: #f5c842 !important;
 }

@@ -9,17 +9,18 @@
   // ─── CRUD LOCAL POR LOTE ───────────────────────────────────────────────────
   const STORAGE_PREFIX = "lm_lote_v3_"
   const LOTS_INDEX_KEY = "lm_lots_index"
-  const MAX_LOTES      = 50
+  const MAX_LOTES = 50
 
   // ─── DETECÇÃO DE PÁGINA DE VEÍCULO ────────────────────────────────────────
   const VEHICLE_PAGE_PATTERNS = {
-    "leilo.com.br":            /\/leilao\/.+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i,
-    "vipleiloes.com.br":       /\/lotes?\/\d+/i,
-    "copart.com.br":           /\/lot\/\d+/i,
-    "copart.com":              /\/lot\/\d+/i,
+    "leilo.com.br":
+      /\/leilao\/.+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i,
+    "vipleiloes.com.br": /\/lotes?\/\d+/i,
+    "copart.com.br": /\/lot\/\d+/i,
+    "copart.com": /\/lot\/\d+/i,
     "guariglialeiloes.com.br": /\/lotes?\/\d+/i,
     "freitasleiloeiro.com.br": /\/lotes?\/\d+/i,
-    "sodresantoro.com.br":     /\/lotes?\/\d+/i,
+    "sodresantoro.com.br": /\/lotes?\/\d+/i
   }
 
   function isVehiclePage() {
@@ -34,39 +35,64 @@
   function getLoteId() {
     // UUID-aware: leilo.com.br usa UUIDs na URL
     const url = window.location.href
-    const m = url.match(/\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i)
-           || url.match(/\/lotes?\/(\d+)/i)
-           || url.match(/\/lots?\/(\d+)/i)
-           || url.match(/[?&]id=([a-f0-9-]+)/i)
+    const m =
+      url.match(
+        /\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i
+      ) ||
+      url.match(/\/lotes?\/(\d+)/i) ||
+      url.match(/\/lots?\/(\d+)/i) ||
+      url.match(/[?&]id=([a-f0-9-]+)/i)
     if (m) return m[1]
     const base = url.split("?")[0].split("#")[0]
-    return `${window.location.hostname}_${btoa(base).replace(/[^a-z0-9]/gi, "").slice(0, 20)}`
+    return `${window.location.hostname}_${btoa(base)
+      .replace(/[^a-z0-9]/gi, "")
+      .slice(0, 20)}`
   }
 
   function loadLote(id) {
-    try { return JSON.parse(localStorage.getItem(STORAGE_PREFIX + id)) }
-    catch { return null }
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_PREFIX + id))
+    } catch {
+      return null
+    }
   }
 
   function saveLote(id, data) {
     try {
-      const keys = Object.keys(localStorage).filter(k => k.startsWith(STORAGE_PREFIX))
+      const keys = Object.keys(localStorage).filter((k) =>
+        k.startsWith(STORAGE_PREFIX)
+      )
       if (keys.length >= MAX_LOTES) {
         const oldest = keys.sort((a, b) => {
-          const g = k => { try { return JSON.parse(localStorage.getItem(k))?.savedAt || 0 } catch { return 0 } }
+          const g = (k) => {
+            try {
+              return JSON.parse(localStorage.getItem(k))?.savedAt || 0
+            } catch {
+              return 0
+            }
+          }
           return g(a) - g(b)
         })[0]
         localStorage.removeItem(oldest)
       }
-      const payload = { ...data, savedAt: Date.now(), url: window.location.href }
+      const payload = {
+        ...data,
+        savedAt: Date.now(),
+        url: window.location.href
+      }
       localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify(payload))
 
       // Índice leve no chrome.storage.local para o popup conseguir listar sem scripting permission
       if (typeof chrome !== "undefined" && chrome.storage?.local) {
-        chrome.storage.local.get([LOTS_INDEX_KEY], res => {
+        chrome.storage.local.get([LOTS_INDEX_KEY], (res) => {
           let index = res[LOTS_INDEX_KEY] || []
-          index = index.filter(item => item.id !== id)
-          index.unshift({ id, url: window.location.href, modelo: data.modelo || "", savedAt: payload.savedAt })
+          index = index.filter((item) => item.id !== id)
+          index.unshift({
+            id,
+            url: window.location.href,
+            modelo: data.modelo || "",
+            savedAt: payload.savedAt
+          })
           if (index.length > MAX_LOTES) index = index.slice(0, MAX_LOTES)
           chrome.storage.local.set({ [LOTS_INDEX_KEY]: index })
         })
@@ -78,17 +104,23 @@
     try {
       localStorage.removeItem(STORAGE_PREFIX + id)
       if (typeof chrome !== "undefined" && chrome.storage?.local) {
-        chrome.storage.local.get([LOTS_INDEX_KEY], res => {
-          const index = (res[LOTS_INDEX_KEY] || []).filter(item => item.id !== id)
+        chrome.storage.local.get([LOTS_INDEX_KEY], (res) => {
+          const index = (res[LOTS_INDEX_KEY] || []).filter(
+            (item) => item.id !== id
+          )
           chrome.storage.local.set({ [LOTS_INDEX_KEY]: index })
         })
       }
     } catch {}
   }
 
-  const tsStr = ts => ts
-    ? new Date(ts).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })
-    : ""
+  const tsStr = (ts) =>
+    ts
+      ? new Date(ts).toLocaleString("pt-BR", {
+          dateStyle: "short",
+          timeStyle: "short"
+        })
+      : ""
 
   // ─── CONFIGURAÇÕES PADRÃO ──────────────────────────────────────────────────
   const CONFIG_DEFAULTS = {
@@ -106,52 +138,63 @@
 
   // ─── LOG DE DEPURAÇÃO ──────────────────────────────────────────────────────
   function debugLog(dados, calc, loteId) {
-    console.group("%c[Leilômetro] 🔍 DADOS CAPTURADOS", "color: #f0ba32; font-weight: bold; font-size: 12px;")
+    console.group(
+      "%c[Leilômetro] 🔍 DADOS CAPTURADOS",
+      "color: #f0ba32; font-weight: bold; font-size: 12px;"
+    )
     console.log("ID do Lote:", loteId)
     console.log("URL:", window.location.href)
     console.log("Fonte:", dados.fonte || "DOM")
     console.table({
-      "Modelo":          dados.modelo,
-      "Lance Atual":     dados.lance,
-      "FIPE Original":   dados.fipeScraped,
-      "Ano":             dados.ano,
-      "KM":              dados.km,
-      "KM/Ano":          dados.kmAno,
-      "KM/Mês":          dados.kmMes,
-      "Comissão (%)":    dados.comissaoPage ? (dados.comissaoPage * 100).toFixed(1) + "%" : "via config",
-      "Comissão Auto":   dados.comissaoAuto,
-      "Depósito Bens":   dados.depositoBens,
-      "Remoção":         dados.taxaRemocao,
-      "Vistoria":        dados.taxaVistoria,
-      "Combustível":     dados.combustivel
+      Modelo: dados.modelo,
+      "Lance Atual": dados.lance,
+      "FIPE Original": dados.fipeScraped,
+      Ano: dados.ano,
+      KM: dados.km,
+      "KM/Ano": dados.kmAno,
+      "KM/Mês": dados.kmMes,
+      "Comissão (%)": dados.comissaoPage
+        ? (dados.comissaoPage * 100).toFixed(1) + "%"
+        : "via config",
+      "Comissão Auto": dados.comissaoAuto,
+      "Depósito Bens": dados.depositoBens,
+      Remoção: dados.taxaRemocao,
+      Vistoria: dados.taxaVistoria,
+      Combustível: dados.combustivel
     })
-    console.log("%c[Leilômetro] 🧮 CÁLCULOS", "color: #22c55e; font-weight: bold;")
+    console.log(
+      "%c[Leilômetro] 🧮 CÁLCULOS",
+      "color: #22c55e; font-weight: bold;"
+    )
     console.table({
-      "Custo Real":          calc.custoReal,
+      "Custo Real": calc.custoReal,
       "Preço Limite (Stop)": calc.precoLimite,
-      "Lances Possíveis":    calc.lancesRestantes,
-      "Lucro Potencial":     calc.potencialLucro,
-      "FIPE Utilizada":      calc.fipe,
-      "Score Final":         calc.score,
-      "Comissão Val":        calc.comissao,
-      "Taxa Pátio Efetiva":  calc.taxaPatioEfetiva
+      "Lances Possíveis": calc.lancesRestantes,
+      "Lucro Potencial": calc.potencialLucro,
+      "FIPE Utilizada": calc.fipe,
+      "Score Final": calc.score,
+      "Comissão Val": calc.comissao,
+      "Taxa Pátio Efetiva": calc.taxaPatioEfetiva
     })
     console.groupEnd()
   }
 
   // ─── DEBUG LEILO ───────────────────────────────────────────────────────────
   function debugScrapeLeilo() {
-    if (!window.location.hostname.includes('leilo.com.br')) return
+    if (!window.location.hostname.includes("leilo.com.br")) return
 
-    console.group('%c[Leilômetro] 🔬 SELETORES DOM — leilo.com.br', 'color:#38bdf8; font-weight:bold; font-size:12px;')
-    console.log('URL:', window.location.href)
+    console.group(
+      "%c[Leilômetro] 🔬 SELETORES DOM — leilo.com.br",
+      "color:#38bdf8; font-weight:bold; font-size:12px;"
+    )
+    console.log("URL:", window.location.href)
 
     function getByLabel(texto) {
-      for (const el of document.querySelectorAll('.label-categoria')) {
+      for (const el of document.querySelectorAll(".label-categoria")) {
         if (el.textContent.trim().toLowerCase() === texto.toLowerCase()) {
-          const p1 = el.parentElement?.parentElement?.querySelector('a p')
+          const p1 = el.parentElement?.parentElement?.querySelector("a p")
           if (p1?.textContent?.trim()) return p1.textContent.trim()
-          const p2 = el.parentElement?.querySelector('p.text-categoria')
+          const p2 = el.parentElement?.querySelector("p.text-categoria")
           if (p2?.textContent?.trim()) return p2.textContent.trim()
         }
       }
@@ -159,36 +202,54 @@
     }
 
     function getBySpanPrefix(prefixo) {
-      for (const s of document.querySelectorAll('span')) {
+      for (const s of document.querySelectorAll("span")) {
         if (s.textContent.trim().startsWith(prefixo)) {
-          const valor = s.closest('[class*="col-xs-5"], [class*="col-md-3"]')
-                         ?.nextElementSibling?.querySelector('span')
-          return { label: s.textContent.trim(), valor: valor?.textContent?.trim() || null }
+          const valor = s
+            .closest('[class*="col-xs-5"], [class*="col-md-3"]')
+            ?.nextElementSibling?.querySelector("span")
+          return {
+            label: s.textContent.trim(),
+            valor: valor?.textContent?.trim() || null
+          }
         }
       }
       return { label: null, valor: null }
     }
 
-    const comissaoSpan = getBySpanPrefix('Comissão')
+    const comissaoSpan = getBySpanPrefix("Comissão")
 
     console.table({
-      'Lance (h3.valor-lote span)':      document.querySelector('h3.valor-lote span')?.textContent?.trim()    ?? '❌ não encontrado',
-      'Modelo (h1.nome-veiculo)':         document.querySelector('h1.nome-veiculo')?.textContent?.trim()       ?? '❌ não encontrado',
-      'Ano (label-categoria)':            getByLabel('Ano')                                                     ?? '❌ não encontrado',
-      'KM (label-categoria)':             getByLabel('Km')                                                      ?? '❌ não encontrado',
-      'Valor Mercado (label-categoria)':  getByLabel('Valor Mercado')                                           ?? '❌ não encontrado',
-      'Combustível (label-categoria)':    getByLabel('Combustivel')                                             ?? '❌ não encontrado',
-      'Comissão label (span)':            comissaoSpan.label                                                    ?? '❌ não encontrado',
-      'Comissão valor (próximo irmão)':   comissaoSpan.valor                                                    ?? '❌ não encontrado',
-      'Depósito de Bens':                 getBySpanPrefix('Depósito de Bens').valor                            ?? '❌ não encontrado',
-      'Remoção':                          getBySpanPrefix('Remoção').valor                                      ?? '❌ não encontrado',
-      'Vistoria':                         getBySpanPrefix('Vistoria').valor                                     ?? '❌ não encontrado',
+      "Lance (h3.valor-lote span)":
+        document.querySelector("h3.valor-lote span")?.textContent?.trim() ??
+        "❌ não encontrado",
+      "Modelo (h1.nome-veiculo)":
+        document.querySelector("h1.nome-veiculo")?.textContent?.trim() ??
+        "❌ não encontrado",
+      "Ano (label-categoria)": getByLabel("Ano") ?? "❌ não encontrado",
+      "KM (label-categoria)": getByLabel("Km") ?? "❌ não encontrado",
+      "Valor Mercado (label-categoria)":
+        getByLabel("Valor Mercado") ?? "❌ não encontrado",
+      "Combustível (label-categoria)":
+        getByLabel("Combustivel") ?? "❌ não encontrado",
+      "Comissão label (span)": comissaoSpan.label ?? "❌ não encontrado",
+      "Comissão valor (próximo irmão)":
+        comissaoSpan.valor ?? "❌ não encontrado",
+      "Depósito de Bens":
+        getBySpanPrefix("Depósito de Bens").valor ?? "❌ não encontrado",
+      Remoção: getBySpanPrefix("Remoção").valor ?? "❌ não encontrado",
+      Vistoria: getBySpanPrefix("Vistoria").valor ?? "❌ não encontrado"
     })
 
-    console.log('window.__INITIAL_STATE__ presente:',
-      !!Array.from(document.querySelectorAll('script')).find(x => x.textContent.includes('window.__INITIAL_STATE__'))
+    console.log(
+      "window.__INITIAL_STATE__ presente:",
+      !!Array.from(document.querySelectorAll("script")).find((x) =>
+        x.textContent.includes("window.__INITIAL_STATE__")
+      )
     )
-    console.log('window.__Q_META__ presente:', typeof window.__Q_META__ !== 'undefined')
+    console.log(
+      "window.__Q_META__ presente:",
+      typeof window.__Q_META__ !== "undefined"
+    )
 
     console.groupEnd()
   }
@@ -196,76 +257,114 @@
   // ─── SELETORES POR SITE ────────────────────────────────────────────────────
   const SITE_SELECTORS = {
     "leilo.com.br": {
-      lance:      ['h3.valor-lote span', '.valor-lote span', '.current-bid', '.valor-atual'],
-      ano:        ['.label-categoria'],
-      km:         ['.label-categoria'],
-      combustivel:['.label-categoria'],
-      modelo:     ['h1.nome-veiculo', 'h1'],
-      fipe:       ['.label-categoria'],
+      lance: [
+        "h3.valor-lote span",
+        ".valor-lote span",
+        ".current-bid",
+        ".valor-atual"
+      ],
+      ano: [".label-categoria"],
+      km: [".label-categoria"],
+      combustivel: [".label-categoria"],
+      modelo: ["h1.nome-veiculo", "h1"],
+      fipe: [".label-categoria"],
       custos: {
         comissao: 'span[class*="comissao"], span',
-        deposito: 'span',
-        remocao:  'span',
-        vistoria: 'span'
+        deposito: "span",
+        remocao: "span",
+        vistoria: "span"
       }
     },
     "vipleiloes.com.br": {
-      lance:      ['.valor-lance', '.lance-atual', '[class*="current"]', '.price'],
-      ano:        ['.ano-veiculo', '[data-field="ano"]', 'td.ano'],
-      km:         ['.km-veiculo', '[data-field="km"]', '.odometer'],
-      combustivel:['.combustivel', '[data-field="combustivel"]'],
-      modelo:     ['h1.title', '.vehicle-name', '.lote-titulo']
+      lance: [".valor-lance", ".lance-atual", '[class*="current"]', ".price"],
+      ano: [".ano-veiculo", '[data-field="ano"]', "td.ano"],
+      km: [".km-veiculo", '[data-field="km"]', ".odometer"],
+      combustivel: [".combustivel", '[data-field="combustivel"]'],
+      modelo: ["h1.title", ".vehicle-name", ".lote-titulo"]
     },
     "copart.com.br": {
-      lance:      ['.bid-amount', '#current-bid', '.current-price', '[class*="CurrentBid"]'],
-      ano:        ['[data-uname="lotsearchVehicleYear"]', '.year', '.veh-year'],
-      km:         ['[data-uname="lotsearchOdometerReading"]', '.odometer-reading', '.mileage'],
-      combustivel:['[data-uname="lotsearchFuelType"]', '.fuel-type'],
-      modelo:     ['[data-uname="lotsearchLotNumberSection"]', '.lot-title', 'h1'],
-      milesMode:  true
+      lance: [
+        ".bid-amount",
+        "#current-bid",
+        ".current-price",
+        '[class*="CurrentBid"]'
+      ],
+      ano: ['[data-uname="lotsearchVehicleYear"]', ".year", ".veh-year"],
+      km: [
+        '[data-uname="lotsearchOdometerReading"]',
+        ".odometer-reading",
+        ".mileage"
+      ],
+      combustivel: ['[data-uname="lotsearchFuelType"]', ".fuel-type"],
+      modelo: ['[data-uname="lotsearchLotNumberSection"]', ".lot-title", "h1"],
+      milesMode: true
     },
     "copart.com": {
-      lance:      ['[data-uname="bidNowAmount"]', '.bid-amount', '#current-bid', '[class*="CurrentBid"]'],
-      ano:        ['[data-uname="lotsearchVehicleYear"]', '.year'],
-      km:         ['[data-uname="lotsearchOdometerReading"]', '.odometer-reading'],
-      combustivel:['[data-uname="lotsearchFuelType"]', '.fuel-type'],
-      modelo:     ['[data-uname="lotsearchLotNumberSection"]', 'h1'],
-      milesMode:  true
+      lance: [
+        '[data-uname="bidNowAmount"]',
+        ".bid-amount",
+        "#current-bid",
+        '[class*="CurrentBid"]'
+      ],
+      ano: ['[data-uname="lotsearchVehicleYear"]', ".year"],
+      km: ['[data-uname="lotsearchOdometerReading"]', ".odometer-reading"],
+      combustivel: ['[data-uname="lotsearchFuelType"]', ".fuel-type"],
+      modelo: ['[data-uname="lotsearchLotNumberSection"]', "h1"],
+      milesMode: true
     },
     "guariglialeiloes.com.br": {
-      lance:      ['.lance-atual', '.bid-value', '.valor-corrente'],
-      ano:        ['.campo-ano', '[class*="ano"]'],
-      km:         ['.campo-km', '[class*="quilometragem"]'],
-      combustivel:['.campo-combustivel'],
-      modelo:     ['h1', '.titulo-lote']
+      lance: [".lance-atual", ".bid-value", ".valor-corrente"],
+      ano: [".campo-ano", '[class*="ano"]'],
+      km: [".campo-km", '[class*="quilometragem"]'],
+      combustivel: [".campo-combustivel"],
+      modelo: ["h1", ".titulo-lote"]
     },
     "freitasleiloeiro.com.br": {
-      lance:      ['.current-bid', '.valor-lance', '.lance-corrente'],
-      ano:        ['.ano', '[data-label="Ano"]'],
-      km:         ['.km', '[data-label="KM"]', '.quilometragem'],
-      combustivel:['.combustivel', '[data-label="Combustível"]'],
-      modelo:     ['h1', '.lot-description']
+      lance: [".current-bid", ".valor-lance", ".lance-corrente"],
+      ano: [".ano", '[data-label="Ano"]'],
+      km: [".km", '[data-label="KM"]', ".quilometragem"],
+      combustivel: [".combustivel", '[data-label="Combustível"]'],
+      modelo: ["h1", ".lot-description"]
     },
     "sodresantoro.com.br": {
-      lance:      ['[class*="lance"][class*="valor"]', '[class*="bid"][class*="amount"]'],
-      ano:        ['[class*="ano"]'],
-      km:         ['[class*="km"]'],
-      combustivel:['[class*="combustivel"]'],
-      modelo:     ['h1']
+      lance: [
+        '[class*="lance"][class*="valor"]',
+        '[class*="bid"][class*="amount"]'
+      ],
+      ano: ['[class*="ano"]'],
+      km: ['[class*="km"]'],
+      combustivel: ['[class*="combustivel"]'],
+      modelo: ["h1"]
     },
     default: {
-      lance:      ['[class*="lance"][class*="valor"]', '[class*="bid"][class*="amount"]', '[class*="current"][class*="price"]', '[class*="atual"]'],
-      ano:        ['[class*="ano"]', '[data-ano]', '[data-year]', '[class*="year"]'],
-      km:         ['[class*=" km"]', '[class*="odometro"]', '[class*="mileage"]', '[class*="quilometr"]'],
-      combustivel:['[class*="combustivel"]', '[class*="fuel"]', '[class*="combust"]'],
-      modelo:     ['h1', '[class*="titulo"]', '[class*="title"]', '[class*="nome"]']
+      lance: [
+        '[class*="lance"][class*="valor"]',
+        '[class*="bid"][class*="amount"]',
+        '[class*="current"][class*="price"]',
+        '[class*="atual"]'
+      ],
+      ano: ['[class*="ano"]', "[data-ano]", "[data-year]", '[class*="year"]'],
+      km: [
+        '[class*=" km"]',
+        '[class*="odometro"]',
+        '[class*="mileage"]',
+        '[class*="quilometr"]'
+      ],
+      combustivel: [
+        '[class*="combustivel"]',
+        '[class*="fuel"]',
+        '[class*="combust"]'
+      ],
+      modelo: ["h1", '[class*="titulo"]', '[class*="title"]', '[class*="nome"]']
     }
   }
 
   // ─── UTILITÁRIOS DE SCRAPING ───────────────────────────────────────────────
   function getSiteKey() {
     const host = window.location.hostname
-    return Object.keys(SITE_SELECTORS).find(k => host.includes(k)) || "default"
+    return (
+      Object.keys(SITE_SELECTORS).find((k) => host.includes(k)) || "default"
+    )
   }
 
   function trySelectors(selectorList) {
@@ -298,7 +397,10 @@
 
   function extractNumber(str) {
     if (!str) return null
-    const cleaned = str.replace(/[R$\s]/g, "").replace(/\./g, "").replace(",", ".")
+    const cleaned = str
+      .replace(/[R$\s]/g, "")
+      .replace(/\./g, "")
+      .replace(",", ".")
     const n = parseFloat(cleaned)
     return isNaN(n) ? null : n
   }
@@ -313,7 +415,9 @@
     if (!str) return null
     const match = str.replace(/\./g, "").match(/(\d{4,7})/)
     if (!match) return null
-    return milesMode ? Math.round(parseInt(match[1]) * 1.609) : parseInt(match[1])
+    return milesMode
+      ? Math.round(parseInt(match[1]) * 1.609)
+      : parseInt(match[1])
   }
 
   function extractPct(str) {
@@ -328,32 +432,52 @@
 
     // ── 1. Prioridade: window.__INITIAL_STATE__ (leilo.com.br) ──────────────
     try {
-      const s = Array.from(document.querySelectorAll('script'))
-        .find(x => x.textContent.includes('window.__INITIAL_STATE__'))
+      const s = Array.from(document.querySelectorAll("script")).find((x) =>
+        x.textContent.includes("window.__INITIAL_STATE__")
+      )
       if (s) {
         const txt = s.textContent
-        const j = JSON.parse(txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1))
+        const j = JSON.parse(
+          txt.substring(txt.indexOf("{"), txt.lastIndexOf("}") + 1)
+        )
         const l = j?.LoteSelecionadoState
         if (l) {
           const lance = l.valor?.valorProposta || l.valor?.lance?.valor || 0
           const fipeScraped = l.veiculo?.valorMercado || 0
-          const modelo = (l.veiculo?.modelo || "Veículo").replace(/\s+/g, " ").substring(0, 60)
+          const modelo = (l.veiculo?.modelo || "Veículo")
+            .replace(/\s+/g, " ")
+            .substring(0, 60)
           const comissaoPage = (l.valor?.comissaoPorcentagem || 5) / 100
           const depositoBens = l.valor?.depositoDeBens || null
           const taxaRemocao = l.valor?.remocao || null
           const taxaVistoria = l.valor?.vistoria || null
           const anoRaw = l.veiculo?.anoFabricacao || l.veiculo?.anoModelo
-          const ano = anoRaw ? parseInt(String(anoRaw).match(/\d{4}/)?.[0]) : null
+          const ano = anoRaw
+            ? parseInt(String(anoRaw).match(/\d{4}/)?.[0])
+            : null
           const km = l.veiculo?.quilometragem || l.veiculo?.km || 0
           const combustivel = l.veiculo?.combustivel || "Flex"
           const idadeVeiculo = ano ? Math.max(1, anoAtual - ano) : null
-          const kmAno = km && idadeVeiculo ? Math.round(km / idadeVeiculo) : null
+          const kmAno =
+            km && idadeVeiculo ? Math.round(km / idadeVeiculo) : null
           const kmMes = kmAno ? Math.round(kmAno / 12) : null
 
           return {
-            lance, ano, km, kmAno, kmMes, combustivel, modelo, idadeVeiculo,
-            fipeScraped, comissaoAuto: true, comissaoPage,
-            depositoBens, taxaRemocao, taxaVistoria, milesMode: false,
+            lance,
+            ano,
+            km,
+            kmAno,
+            kmMes,
+            combustivel,
+            modelo,
+            idadeVeiculo,
+            fipeScraped,
+            comissaoAuto: true,
+            comissaoPage,
+            depositoBens,
+            taxaRemocao,
+            taxaVistoria,
+            milesMode: false,
             fonte: "__INITIAL_STATE__"
           }
         }
@@ -364,16 +488,16 @@
     const selectors = SITE_SELECTORS[getSiteKey()]
     const milesMode = selectors.milesMode || false
 
-    const lanceRaw     = trySelectors(selectors.lance)
-    const anoRaw       = trySelectors(selectors.ano)
-    const kmRaw        = trySelectors(selectors.km)
-    const combustRaw   = trySelectors(selectors.combustivel)
-    const modeloRaw    = trySelectors(selectors.modelo)
-    const fipeRaw      = selectors.fipe ? trySelectors(selectors.fipe) : null
+    const lanceRaw = trySelectors(selectors.lance)
+    const anoRaw = trySelectors(selectors.ano)
+    const kmRaw = trySelectors(selectors.km)
+    const combustRaw = trySelectors(selectors.combustivel)
+    const modeloRaw = trySelectors(selectors.modelo)
+    const fipeRaw = selectors.fipe ? trySelectors(selectors.fipe) : null
 
-    let lance      = extractNumber(lanceRaw)
-    let ano        = extractYear(anoRaw) || extractYear(document.body.innerText)
-    let km         = extractKM(kmRaw, milesMode)
+    let lance = extractNumber(lanceRaw)
+    let ano = extractYear(anoRaw) || extractYear(document.body.innerText)
+    let km = extractKM(kmRaw, milesMode)
     let fipeScraped = extractNumber(fipeRaw)
 
     let comissaoAuto = false
@@ -384,11 +508,14 @@
     }
 
     const depositoBens = selectors.custos?.deposito
-      ? extractNumber(trySelectors([selectors.custos.deposito])) : null
+      ? extractNumber(trySelectors([selectors.custos.deposito]))
+      : null
     const taxaRemocao = selectors.custos?.remocao
-      ? extractNumber(trySelectors([selectors.custos.remocao])) : null
+      ? extractNumber(trySelectors([selectors.custos.remocao]))
+      : null
     const taxaVistoria = selectors.custos?.vistoria
-      ? extractNumber(trySelectors([selectors.custos.vistoria])) : null
+      ? extractNumber(trySelectors([selectors.custos.vistoria]))
+      : null
 
     if (!km) {
       const kmMatch = document.body.innerText.match(/([\d.]+)\s*km/i)
@@ -397,80 +524,129 @@
 
     const pageText = document.body.innerText.toLowerCase()
     let combustivel = "Não identificado"
-    if (combustRaw)                                                          combustivel = combustRaw.trim()
-    else if (pageText.includes("elétrico") || pageText.includes("eletrico")) combustivel = "⚡ Elétrico"
-    else if (pageText.includes("kit gás") || pageText.includes("gnv"))       combustivel = "🟡 Flex + GNV"
-    else if (pageText.includes("híbrido") || pageText.includes("hibrido"))   combustivel = "🟢 Híbrido"
-    else if (pageText.includes("gasolina"))                                  combustivel = "⛽ Gasolina"
-    else if (pageText.includes("diesel"))                                    combustivel = "🔴 Diesel"
-    else if (pageText.includes("flex"))                                      combustivel = "✅ Flex"
-    else if (pageText.includes("álcool") || pageText.includes("etanol"))     combustivel = "🌿 Etanol"
+    if (combustRaw) combustivel = combustRaw.trim()
+    else if (pageText.includes("elétrico") || pageText.includes("eletrico"))
+      combustivel = "⚡ Elétrico"
+    else if (pageText.includes("kit gás") || pageText.includes("gnv"))
+      combustivel = "🟡 Flex + GNV"
+    else if (pageText.includes("híbrido") || pageText.includes("hibrido"))
+      combustivel = "🟢 Híbrido"
+    else if (pageText.includes("gasolina")) combustivel = "⛽ Gasolina"
+    else if (pageText.includes("diesel")) combustivel = "🔴 Diesel"
+    else if (pageText.includes("flex")) combustivel = "✅ Flex"
+    else if (pageText.includes("álcool") || pageText.includes("etanol"))
+      combustivel = "🌿 Etanol"
 
     if (!lance) {
       const matches = pageText.match(/r\$\s*[\d.,]+/gi)
       if (matches) {
-        const valores = matches.map(m => extractNumber(m)).filter(v => v && v > 1000 && v < 500000)
+        const valores = matches
+          .map((m) => extractNumber(m))
+          .filter((v) => v && v > 1000 && v < 500000)
         if (valores.length) lance = Math.min(...valores)
       }
     }
 
-    const modelo = modeloRaw ? modeloRaw.replace(/\s+/g, " ").substring(0, 60) : "Veículo não identificado"
+    const modelo = modeloRaw
+      ? modeloRaw.replace(/\s+/g, " ").substring(0, 60)
+      : "Veículo não identificado"
     const idadeVeiculo = ano ? Math.max(1, anoAtual - ano) : null
     const kmAno = km && idadeVeiculo ? Math.round(km / idadeVeiculo) : null
     const kmMes = kmAno ? Math.round(kmAno / 12) : null
 
     return {
-      lance, ano, km, kmAno, kmMes, combustivel, modelo, idadeVeiculo,
-      fipeScraped, comissaoAuto, comissaoPage,
-      depositoBens, taxaRemocao, taxaVistoria, milesMode,
+      lance,
+      ano,
+      km,
+      kmAno,
+      kmMes,
+      combustivel,
+      modelo,
+      idadeVeiculo,
+      fipeScraped,
+      comissaoAuto,
+      comissaoPage,
+      depositoBens,
+      taxaRemocao,
+      taxaVistoria,
+      milesMode,
       fonte: "DOM"
     }
   }
 
   // ─── LÓGICA DE CÁLCULO ────────────────────────────────────────────────────
-  function calcularOportunidade(dados, fipeOverride, margemOverride) {
+  function calcularOportunidade(
+    dados,
+    fipeOverride,
+    margemOverride,
+    incrementoOverride
+  ) {
     const { lance, fipeScraped } = dados
     const fipe = fipeOverride ?? fipeScraped ?? CONFIG.fipeMock
     const margem = margemOverride ?? CONFIG.margemRevenda
+    const incremento = incrementoOverride ?? CONFIG.incrementoLance
 
-    const comissaoPct = dados.comissaoAuto && dados.comissaoPage
-      ? dados.comissaoPage
-      : CONFIG.comissaoLeiloeiro
+    const comissaoPct =
+      dados.comissaoAuto && dados.comissaoPage
+        ? dados.comissaoPage
+        : CONFIG.comissaoLeiloeiro
 
     const comissao = lance ? lance * comissaoPct : 0
 
-    const extrasDetectados = (dados.depositoBens || 0) + (dados.taxaRemocao || 0) + (dados.taxaVistoria || 0)
-    const taxaPatioEfetiva = extrasDetectados > 0 ? extrasDetectados : CONFIG.taxaPatio
+    const extrasDetectados =
+      (dados.depositoBens || 0) +
+      (dados.taxaRemocao || 0) +
+      (dados.taxaVistoria || 0)
+    const taxaPatioEfetiva =
+      extrasDetectados > 0 ? extrasDetectados : CONFIG.taxaPatio
 
     const custoReal = lance ? lance + comissao + taxaPatioEfetiva : 0
 
-    const custosFixos = CONFIG.custoDocumentacao + CONFIG.custoIPVA + CONFIG.custoConserto + CONFIG.taxaPatio
+    const custosFixos =
+      CONFIG.custoDocumentacao +
+      CONFIG.custoIPVA +
+      CONFIG.custoConserto +
+      CONFIG.taxaPatio
     const margemReais = fipe * margem
     const precoLimite = fipe - margemReais - custosFixos
 
     const diferenca = precoLimite - (lance || 0)
-    const lancesRestantes = Math.max(0, Math.floor(diferenca / CONFIG.incrementoLance))
+    const lancesRestantes = Math.max(0, Math.floor(diferenca / incremento))
 
     const potencialLucro = lance
-      ? fipe - custoReal - CONFIG.custoConserto - CONFIG.custoDocumentacao - CONFIG.custoIPVA
+      ? fipe -
+        custoReal -
+        CONFIG.custoConserto -
+        CONFIG.custoDocumentacao -
+        CONFIG.custoIPVA
       : null
 
     const score = calcularScore(lance, precoLimite, dados.kmAno)
 
-    return { comissao, comissaoPct, taxaPatioEfetiva, custoReal, precoLimite, lancesRestantes, potencialLucro, score, fipe }
+    return {
+      comissao,
+      comissaoPct,
+      taxaPatioEfetiva,
+      custoReal,
+      precoLimite,
+      lancesRestantes,
+      potencialLucro,
+      score,
+      fipe
+    }
   }
 
   function calcularScore(lance, precoLimite, kmAno) {
     if (!lance || !precoLimite) return null
     let score = 100
     const ratio = lance / precoLimite
-    if (ratio < 0.7)      score = 95
+    if (ratio < 0.7) score = 95
     else if (ratio < 0.85) score = 75
     else if (ratio < 0.95) score = 55
-    else if (ratio < 1.0)  score = 35
-    else                   score = 10
+    else if (ratio < 1.0) score = 35
+    else score = 10
     if (kmAno) {
-      if (kmAno > 30000)      score -= 20
+      if (kmAno > 30000) score -= 20
       else if (kmAno > 20000) score -= 10
     }
     return Math.max(0, Math.min(100, score))
@@ -478,42 +654,73 @@
 
   function classifyKmAno(kmAno) {
     if (!kmAno) return { label: "— Não calculado", color: "#888", emoji: "❓" }
-    if (kmAno < 10000)  return { label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Particular`, color: "#22c55e", emoji: "🟢" }
-    if (kmAno < 15000)  return { label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Normal`,     color: "#86efac", emoji: "🟢" }
-    if (kmAno < 25000)  return { label: `${kmAno.toLocaleString("pt-BR")} km/ano — Possível Frota`, color: "#f59e0b", emoji: "🟡" }
-    if (kmAno < 35000)  return { label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Intenso`,    color: "#f97316", emoji: "🟠" }
-    return                     { label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Extremo/App`,color: "#ef4444", emoji: "🔴" }
+    if (kmAno < 10000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Particular`,
+        color: "#22c55e",
+        emoji: "🟢"
+      }
+    if (kmAno < 15000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Normal`,
+        color: "#86efac",
+        emoji: "🟢"
+      }
+    if (kmAno < 25000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Possível Frota`,
+        color: "#f59e0b",
+        emoji: "🟡"
+      }
+    if (kmAno < 35000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Intenso`,
+        color: "#f97316",
+        emoji: "🟠"
+      }
+    return {
+      label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Extremo/App`,
+      color: "#ef4444",
+      emoji: "🔴"
+    }
   }
 
   function getScoreLabel(score) {
-    if (score === null)  return { label: "—",         color: "#888" }
-    if (score >= 80)     return { label: "EXCELENTE",  color: "#22c55e" }
-    if (score >= 60)     return { label: "BOA",        color: "#84cc16" }
-    if (score >= 40)     return { label: "REGULAR",    color: "#f59e0b" }
-    if (score >= 20)     return { label: "ARRISCADA",  color: "#f97316" }
-    return                      { label: "EVITAR",     color: "#ef4444" }
+    if (score === null) return { label: "—", color: "#888" }
+    if (score >= 80) return { label: "EXCELENTE", color: "#22c55e" }
+    if (score >= 60) return { label: "BOA", color: "#84cc16" }
+    if (score >= 40) return { label: "REGULAR", color: "#f59e0b" }
+    if (score >= 20) return { label: "ARRISCADA", color: "#f97316" }
+    return { label: "EVITAR", color: "#ef4444" }
   }
 
   // ─── FORMATAÇÃO ────────────────────────────────────────────────────────────
-  const BRL = v => v != null ? v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : "—"
-  const NUM = v => v != null ? v.toLocaleString("pt-BR") : "—"
+  const BRL = (v) =>
+    v != null
+      ? v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+      : "—"
+  const NUM = (v) => (v != null ? v.toLocaleString("pt-BR") : "—")
 
   // ─── CRIAÇÃO DO PAINEL ─────────────────────────────────────────────────────
   function createPanel(dados, calc, loteId, loteData) {
-    const kmInfo    = classifyKmAno(dados.kmAno)
+    const kmInfo = classifyKmAno(dados.kmAno)
     const scoreInfo = getScoreLabel(calc.score)
-    const saved     = !!loteData
-    const notas     = loteData?.notas ?? ""
-    const fipePanel = loteData?.fipe  ?? null
+    const saved = !!loteData
+    const notas = loteData?.notas ?? ""
+    const fipePanel = loteData?.fipe ?? null
     const margemPanel = loteData?.marg ?? null
+    const incrementoPanel = loteData?.incremento ?? null
 
     const lancesText = dados.lance
-      ? calc.lancesRestantes > 0 ? `${calc.lancesRestantes} lances` : "🚨 Limite atingido!"
+      ? calc.lancesRestantes > 0
+        ? `${calc.lancesRestantes} lances`
+        : "🚨 Limite atingido!"
       : "—"
 
-    const scoreColor = calc.score !== null
-      ? `conic-gradient(${scoreInfo.color} ${calc.score * 3.6}deg, #1e293b 0deg)`
-      : "none"
+    const scoreColor =
+      calc.score !== null
+        ? `conic-gradient(${scoreInfo.color} ${calc.score * 3.6}deg, #1e293b 0deg)`
+        : "none"
 
     const panel = document.createElement("div")
     panel.id = "leilometro-panel"
@@ -528,7 +735,7 @@
           </svg>
           <span class="li-brand-name">Leilômetro</span>
           <span class="li-badge">PRO</span>
-          ${saved ? '<span class="li-saved-badge">💾 salvo</span>' : ""}
+          ${saved ? '<span class="li-saved-badge">salvo</span>' : ""}
         </div>
         <div class="li-controls">
           <button class="li-btn-print"   title="Imprimir análise">🖨️</button>
@@ -540,8 +747,6 @@
 
       <div class="li-body">
         <div class="li-vehicle-name">${dados.modelo}</div>
-        <div class="li-lote-id">🔑 ${loteId.toString().split("_").pop()}</div>
-
         <div class="li-score-row">
           <div class="li-score-ring" style="background: ${scoreColor}">
             <div class="li-score-inner">
@@ -567,26 +772,42 @@
             <span class="li-item-label">Comissão (${(calc.comissaoPct * 100).toFixed(0)}%) ${dados.comissaoAuto ? '<span class="li-auto-tag">auto</span>' : ""}</span>
             <span class="li-item-value li-warn">+ ${BRL(calc.comissao)}</span>
           </div>
-          ${dados.depositoBens ? `
+          ${
+            dados.depositoBens
+              ? `
           <div class="li-item">
             <span class="li-item-label">Depósito Bens <span class="li-auto-tag">auto</span></span>
             <span class="li-item-value li-warn">+ ${BRL(dados.depositoBens)}</span>
-          </div>` : ""}
-          ${dados.taxaRemocao ? `
+          </div>`
+              : ""
+          }
+          ${
+            dados.taxaRemocao
+              ? `
           <div class="li-item">
             <span class="li-item-label">Remoção <span class="li-auto-tag">auto</span></span>
             <span class="li-item-value li-warn">+ ${BRL(dados.taxaRemocao)}</span>
-          </div>` : ""}
-          ${dados.taxaVistoria ? `
+          </div>`
+              : ""
+          }
+          ${
+            dados.taxaVistoria
+              ? `
           <div class="li-item">
             <span class="li-item-label">Vistoria <span class="li-auto-tag">auto</span></span>
             <span class="li-item-value li-warn">+ ${BRL(dados.taxaVistoria)}</span>
-          </div>` : ""}
-          ${!dados.depositoBens && CONFIG.taxaPatio ? `
+          </div>`
+              : ""
+          }
+          ${
+            !dados.depositoBens && CONFIG.taxaPatio
+              ? `
           <div class="li-item">
             <span class="li-item-label">Taxa Pátio Est.</span>
             <span class="li-item-value li-warn">+ ${BRL(CONFIG.taxaPatio)}</span>
-          </div>` : ""}
+          </div>`
+              : ""
+          }
           <div class="li-item li-item-highlight li-item-full">
             <span class="li-item-label">Custo Real</span>
             <span class="li-item-value">${BRL(calc.custoReal)}</span>
@@ -614,6 +835,14 @@
             <span class="li-hint-inline">%</span>
           </div>
         </div>
+        <div class="li-margem-edit-box">
+          <span class="li-item-label">Incremento por Lance <span class="li-hint-inline">— editável</span></span>
+          <div class="li-margem-row">
+            <input id="lm-incremento-input" class="li-fipe-input" type="number"
+              min="50" step="50" placeholder="${CONFIG.incrementoLance}" value="${incrementoPanel ?? CONFIG.incrementoLance}"/>
+          </div>
+          <span class="li-hint">Usado para calcular lances restantes até o limite.</span>
+        </div>
 
         <div class="li-grid" style="margin-top: 8px">
           <div class="li-item">
@@ -628,9 +857,11 @@
             <span class="li-item-label">Margem até o limite</span>
             <div class="li-lances-badge ${calc.lancesRestantes === 0 ? "li-lances-danger" : ""}">
               ${lancesText}
-              ${calc.lancesRestantes > 0 && dados.lance
-                ? `<span class="li-lances-sub">${BRL(calc.precoLimite - calc.custoReal + CONFIG.taxaPatio)} de margem</span>`
-                : ""}
+              ${
+                calc.lancesRestantes > 0 && dados.lance
+                  ? `<span class="li-lances-sub">${BRL(calc.precoLimite - calc.custoReal + CONFIG.taxaPatio)} de margem</span>`
+                  : ""
+              }
             </div>
           </div>
         </div>
@@ -674,7 +905,7 @@
         <div class="li-section-title">🔧 CUSTOS ESTIMADOS</div>
         <div class="li-grid">
           <div class="li-item">
-            <span class="li-item-label">Conserto estimado</span>
+            <span class="li-item-label">Conserto</span>
             <span class="li-item-value li-cost">${BRL(CONFIG.custoConserto)}</span>
           </div>
           <div class="li-item">
@@ -682,7 +913,7 @@
             <span class="li-item-value li-cost">${BRL(CONFIG.custoDocumentacao)}</span>
           </div>
           <div class="li-item">
-            <span class="li-item-label">IPVA atrasado est.</span>
+            <span class="li-item-label">IPVA</span>
             <span class="li-item-value li-cost">${BRL(CONFIG.custoIPVA)}</span>
           </div>
         </div>
@@ -696,7 +927,6 @@
             placeholder="Ex: amassado para-choque, sem chave reserva, pneus novos...">${notas}</textarea>
           <div class="li-notas-footer">
             <span class="li-hint" id="lm-save-status">${saved ? `Salvo ${tsStr(loteData?.savedAt)}` : "Não salvo ainda"}</span>
-            <button class="li-save-btn" id="lm-btn-save">💾 Salvar</button>
           </div>
         </div>
 
@@ -706,9 +936,9 @@
             ${!dados.lance ? "⚠️ Lance não detectado" : `✓ ${dados.fonte || "DOM"}`}
           </span>
           <div class="li-footer-btns">
-            <button class="li-btn-settings li-btn-print-footer">🖨️ Imprimir</button>
-            <button class="li-btn-reset">🗑️ Reset</button>
-            <button class="li-btn-settings">⚙️ Config</button>
+          <button class="li-btn-settings li-btn-print-footer">🖨️ Imprimir</button>
+          <button class="li-btn-reset">🗑️ Reset</button>
+            <button class="li-save-btn" id="lm-btn-save">💾 Salvar</button>
           </div>
         </div>
       </div>
@@ -722,13 +952,14 @@
     const existing = document.getElementById("leilometro-panel")
     if (existing) existing.remove()
 
-    const loteId   = getLoteId()
+    const loteId = getLoteId()
     const loteData = loadLote(loteId)
-    const dados    = scrapePageData()
-    const fipe     = loteData?.fipe ?? dados.fipeScraped ?? CONFIG.fipeMock ?? null
-    const marg     = loteData?.marg ?? CONFIG.margemRevenda
-    const calc     = calcularOportunidade(dados, fipe, marg)
-    const panel    = createPanel(dados, calc, loteId, loteData)
+    const dados = scrapePageData()
+    const fipe = loteData?.fipe ?? dados.fipeScraped ?? CONFIG.fipeMock ?? null
+    const marg = loteData?.marg ?? CONFIG.margemRevenda
+    const incremento = loteData?.incremento ?? null
+    const calc = calcularOportunidade(dados, fipe, marg, incremento)
+    const panel = createPanel(dados, calc, loteId, loteData)
 
     document.body.appendChild(panel)
     attachEventListeners(panel, dados, calc, loteId)
@@ -739,10 +970,10 @@
 
   // ─── EVENTOS ───────────────────────────────────────────────────────────────
   function attachEventListeners(panel, dados, calc, loteId) {
-    const btnClose    = panel.querySelector(".li-btn-close")
+    const btnClose = panel.querySelector(".li-btn-close")
     const btnMinimize = panel.querySelector(".li-btn-minimize")
-    const btnRefresh  = panel.querySelector(".li-btn-refresh")
-    const body        = panel.querySelector(".li-body")
+    const btnRefresh = panel.querySelector(".li-btn-refresh")
+    const body = panel.querySelector(".li-body")
 
     btnClose?.addEventListener("click", () => panel.remove())
     btnRefresh?.addEventListener("click", () => renderPanel())
@@ -756,21 +987,27 @@
 
     makeDraggable(panel)
 
-    panel.querySelectorAll(".li-btn-settings:not(.li-btn-print-footer)").forEach(btn => {
-      btn.addEventListener("click", () => {
-        if (chrome?.runtime?.openOptionsPage) chrome.runtime.openOptionsPage()
+    panel
+      .querySelectorAll(".li-btn-settings:not(.li-btn-print-footer)")
+      .forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (chrome?.runtime?.openOptionsPage) chrome.runtime.openOptionsPage()
+        })
       })
-    })
 
     function doSave(feedback = false) {
       const fipeVal = parseFloat(panel.querySelector("#lm-fipe-input")?.value)
       const margVal = parseFloat(panel.querySelector("#lm-margem-input")?.value)
+      const incrementoVal = parseFloat(
+        panel.querySelector("#lm-incremento-input")?.value
+      )
       const notasVal = panel.querySelector("#lm-notas")?.value || ""
 
       saveLote(loteId, {
-        fipe:   isNaN(fipeVal) ? null : fipeVal,
-        marg:   isNaN(margVal) ? CONFIG.margemRevenda : margVal / 100,
-        notas:  notasVal,
+        fipe: isNaN(fipeVal) ? null : fipeVal,
+        marg: isNaN(margVal) ? CONFIG.margemRevenda : margVal / 100,
+        incremento: isNaN(incrementoVal) ? null : incrementoVal,
+        notas: notasVal,
         modelo: dados.modelo
       })
 
@@ -794,8 +1031,20 @@
       }
     }
 
-    panel.querySelector("#lm-fipe-input")?.addEventListener("change",  () => { doSave(); renderPanel() })
-    panel.querySelector("#lm-margem-input")?.addEventListener("change", () => { doSave(); renderPanel() })
+    panel.querySelector("#lm-fipe-input")?.addEventListener("change", () => {
+      doSave()
+      renderPanel()
+    })
+    panel.querySelector("#lm-margem-input")?.addEventListener("change", () => {
+      doSave()
+      renderPanel()
+    })
+    panel
+      .querySelector("#lm-incremento-input")
+      ?.addEventListener("change", () => {
+        doSave()
+        renderPanel()
+      })
 
     let notasTimer
     panel.querySelector("#lm-notas")?.addEventListener("input", () => {
@@ -803,28 +1052,38 @@
       notasTimer = setTimeout(() => doSave(), 800)
     })
 
-    panel.querySelector("#lm-btn-save")?.addEventListener("click", () => doSave(true))
+    panel
+      .querySelector("#lm-btn-save")
+      ?.addEventListener("click", () => doSave(true))
 
     panel.querySelector(".li-btn-reset")?.addEventListener("click", () => {
-      if (confirm(`Limpar dados salvos para este lote?\nID: ${loteId.toString().split("_").pop()}`)) {
+      if (
+        confirm(
+          `Limpar dados salvos para este lote?\nID: ${loteId.toString().split("_").pop()}`
+        )
+      ) {
         deleteLote(loteId)
         renderPanel()
       }
     })
 
-    const doPrint = () => printAnalise(dados, calc, panel.querySelector("#lm-notas")?.value || "")
+    const doPrint = () =>
+      printAnalise(dados, calc, panel.querySelector("#lm-notas")?.value || "")
     panel.querySelector(".li-btn-print")?.addEventListener("click", doPrint)
-    panel.querySelector(".li-btn-print-footer")?.addEventListener("click", doPrint)
+    panel
+      .querySelector(".li-btn-print-footer")
+      ?.addEventListener("click", doPrint)
   }
 
   // ─── IMPRIMIR ──────────────────────────────────────────────────────────────
   function printAnalise(dados, calc, notas) {
-    const si  = getScoreLabel(calc.score)
-    const ki  = classifyKmAno(dados.kmAno)
+    const si = getScoreLabel(calc.score)
+    const ki = classifyKmAno(dados.kmAno)
     const now = new Date().toLocaleString("pt-BR")
 
     const win = window.open("", "_blank", "width=700,height=950")
-    win.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+    win.document
+      .write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
 <title>Leilômetro — Análise</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -861,7 +1120,7 @@ table{width:100%;border-collapse:collapse;}td{padding:7px 0;border-bottom:1px so
   <tr><td>Lance atual</td><td>${BRL(dados.lance)}</td></tr>
   <tr><td>Comissão (${(calc.comissaoPct * 100).toFixed(0)}%)${dados.comissaoAuto ? " — lida da página" : " — estimada"}</td><td class="amber">+ ${BRL(calc.comissao)}</td></tr>
   ${dados.depositoBens ? `<tr><td>Depósito de Bens</td><td class="amber">+ ${BRL(dados.depositoBens)}</td></tr>` : ""}
-  ${dados.taxaRemocao  ? `<tr><td>Taxa de Remoção</td><td class="amber">+ ${BRL(dados.taxaRemocao)}</td></tr>` : ""}
+  ${dados.taxaRemocao ? `<tr><td>Taxa de Remoção</td><td class="amber">+ ${BRL(dados.taxaRemocao)}</td></tr>` : ""}
   ${dados.taxaVistoria ? `<tr><td>Vistoria</td><td class="amber">+ ${BRL(dados.taxaVistoria)}</td></tr>` : ""}
   ${!dados.depositoBens && CONFIG.taxaPatio ? `<tr><td>Taxa de Pátio est.</td><td class="amber">+ ${BRL(CONFIG.taxaPatio)}</td></tr>` : ""}
   <tr class="hl"><td><strong>Custo Real</strong></td><td class="gold"><strong>${BRL(calc.custoReal)}</strong></td></tr>
@@ -890,11 +1149,15 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
   // ─── ARRASTAR ──────────────────────────────────────────────────────────────
   function makeDraggable(el) {
     const header = el.querySelector(".li-header")
-    let isDragging = false, startX, startY, origX, origY
+    let isDragging = false,
+      startX,
+      startY,
+      origX,
+      origY
 
     header.style.cursor = "grab"
 
-    header.addEventListener("mousedown", e => {
+    header.addEventListener("mousedown", (e) => {
       if (e.target.tagName === "BUTTON") return
       isDragging = true
       startX = e.clientX
@@ -906,11 +1169,11 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
       e.preventDefault()
     })
 
-    document.addEventListener("mousemove", e => {
+    document.addEventListener("mousemove", (e) => {
       if (!isDragging) return
-      el.style.left   = `${origX + e.clientX - startX}px`
-      el.style.top    = `${origY + e.clientY - startY}px`
-      el.style.right  = "auto"
+      el.style.left = `${origX + e.clientX - startX}px`
+      el.style.top = `${origY + e.clientY - startY}px`
+      el.style.right = "auto"
       el.style.bottom = "auto"
     })
 
@@ -929,7 +1192,11 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
         if (document.getElementById("leilometro-panel")) renderPanel()
       }, 800)
     })
-    observer.observe(document.body, { subtree: true, childList: true, characterData: true })
+    observer.observe(document.body, {
+      subtree: true,
+      childList: true,
+      characterData: true
+    })
   }
 
   // ─── INICIALIZAÇÃO ─────────────────────────────────────────────────────────
@@ -938,14 +1205,16 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
     if (!isVehiclePage()) return
 
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => setTimeout(renderPanel, 1500))
+      document.addEventListener("DOMContentLoaded", () =>
+        setTimeout(renderPanel, 1500)
+      )
     } else {
       setTimeout(renderPanel, 1500)
     }
 
     setTimeout(observeLanceChanges, 2000)
 
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
       if (e.ctrlKey && e.shiftKey && e.key === "L") {
         const panel = document.getElementById("leilometro-panel")
         if (panel) panel.remove()
@@ -955,7 +1224,7 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
   }
 
   if (typeof chrome !== "undefined" && chrome.storage) {
-    chrome.storage.sync.get(CONFIG_DEFAULTS, saved => {
+    chrome.storage.sync.get(CONFIG_DEFAULTS, (saved) => {
       CONFIG = { ...CONFIG_DEFAULTS, ...saved }
       init()
     })
@@ -964,5 +1233,4 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
   }
 
   if (typeof window !== "undefined") window.classifyKmAno = classifyKmAno
-
 })()
