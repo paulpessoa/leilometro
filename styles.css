@@ -122,6 +122,10 @@
 
 /* ─── BODY ───────────────────────────────────────────────────────────────── */
 
+#leilometro-panel .li-body.li-collapsed {
+  display: none !important;
+}
+
 #leilometro-panel .li-body {
   all: unset !important;
   display: block !important;
