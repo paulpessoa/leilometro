@@ -1,5 +1,5 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 3,
   "name": "Leilômetro — Análise de Oportunidade",
   "version": "1.0.0",
   "description": "Análise inteligente de leilões de veículos em tempo real. Calcula o preço ideal, taxas e KM/Ano direto na tela.",
