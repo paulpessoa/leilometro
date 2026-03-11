@@ -8,6 +8,9 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
@@ -48,6 +51,13 @@
     "storage",
     "activeTab"
   ],
+  "externally_connectable": {
+    "matches": [
+      "https://www.leilometro.com.br/*",
+      "http://localhost/*",
+      "http://127.0.0.1/*"
+    ]
+  },
   "host_permissions": [
     "*://*.leilo.com.br/*",
     "*://*.vipleiloes.com.br/*",
