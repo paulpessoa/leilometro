@@ -28,209 +28,20 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
-  <style>
-    :root {
-      --gold: #F0B429;
-      --dark: #080C10;
-      --dark2: #0F1419;
-      --dark3: #161D26;
-      --border: rgba(240, 180, 41, 0.12);
-      --text: #E8EDF2;
-      --muted: #6B7A8D;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: var(--dark);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.8;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(8, 12, 16, 0.96);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    .nav-back {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
-    }
-
-    .nav-back:hover {
-      color: var(--text);
-    }
-
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 64px 24px 100px;
-    }
-
-    .page-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--gold);
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 6vw, 64px);
-      line-height: 1;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .updated {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 48px;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .highlight-box {
-      background: rgba(240, 180, 41, 0.06);
-      border: 1px solid rgba(240, 180, 41, 0.2);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-bottom: 40px;
-      font-size: 15px;
-      color: var(--text);
-    }
-
-    .highlight-box strong {
-      color: var(--gold);
-    }
-
-    h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      letter-spacing: 1px;
-      color: var(--gold);
-      margin: 40px 0 12px;
-    }
-
-    p {
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    p.muted {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    ul {
-      list-style: none;
-      margin: 0 0 20px 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    ul li {
-      padding-left: 20px;
-      position: relative;
-      color: var(--text);
-      font-size: 15px;
-    }
-
-    ul li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--gold);
-    }
-
-    a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 40px 0;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 760px;
-      margin: 0 auto;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    footer a {
-      color: var(--muted);
-    }
-
-    footer a:hover {
-      color: var(--gold);
-    }
-
-    @media (max-width: 600px) {
-
-      nav,
-      footer {
-        padding: 16px 20px;
-      }
-
-      .container {
-        padding: 40px 20px 80px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
 
-  <nav>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav-legal">
     <a href="/" class="nav-logo">Leilômetro</a>
     <a href="/" class="nav-back">← Voltar ao início</a>
   </nav>
 
-  <div class="container">
+  <div class="container container-legal">
     <span class="page-tag">Legal</span>
     <h1>POLÍTICA DE<br />PRIVACIDADE</h1>
     <p class="updated">Última atualização: março de 2026</p>
@@ -338,14 +149,16 @@
   </div>
 
   <footer>
-    <span>© 2026 Leilômetro</span>
-    <span>
-      <a href="/privacidade">Privacidade</a> ·
-      <a href="/termos">Termos de Uso</a> ·
-      <a href="/">Início</a>
-    </span>
+    <div class="footer-logo">Leilômetro <span>| PRO</span></div>
+    <div class="footer-note">© 2026 Leilômetro · Extensão Chrome · Não afiliado a nenhum leiloeiro</div>
+    <div class="footer-links">
+      <a href="/suporte">Suporte</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/termos">Termos de Uso</a>
+    </div>
   </footer>
 
+  <script src="./app.js"></script>
 </body>
 
 </html>
