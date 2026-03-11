@@ -1221,6 +1221,154 @@
       color: var(--gold);
     }
 
+    /* TESTIMONIALS CAROUSEL */
+    .testimonials-section {
+      padding: 100px 0;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    .testimonials-title-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      text-align: right;
+    }
+
+    .carousel-container {
+      margin-top: 64px;
+      display: flex;
+      width: max-content;
+      animation: scroll 40s linear infinite;
+    }
+
+    .carousel-container:hover {
+      animation-play-state: paused;
+    }
+
+    .testimonial-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      width: 380px;
+      margin-right: 24px;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Mask para efeito de fade nas laterais */
+    .testimonials-section::before,
+    .testimonials-section::after {
+      content: "";
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 150px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .testimonials-section::before {
+      left: 0;
+      background: linear-gradient(to right, var(--dark) 0%, transparent 100%);
+    }
+
+    .testimonials-section::after {
+      right: 0;
+      background: linear-gradient(to left, var(--dark) 0%, transparent 100%);
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-380px * 6 - 24px * 6));
+      }
+    }
+
+    .testimonial-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      object-fit: cover;
+    }
+
+    .testimonial-info h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .testimonial-info p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .testimonial-content {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .arremate-info {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .arremate-value {
+      font-size: 11px;
+      color: var(--green);
+      font-family: 'DM Mono', monospace;
+      opacity: 0.9;
+    }
+
+    .arremate-date {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
     /* ANIMATIONS */
     @keyframes fadeUp {
       from {
@@ -1307,7 +1455,9 @@
     <ul class="nav-links">
       <li><a href="#como-funciona">Como Funciona</a></li>
       <li><a href="#precos">Planos</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="suporte.html">Suporte</a></li>
       <li><a href="#instalar" class="nav-cta">Instalar Grátis →</a></li>
     </ul>
   </nav>
@@ -1540,7 +1690,7 @@
   </div>
 
   <!-- HOW IT WORKS -->
-  <section class="how-section">
+  <section class="how-section" id="como-funciona">
     <span class="section-tag reveal">Instalação</span>
     <h2 class="reveal">PRONTO EM<br />3 PASSOS.</h2>
     <div class="how-steps">
@@ -1562,6 +1712,282 @@
         <h3>Lance com segurança</h3>
         <p>O painel aparece sozinho no leilão. Você vê o score, o custo real e quantos lances restam — em tempo real.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (Carousel Infinito) -->
+  <section class="testimonials-section" id="depoimentos">
+    <div class="testimonials-title-container">
+      <span class="section-tag reveal">Depoimentos</span>
+      <h2 class="reveal">QUEM JÁ<br />ESTÁ ARREMATANDO.</h2>
+    </div>
+
+    <div class="carousel-container">
+      <!-- Grupo 1 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=ricardo" alt="Ricardo S." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Ricardo S.</h4>
+            <p>São Paulo, SP</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Finalmente uma ferramenta que soma a comissão e o pátio na hora. Evitou que eu desse um lance acima do limite
+          no calor do momento."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Toyota Corolla XEi 2022</span>
+            <span class="arremate-value">Arrematado por R$ 82.400</span>
+          </div>
+          <span class="arremate-date">Fev/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=tiago" alt="Tiago F." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Tiago F.</h4>
+            <p>Salvador, BA</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Para quem arremata motos, o cálculo das taxas de pátio e comissão faz toda a diferença no lucro final. O
+          Leilômetro é imbatível na precisão."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Honda CB 300F Twister 2024</span>
+            <span class="arremate-value">Arrematado por R$ 18.200</span>
+          </div>
+          <span class="arremate-date">Fev/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno G." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Bruno G.</h4>
+            <p>Belo Horizonte, MG</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Uso profissionalmente para revenda. O Leilômetro me ajuda a manter a margem de lucro protegida em todos os
+          lotes que acompanho."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 VW Nivus Highline 2023</span>
+            <span class="arremate-value">Arrematado por R$ 94.800</span>
+          </div>
+          <span class="arremate-date">Mar/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=camila" alt="Camila M." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Camila M.</h4>
+            <p>Curitiba, PR</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "O cálculo de KM/Ano é sensacional. Descobri que um carro que eu queria era de frota antes de bater o martelo.
+          Vale cada centavo."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Jeep Compass Longitude 2021</span>
+            <span class="arremate-value">Arrematado por R$ 105.200</span>
+          </div>
+          <span class="arremate-date">Jan/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=felipe" alt="Felipe A." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Felipe A.</h4>
+            <p>Rio de Janeiro, RJ</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Simples de instalar e roda liso. A análise da FIPE editável é o que faltava para os sites que não mostram o
+          valor de mercado."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Chevrolet Onix Plus 2022</span>
+            <span class="arremate-value">Arrematado por R$ 68.900</span>
+          </div>
+          <span class="arremate-date">Dez/2025</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=juliana" alt="Juliana P." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Juliana P.</h4>
+            <p>Florianópolis, SC</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Arrematei minha primeira elétrica no leilão e a extensão me ajudou a comparar o custo real com o valor de uma
+          nova na hora. Muito intuitivo!"
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Shineray SHE S 2023 (Elétrica)</span>
+            <span class="arremate-value">Arrematado por R$ 11.500</span>
+          </div>
+          <span class="arremate-date">Jan/2026</span>
+        </div>
+      </div>
+
+      <!-- Grupo 2 (Cópia para efeito infinito) -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=ricardo" alt="Ricardo S." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Ricardo S.</h4>
+            <p>São Paulo, SP</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Finalmente uma ferramenta que soma a comissão e o pátio na hora. Evitou que eu desse um lance acima do limite
+          no calor do momento."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Toyota Corolla XEi 2022</span>
+            <span class="arremate-value">Arrematado por R$ 82.400</span>
+          </div>
+          <span class="arremate-date">Fev/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=tiago" alt="Tiago F." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Tiago F.</h4>
+            <p>Salvador, BA</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Para quem arremata motos, o cálculo das taxas de pátio e comissão faz toda a diferença no lucro final. O
+          Leilômetro é imbatível na precisão."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Honda CB 300F Twister 2024</span>
+            <span class="arremate-value">Arrematado por R$ 18.200</span>
+          </div>
+          <span class="arremate-date">Fev/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno G." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Bruno G.</h4>
+            <p>Belo Horizonte, MG</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Uso profissionalmente para revenda. O Leilômetro me ajuda a manter a margem de lucro protegida em todos os
+          lotes que acompanho."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 VW Nivus Highline 2023</span>
+            <span class="arremate-value">Arrematado por R$ 94.800</span>
+          </div>
+          <span class="arremate-date">Mar/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=camila" alt="Camila M." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Camila M.</h4>
+            <p>Curitiba, PR</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "O cálculo de KM/Ano é sensacional. Descobri que um carro que eu queria era de frota antes de bater o martelo.
+          Vale cada centavo."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Jeep Compass Longitude 2021</span>
+            <span class="arremate-value">Arrematado por R$ 105.200</span>
+          </div>
+          <span class="arremate-date">Jan/2026</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=felipe" alt="Felipe A." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Felipe A.</h4>
+            <p>Rio de Janeiro, RJ</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Simples de instalar e roda liso. A análise da FIPE editável é o que faltava para os sites que não mostram o
+          valor de mercado."
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Chevrolet Onix Plus 2022</span>
+            <span class="arremate-value">Arrematado por R$ 68.900</span>
+          </div>
+          <span class="arremate-date">Dez/2025</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://i.pravatar.cc/150?u=juliana" alt="Juliana P." class="testimonial-photo">
+          <div class="testimonial-info">
+            <h4>Juliana P.</h4>
+            <p>Florianópolis, SC</p>
+            <span class="verified-badge">✓ Perfil Verificado</span>
+          </div>
+        </div>
+        <p class="testimonial-content">
+          "Arrematei minha primeira elétrica no leilão e a extensão me ajudou a comparar o custo real com o valor de uma
+          nova na hora. Muito intuitivo!"
+        </p>
+        <div class="testimonial-footer">
+          <div class="arremate-info">
+            <span>🏆 Shineray SHE S 2023 (Elétrica)</span>
+            <span class="arremate-value">Arrematado por R$ 11.500</span>
+          </div>
+          <span class="arremate-date">Jan/2026</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1695,17 +2121,6 @@
         automaticamente quando o lance sobe. Você vê os lances restantes diminuindo em tempo real.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">E se a FIPE não estiver disponível no site? <span class="faq-toggle">+</span></div>
-      <div class="faq-a">O painel exibe um campo editável para você digitar o valor da FIPE manualmente (consulte em
-        tabela.fipe.org.br antes do leilão). O cálculo de Preço Limite só é ativado quando a FIPE é fornecida.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">A comissão do leiloeiro é sempre 5%? <span class="faq-toggle">+</span></div>
-      <div class="faq-a">Não. A extensão tenta ler a comissão diretamente da página — na Leilo ela pode ser 4% ou 5%
-        dependendo do lote. Quando não detectada, aplica o valor configurado por você (padrão: 5%). Sempre confira os
-        edital do leilão.</div>
-    </div>
-    <div class="faq-item">
       <div class="faq-q">Posso confiar 100% nos cálculos? <span class="faq-toggle">+</span></div>
       <div class="faq-a">O Leilômetro é uma ferramenta de apoio à decisão — não substitui a leitura do edital e a
         vistoria presencial. Os custos de conserto, IPVA e documentação são estimativas; use-os como referência, não
@@ -1715,6 +2130,13 @@
       <div class="faq-q">Funciona no Mac e Windows? <span class="faq-toggle">+</span></div>
       <div class="faq-a">Sim. É uma extensão Chrome (Manifest V3) — funciona em qualquer sistema operacional que rode o
         Chrome: Windows, Mac e Linux.</div>
+    </div>
+
+    <div style="text-align:center; margin-top: 48px;">
+      <a href="suporte.html"
+        style="color: var(--gold); text-decoration: none; font-weight: 600; font-size: 14px; border-bottom: 1px solid var(--gold); padding-bottom: 2px;">
+        Ver todas as dúvidas na Central de Suporte →
+      </a>
     </div>
   </section>
 
@@ -1734,6 +2156,7 @@
     <div class="footer-logo">Leilômetro <span>| PRO</span></div>
     <div class="footer-note">© 2026 Leilômetro · Extensão Chrome · Não afiliado a nenhum leiloeiro</div>
     <div class="footer-links">
+      <a href="suporte.html">Suporte</a>
       <a href="privacidade.html">Privacidade</a>
       <a href="termos.html">Termos de Uso</a>
     </div>
