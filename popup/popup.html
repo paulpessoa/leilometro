@@ -7,11 +7,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       width: 340px;
@@ -21,25 +17,14 @@
       font-size: 13px;
     }
 
+    /* ── HEADER ── */
     .header {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 16px 18px;
+      padding: 14px 18px;
       background: #161b22;
       border-bottom: 1px solid #21262d;
-    }
-
-    .header-icon {
-      width: 36px;
-      height: 36px;
-      background: rgba(240, 186, 50, .12);
-      border: 1px solid rgba(240, 186, 50, .25);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
     }
 
     .header-text h1 {
@@ -55,11 +40,17 @@
       margin-top: 1px;
     }
 
-    .body {
-      padding: 16px 18px;
+    /* ── SEÇÃO LOTES SALVOS ── */
+    .lots-section {
+      padding: 14px 18px 10px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .lots-header {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
     }
 
     .section-title {
@@ -68,7 +59,100 @@
       color: #8b949e;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 4px;
+    }
+
+    .lots-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #f0ba32;
+      background: rgba(240, 186, 50, .1);
+      border: 1px solid rgba(240, 186, 50, .2);
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    .lots-empty {
+      font-size: 11px;
+      color: #6e7681;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .lots-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 180px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #21262d transparent;
+    }
+
+    .lot-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 10px;
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+
+    .lot-item:hover {
+      border-color: rgba(240, 186, 50, .3);
+      background: rgba(240, 186, 50, .04);
+    }
+
+    .lot-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .lot-modelo {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e6edf3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 230px;
+    }
+
+    .lot-meta {
+      font-size: 10px;
+      color: #6e7681;
+    }
+
+    .lot-open {
+      all: unset;
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #f0ba32;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .lot-open:hover {
+      background: rgba(240, 186, 50, .15);
+    }
+
+    /* ── CONFIGS ── */
+    .body {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .field {
@@ -132,10 +216,6 @@
       transform: translateY(-1px);
     }
 
-    .btn-save:active {
-      transform: translateY(0);
-    }
-
     .success-msg {
       display: none;
       text-align: center;
@@ -163,78 +243,84 @@
       line-height: 1.5;
     }
 
-    .tip-box strong {
-      color: #f0ba32;
-    }
+    .tip-box strong { color: #f0ba32; }
   </style>
 </head>
 
 <body>
   <div class="header">
     <div class="header-text">
-      <h1>Leilômetro</h1>
-      <p>Configurações do analisador</p>
+      <h1>Leilômetro PRO</h1>
+      <p>Painel de Análise de Oportunidade</p>
     </div>
   </div>
+
+  <!-- LOTES SALVOS -->
+  <div class="lots-section">
+    <div class="lots-header">
+      <span class="section-title">📌 Lotes Salvos</span>
+      <span class="lots-counter" id="lotes-counter"></span>
+    </div>
+    <div class="lots-empty" id="lotes-empty" style="display:none;">Nenhum lote salvo ainda.</div>
+    <div class="lots-list" id="lotes-list"></div>
+  </div>
+
+  <!-- CONFIGURAÇÕES -->
   <div class="body">
 
     <div class="section-title">📊 Referência FIPE</div>
     <div class="field">
-      <label>Valor FIPE do veículo (R$)</label>
-      <input type="number" id="fipeMock" placeholder="Ex: 45000" />
-      <span class="hint">Pode editar direto no painel. Consulte tabela.fipe.org.br</span>
+      <label>FIPE padrão (R$)</label>
+      <input type="number" id="fipeMock" placeholder="45000" />
+      <span class="hint">Usado apenas se não detectado na página.</span>
     </div>
 
     <div class="divider"></div>
-    <div class="section-title">💰 Margem &amp; Comissão</div>
+    <div class="section-title">💰 Margem &amp; Custos</div>
 
     <div class="field">
       <label>Margem de revenda desejada (%)</label>
-      <input type="number" id="margemRevenda" placeholder="20" min="0" max="50" />
+      <input type="number" id="margemRevenda" placeholder="15" min="0" max="60" />
     </div>
     <div class="field">
       <label>Comissão do leiloeiro (%)</label>
       <input type="number" id="comissaoLeiloeiro" placeholder="5" min="0" max="20" />
-      <span class="hint">O painel tenta ler da página automaticamente (ex: Leilo 4–5%)</span>
     </div>
     <div class="field">
       <label>Incremento por lance (R$)</label>
       <input type="number" id="incrementoLance" placeholder="200" />
-      <span class="hint">Usado quando não detectado automaticamente na página</span>
     </div>
 
     <div class="divider"></div>
-    <div class="section-title">🔧 Custos Estimados <span style="font-size:9px;font-weight:400;color:#6e7681">(referência
-        — não afetam o cálculo)</span></div>
+    <div class="section-title">🔧 Custos Fixos Estimados</div>
 
     <div class="field">
-      <label>Taxa de pátio estimada (R$)</label>
+      <label>Taxa de pátio padrão (R$)</label>
       <input type="number" id="taxaPatio" placeholder="350" />
     </div>
     <div class="field">
-      <label>Custo de documentação / DETRAN (R$)</label>
+      <label>Doc / DETRAN (R$)</label>
       <input type="number" id="custoDocumentacao" placeholder="800" />
     </div>
     <div class="field">
-      <label>IPVA atrasado estimado (R$)</label>
+      <label>IPVA Estimado (R$)</label>
       <input type="number" id="custoIPVA" placeholder="1200" />
     </div>
     <div class="field">
-      <label>Custo de conserto estimado (R$)</label>
+      <label>Conserto médio (R$)</label>
       <input type="number" id="custoConserto" placeholder="2500" />
-      <span class="hint">Ajuste de acordo com as avarias visíveis no lote</span>
     </div>
 
     <div class="divider"></div>
     <div class="tip-box">
-      💡 <strong>Ctrl+Shift+L</strong> — abre/fecha o painel em qualquer leilão.<br />
-      🖨️ O botão de impressão gera análise completa com anotações do lote.
+      💡 <strong>As alterações são salvas instantaneamente</strong> no painel se ele estiver aberto.
     </div>
 
     <button class="btn-save" id="btnSave">✓ Salvar Configurações</button>
-    <div class="success-msg" id="successMsg">✅ Configurações salvas com sucesso!</div>
-    <div class="version">Leilômetro v3.0.0 — Manifest V3</div>
+    <div class="success-msg" id="successMsg">✅ Configurações salvas!</div>
+    <div class="version">Leilômetro v3.3.0</div>
   </div>
+
   <script src="popup.js"></script>
 </body>
 
