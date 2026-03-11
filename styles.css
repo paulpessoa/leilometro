@@ -52,28 +52,28 @@
 
 #leilometro-panel .li-brand {
   display: flex !important;
-  align-items: center !important;
+  align-items: baseline !important;
   gap: 8px !important;
 }
 
 #leilometro-panel .li-brand-name {
   font-family: "JetBrains Mono", monospace !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
   color: #f0ba32 !important;
-  letter-spacing: 0.5px !important;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  align-items: center;
 }
 
 #leilometro-panel .li-badge {
   font-family: "JetBrains Mono", monospace !important;
-  font-size: 9px !important;
-  font-weight: 600 !important;
-  color: #f0ba32 !important;
-  background: rgba(240, 186, 50, 0.12) !important;
-  border: 1px solid rgba(240, 186, 50, 0.25) !important;
-  padding: 1px 5px !important;
-  border-radius: 3px !important;
-  letter-spacing: 1px !important;
+  margin-top: 1px;
+  color: #e8edf2 !important;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  align-items: center;
+  opacity: 0.6;
 }
 
 /* v3: badge "salvo" */
@@ -84,6 +84,7 @@
   color: #22c55e !important;
   padding: 1px 6px !important;
   border-radius: 3px !important;
+  margin-left: 4px !important;
 }
 
 #leilometro-panel .li-controls {

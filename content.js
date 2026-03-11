@@ -730,11 +730,8 @@
     panel.innerHTML = `
       <div class="li-header">
         <div class="li-brand">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          <span class="li-brand-name">Leilômetro</span>
-          <span class="li-badge">PRO</span>
+          <span class="li-brand-name">LEILÔMETRO</span>
+          <span class="li-badge">| PRO</span>
           ${saved ? '<span class="li-saved-badge">salvo</span>' : ""}
         </div>
         <div class="li-controls">

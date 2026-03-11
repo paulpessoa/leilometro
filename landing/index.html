@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Leilômetro — Nunca pague a mais num leilão de carros</title>
+  <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
@@ -535,14 +536,21 @@
     }
 
     .pm-brand {
+      font-family: 'Bebas Neue', sans-serif;
       color: var(--gold);
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
+    .pm-brand span {
+      color: var(--text);
+      opacity: 0.6;
+    }
+
 
     .pm-dots {
       display: flex;
@@ -1186,6 +1194,12 @@
       color: var(--gold);
     }
 
+    .footer-logo span {
+      color: var(--text);
+      opacity: 0.6;
+      font-weight: 700;
+    }
+
     .footer-note {
       font-size: 12px;
       color: var(--muted);
@@ -1288,7 +1302,7 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo">
-      Leilômetro <span>/ BETA</span>
+      Leilômetro <span>| PRO</span>
     </div>
     <ul class="nav-links">
       <li><a href="#como-funciona">Como Funciona</a></li>
@@ -1303,9 +1317,9 @@
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
 
-    <div class="hero-eyebrow">Leilões de Carros e Motos</div>
+    <div class="hero-eyebrow">EXTENSÃO CHROME - Leilões de Carros e Motos</div>
 
-    <h1>ARREMATAR BEM<br /><em>É CONTA FEITA.</em></h1>
+    <h1>NUNCA<br />PAGUE A<br /><em>MAIS!</em></h1>
 
     <p class="hero-sub">
       Análise de oportunidade em tempo real, direto na tela do leilão.
@@ -1410,7 +1424,7 @@
       <!-- PANEL MOCKUP -->
       <div class="panel-mockup reveal">
         <div class="pm-header">
-          <div class="pm-brand">Leilômetro <span style="opacity:.4;font-size:10px">BETA</span> <span class="pm-auto-tag"
+          <div class="pm-brand">Leilômetro <span>| PRO</span> <span class="pm-auto-tag"
               style="font-size:7px; vertical-align:middle">💾 SALVO</span></div>
           <div class="pm-dots">
             <div class="pm-dot" style="background:#ef4444"></div>
@@ -1717,7 +1731,7 @@
   </section>
 
   <footer>
-    <div class="footer-logo">Leilômetro</div>
+    <div class="footer-logo">Leilômetro <span>| PRO</span></div>
     <div class="footer-note">© 2026 Leilômetro · Extensão Chrome · Não afiliado a nenhum leiloeiro</div>
     <div class="footer-links">
       <a href="privacidade.html">Privacidade</a>
