@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Leilômetro — Análise de Oportunidade",
-  "version": "3.0.0",
+  "version": "3.0.4",
   "description": "Análise inteligente de leilões de veículos em tempo real. Calcula o preço ideal, taxas e KM/Ano direto na tela.",
   "icons": {
-    "16":  "icons/icon16.png",
-    "48":  "icons/icon48.png",
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
   "action": {
@@ -19,21 +19,35 @@
   "content_scripts": [
     {
       "matches": [
+        "*://leilo.com.br/*",
         "*://*.leilo.com.br/*",
+        "*://vipleiloes.com.br/*",
         "*://*.vipleiloes.com.br/*",
+        "*://copart.com.br/*",
         "*://*.copart.com.br/*",
+        "*://guariglialeiloes.com.br/*",
         "*://*.guariglialeiloes.com.br/*",
+        "*://freitasleiloeiro.com.br/*",
         "*://*.freitasleiloeiro.com.br/*",
+        "*://copart.com/*",
         "*://*.copart.com/*",
-        "*://*.sodresantoro.com.br/*",
-        "*://*.lance-livre.com.br/*"
+        "*://sodresantoro.com.br/*",
+        "*://*.sodresantoro.com.br/*"
       ],
-      "js":  ["content.js"],
-      "css": ["styles.css"],
-      "run_at": "document_idle"
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
-  "permissions": ["storage", "activeTab"],
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
   "host_permissions": [
     "*://*.leilo.com.br/*",
     "*://*.vipleiloes.com.br/*",
@@ -41,7 +55,6 @@
     "*://*.guariglialeiloes.com.br/*",
     "*://*.freitasleiloeiro.com.br/*",
     "*://*.copart.com/*",
-    "*://*.sodresantoro.com.br/*",
-    "*://*.lance-livre.com.br/*"
+    "*://*.sodresantoro.com.br/*"
   ]
 }
