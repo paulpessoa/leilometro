@@ -691,6 +691,77 @@
       background: rgba(240, 180, 41, 0.05);
     }
 
+    .pm-lote-id {
+      font-size: 9px;
+      color: #6e7681;
+      margin-bottom: 12px;
+      opacity: 0.7;
+    }
+
+    .pm-auto-tag {
+      font-size: 8px;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+      padding: 0 4px;
+      border-radius: 3px;
+      margin-left: 4px;
+    }
+
+    .pm-input-box {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 7px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+
+    .pm-input {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 5px;
+      padding: 4px 8px;
+      color: #e6edf3;
+      width: 100%;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .pm-textarea {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      width: 100%;
+      height: 50px;
+      padding: 8px;
+      font-size: 10px;
+      color: #8b949e;
+      margin-bottom: 10px;
+    }
+
+    .pm-footer-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .pm-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #8b949e;
+    }
+
+    .pm-btn.gold {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+    }
+
     .pm-km-badge {
       display: inline-flex;
       align-items: center;
@@ -1090,6 +1161,13 @@
       padding: 16px 40px;
     }
 
+    /* HIDE SECTIONS REQUESTED */
+    .pricing-section,
+    .mono-section,
+    .nav-links li:nth-child(2) {
+      display: none !important;
+    }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -1225,9 +1303,9 @@
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
 
-    <div class="hero-eyebrow">Extensão Chrome para Leilões de Carros</div>
+    <div class="hero-eyebrow">Leilões de Carros e Motos</div>
 
-    <h1>NUNCA<br />PAGUE A<br /><em>MAIS.</em></h1>
+    <h1>ARREMATAR BEM<br /><em>É CONTA FEITA.</em></h1>
 
     <p class="hero-sub">
       Análise de oportunidade em tempo real, direto na tela do leilão.
@@ -1245,11 +1323,11 @@
 
     <div class="hero-sites">
       <span class="hero-sites-label">FUNCIONA EM →</span>
-      <span class="site-chip">Guariglia Leilões</span>
-      <span class="site-chip">Freitas Leiloeiro</span>
-      <span class="site-chip">Leilo</span>
+      <span class="site-chip">Leilo.com.br</span>
+      <span class="site-chip">...em breve mais leilões!</span>
+      <!-- <span class="site-chip">Guariglia Leilões</span>
       <span class="site-chip">VIP Leilões</span>
-      <span class="site-chip">Copart BR</span>
+      <span class="site-chip">Copart BR</span> -->
     </div>
   </section>
 
@@ -1332,7 +1410,8 @@
       <!-- PANEL MOCKUP -->
       <div class="panel-mockup reveal">
         <div class="pm-header">
-          <div class="pm-brand">Leilômetro <span style="opacity:.4;font-size:10px">BETA</span></div>
+          <div class="pm-brand">Leilômetro <span style="opacity:.4;font-size:10px">BETA</span> <span class="pm-auto-tag"
+              style="font-size:7px; vertical-align:middle">💾 SALVO</span></div>
           <div class="pm-dots">
             <div class="pm-dot" style="background:#ef4444"></div>
             <div class="pm-dot" style="background:#f59e0b"></div>
@@ -1340,7 +1419,8 @@
           </div>
         </div>
         <div class="pm-body">
-          <div class="pm-vehicle">Honda Civic EXL 2.0 — 2019/2020</div>
+          <div class="pm-vehicle" style="margin-bottom:2px">Honda Civic EXL 2.0 — 2019/2020</div>
+          <div class="pm-lote-id">🔑 LOT-88291-BR</div>
 
           <div class="pm-score-row">
             <div class="pm-ring">
@@ -1363,11 +1443,11 @@
               <span class="pm-item-val">R$ 28.000</span>
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">+ Comissão 5%</span>
+              <span class="pm-item-label">+ Comissão 5% <span class="pm-auto-tag">auto</span></span>
               <span class="pm-item-val amber">+ R$ 1.400</span>
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">+ Taxa Pátio</span>
+              <span class="pm-item-label">+ Taxa Pátio <span class="pm-auto-tag">auto</span></span>
               <span class="pm-item-val amber">+ R$ 350</span>
             </div>
             <div class="pm-item highlight">
@@ -1378,36 +1458,67 @@
 
           <div class="pm-div"></div>
           <div class="pm-stitle">📊 Análise FIPE</div>
+
+          <div class="pm-input-box">
+            <span class="pm-item-label">FIPE Referência <span class="pm-auto-tag">detectada</span></span>
+            <input type="number" class="pm-input" value="45000" disabled>
+          </div>
+
           <div class="pm-grid">
-            <div class="pm-item">
-              <span class="pm-item-label">FIPE Referência</span>
-              <span class="pm-item-val">R$ 45.000</span>
-            </div>
             <div class="pm-item">
               <span class="pm-item-label">Preço Limite</span>
               <span class="pm-item-val gold">R$ 34.000</span>
             </div>
+            <div class="pm-item">
+              <span class="pm-item-label">Potencial Lucro</span>
+              <span class="pm-item-val green">R$ 4.250</span>
+            </div>
             <div class="pm-item full">
-              <span class="pm-item-label">Lances restantes até o limite</span>
-              <span class="pm-item-val green" style="font-size:18px">21 lances</span>
+              <span class="pm-item-label">Margem até o limite</span>
+              <span class="pm-item-val green" style="font-size:16px">21 lances <span
+                  style="font-size:10px; color:#8b949e; font-weight:normal">disp.</span></span>
             </div>
           </div>
 
           <div class="pm-div"></div>
-          <div class="pm-stitle">🚗 KM / Ano</div>
+          <div class="pm-stitle">🚗 Dados do Veículo</div>
           <div class="pm-grid">
             <div class="pm-item">
               <span class="pm-item-label">KM Total</span>
               <span class="pm-item-val">67.000 km</span>
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">Idade</span>
-              <span class="pm-item-val">5 anos</span>
+              <span class="pm-item-label">Média Anual</span>
+              <span class="pm-item-val">13.400/ano</span>
             </div>
             <div class="pm-item full">
               <span class="pm-item-label">Intensidade de Uso</span>
-              <span class="pm-km-badge">🟢 13.400 km/ano — Uso Normal</span>
+              <span class="pm-km-badge">🟢 Uso Normal</span>
             </div>
+          </div>
+
+          <div class="pm-div"></div>
+          <div class="pm-stitle">🔧 Custos Estimados</div>
+          <div class="pm-grid">
+            <div class="pm-item">
+              <span class="pm-item-label">Conserto Est.</span>
+              <span class="pm-item-val red">R$ 2.500</span>
+            </div>
+            <div class="pm-item">
+              <span class="pm-item-label">IPVA / Doc.</span>
+              <span class="pm-item-val red">R$ 1.800</span>
+            </div>
+          </div>
+
+          <div class="pm-div"></div>
+          <div class="pm-stitle">📝 Anotações</div>
+          <div class="pm-textarea">Para-choque dianteiro com pequeno ralado. Interior em ótimo estado. Sem chave
+            reserva.</div>
+
+          <div class="pm-footer-btns">
+            <button class="pm-btn gold">🖨️ Imprimir</button>
+            <button class="pm-btn">🗑️ Reset</button>
+            <button class="pm-btn">⚙️ Config</button>
           </div>
         </div>
       </div>
