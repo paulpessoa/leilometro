@@ -5,6 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leilômetro — Central de Suporte</title>
+    <meta name="description"
+        content="Dúvidas sobre o Leilômetro? Acesse nossa central de suporte e aprenda a configurar e usar a melhor extensão para análise de leilões." />
+    <meta property="og:title" content="Leilômetro — Central de Suporte" />
+    <meta property="og:description"
+        content="Tudo o que você precisa saber para dominar o Leilômetro e arrematar com inteligência." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://leilometro.com.br/suporte" />
+    <meta property="og:image" content="https://leilometro.com.br/icons/icon128.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
@@ -35,22 +43,17 @@
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursorRing"></div>
 
-    <nav>
+    <nav class="nav-legal">
         <a href="/" class="nav-logo">Leilômetro <span>| PRO</span></a>
-        <ul class="nav-links">
-            <li><a href="/#como-funciona">Como Funciona</a></li>
-            <li><a href="#faq">Dúvidas</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
+        <a href="/" class="nav-back">← Voltar ao início</a>
     </nav>
 
-    <div class="hero hero-suporte">
+    <div class="container container-legal">
+        <span class="page-tag">Ajuda</span>
         <h1>CENTRAL DE<br />SUPORTE</h1>
-        <p>Tudo o que você precisa saber para dominar o Leilômetro e arrematar com inteligência.</p>
-    </div>
+        <p class="updated">Tudo o que você precisa saber para dominar o Leilômetro e arrematar com inteligência.</p>
 
-    <main>
-        <div class="section" id="faq">
+        <div class="section" id="faq" style="padding: 0; max-width: 100%;">
             <span class="section-tag">Perguntas Frequentes</span>
 
             <details open>
@@ -124,7 +127,7 @@
             </div>
         </div>
 
-        <div class="section" id="contato">
+        <div class="section" id="contato" style="padding: 80px 0 0 0; max-width: 100%;">
             <div class="contact-box">
                 <span class="section-tag" style="border:none; margin-bottom: 12px;">Ainda com dúvidas?</span>
                 <h3 style="font-family:'Bebas Neue',sans-serif; font-size: 32px; letter-spacing: 1px;">FALE COM A GENTE
@@ -134,17 +137,24 @@
                 <a href="mailto:contato@qisites.com.br" class="btn-primary">ENVIAR E-MAIL</a>
             </div>
         </div>
-    </main>
+    </div>
 
     <footer>
-        <div class="footer-logo">Leilômetro <span>| PRO</span></div>
+        <div class="footer-logo">
+            Leilômetro <span>| PRO</span>
+            <a href="/leilometro.zip" class="btn-download" download title="Baixar Leilômetro para instalação manual">
+
+                Download (.zip)
+            </a>
+        </div>
         <div class="footer-note">© 2026 Leilômetro · Extensão Chrome · Não afiliado a nenhum leiloeiro</div>
         <div class="footer-links">
             <a href="/suporte">Suporte</a>
             <a href="/privacidade">Privacidade</a>
             <a href="/termos">Termos de Uso</a>
         </div>
+    </footer>
     <script src="./app.js"></script>
-    </body>
+</body>
 
-    </html>
+</html>
