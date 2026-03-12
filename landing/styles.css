@@ -308,10 +308,16 @@ nav.nav-legal {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: all 0.2s;
   border: none;
   cursor: pointer;
+}
+
+/* Garante que o link com classe de botão não herde a cor dourada dos textos legais */
+.container-legal a.btn-primary {
+  color: var(--dark);
 }
 
 .btn-primary:hover {
@@ -1437,6 +1443,12 @@ details[open] summary {
 
 .container-legal a:hover {
   text-decoration: underline;
+}
+
+.container-legal a.btn-primary:hover,
+.container-legal a.btn-ghost:hover,
+.container-legal a.btn-download:hover {
+  text-decoration: none;
 }
 
 .divider {
