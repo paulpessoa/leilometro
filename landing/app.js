@@ -117,7 +117,7 @@ document.querySelectorAll(".faq-q").forEach((q) => {
 
     // 3. Altera o último botão para "Começar a usar" com target _blank
     if (ctaFinal) {
-      ctaFinal.textContent = "Começar a usar no Leilo.com.br"
+      ctaFinal.textContent = "Começar a usar leilo.com.br"
       ctaFinal.href = URL_LEILO
       ctaFinal.target = "_blank"
     }

@@ -154,7 +154,7 @@ Para cada site, validar:
 - `modelo` — título do lote (h1 geralmente funciona)
 - `fipe` — FIPE exibida na página (quando disponível)
 
-### Leilo.com.br — seletores conhecidos (a confirmar)
+### leilo.com.br — seletores conhecidos (a confirmar)
 
 ```js
 lance: ('[class*="lance"] [class*="valor"]', ".current-bid");
