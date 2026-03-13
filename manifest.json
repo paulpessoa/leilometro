@@ -23,33 +23,22 @@
     {
       "matches": [
         "*://leilo.com.br/*",
-        "*://*.leilo.com.br/*",
-        "*://vipleiloes.com.br/*",
-        "*://*.vipleiloes.com.br/*",
-        "*://copart.com.br/*",
-        "*://*.copart.com.br/*",
-        "*://guariglialeiloes.com.br/*",
-        "*://*.guariglialeiloes.com.br/*",
-        "*://freitasleiloeiro.com.br/*",
-        "*://*.freitasleiloeiro.com.br/*",
-        "*://copart.com/*",
-        "*://*.copart.com/*",
-        "*://sodresantoro.com.br/*",
-        "*://*.sodresantoro.com.br/*"
+        "*://*.leilo.com.br/*"
       ],
       "js": [
+        "utils.js",
         "content.js"
       ],
       "css": [
         "styles.css"
       ],
-      "run_at": "document_start",
-      "all_frames": true
+      "run_at": "document_idle"
     }
   ],
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "externally_connectable": {
     "matches": [
@@ -59,12 +48,6 @@
     ]
   },
   "host_permissions": [
-    "*://*.leilo.com.br/*",
-    "*://*.vipleiloes.com.br/*",
-    "*://*.copart.com.br/*",
-    "*://*.guariglialeiloes.com.br/*",
-    "*://*.freitasleiloeiro.com.br/*",
-    "*://*.copart.com/*",
-    "*://*.sodresantoro.com.br/*"
+    "*://*.leilo.com.br/*"
   ]
 }
