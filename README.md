@@ -32,7 +32,7 @@
 
 Antes de usar, clique no ícone da extensão e configure:
 
-1. **Valor FIPE** do veículo que está analisando (consulte tabela.fipe.org.br)
+1. **Valor FIPE** do veículo que está analisando (consulte veiculos.fipe.org.br)
 2. **Margem de revenda** desejada (padrão: 15%)
 3. **Custos estimados** de conserto, documentação e IPVA
 
