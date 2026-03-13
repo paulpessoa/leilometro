@@ -42,9 +42,7 @@
   ],
   "externally_connectable": {
     "matches": [
-      "https://www.leilometro.com.br/*",
-      "http://localhost/*",
-      "http://127.0.0.1/*"
+      "https://www.leilometro.com.br/*"
     ]
   },
   "host_permissions": [
