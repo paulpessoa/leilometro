@@ -1,10 +1,55 @@
 /**
- * Leilômetro — Content Script v3.3.0
+ * Leilômetro — Content Script v1.0.0
  * UI: v3.0 | Scraping: window.__INITIAL_STATE__ + DOM fallback
  */
 
 ;(function () {
   "use strict"
+
+  // ─── EASTER EGG — CONSOLE ──────────────────────────────────────────────────
+  ;(function () {
+    const martelo = [
+      "                                                  ",
+      "                             .::::.               ",
+      "                          .:-------:.             ",
+      "                        .:---------:.             ",
+      "                      .:--------------:           ",
+      "                        .:--------------:.        ",
+      "                             ::------------====.  ",
+      "                            .:==----------======. ",
+      "                          .:======-----======.    ",
+      "                        .:======. .:======:       ",
+      "                       :======.    :====:.        ",
+      "                     :======:       .::.          ",
+      "                   :======:                       ",
+      "                 :======:                         ",
+      "                -=====:                           ",
+      "                :===:.                            ",
+      "                                                  "
+    ].join("\n")
+
+    const logo = [
+      " ██╗     ███████╗██╗██╗      ██████╗ ███╗   ███╗███████╗████████╗██████╗  ██████╗ ",
+      " ██║     ██╔════╝██║██║     ██╔═══██╗████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗",
+      " ██║     █████╗  ██║██║     ██║   ██║██╔████╔██║█████╗     ██║   ██████╔╝██║   ██║",
+      " ██║     ██╔══╝  ██║██║     ██║   ██║██║╚██╔╝██║██╔══╝     ██║   ██╔══██╗██║   ██║",
+      " ███████╗███████╗██║███████╗╚██████╔╝██║ ╚═╝ ██║███████╗   ██║   ██║  ██║╚██████╔╝",
+      " ╚══════╝╚══════╝╚═╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝"
+    ].join("\n")
+
+    console.log(
+      "%c" + martelo + "\n\n" + logo,
+      "color: #f0ba32; font-family: monospace; font-size: 11px; line-height: 1.4;"
+    )
+    console.log(
+      "%c  v1.0.0 — Análise de leilões de veículos em tempo real",
+      "color: #888; font-family: monospace; font-size: 11px;"
+    )
+    console.log(
+      "%c  Desenvolvido por QiSites — qisites.com.br",
+      "color: #555; font-family: monospace; font-size: 11px;"
+    )
+  })()
 
   // ─── CRUD LOCAL POR LOTE ───────────────────────────────────────────────────
   const STORAGE_PREFIX = "lm_lote_v3_"
@@ -14,13 +59,7 @@
   // ─── DETECÇÃO DE PÁGINA DE VEÍCULO ────────────────────────────────────────
   const VEHICLE_PAGE_PATTERNS = {
     "leilo.com.br":
-      /\/leilao\/.+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i,
-    "vipleiloes.com.br": /\/lotes?\/\d+/i,
-    "copart.com.br": /\/lot\/\d+/i,
-    "copart.com": /\/lot\/\d+/i,
-    "guariglialeiloes.com.br": /\/lotes?\/\d+/i,
-    "freitasleiloeiro.com.br": /\/lotes?\/\d+/i,
-    "sodresantoro.com.br": /\/lotes?\/\d+/i
+      /\/leilao\/.+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i
   }
 
   function isVehiclePage() {
@@ -131,128 +170,10 @@
     custoIPVA: 1200,
     custoConserto: 2500,
     incrementoLance: 200,
-    fipeMock: 45000
+    fipeMock: 0
   }
 
   let CONFIG = { ...CONFIG_DEFAULTS }
-
-  // ─── LOG DE DEPURAÇÃO ──────────────────────────────────────────────────────
-  function debugLog(dados, calc, loteId) {
-    console.group(
-      "%c[Leilômetro] 🔍 DADOS CAPTURADOS",
-      "color: #f0ba32; font-weight: bold; font-size: 12px;"
-    )
-    console.log("ID do Lote:", loteId)
-    console.log("URL:", window.location.href)
-    console.log("Fonte:", dados.fonte || "DOM")
-    console.table({
-      Modelo: dados.modelo,
-      "Lance Atual": dados.lance,
-      "FIPE Original": dados.fipeScraped,
-      Ano: dados.ano,
-      KM: dados.km,
-      "KM/Ano": dados.kmAno,
-      "KM/Mês": dados.kmMes,
-      "Comissão (%)": dados.comissaoPage
-        ? (dados.comissaoPage * 100).toFixed(1) + "%"
-        : "via config",
-      "Comissão Auto": dados.comissaoAuto,
-      "Depósito Bens": dados.depositoBens,
-      Remoção: dados.taxaRemocao,
-      Vistoria: dados.taxaVistoria,
-      Combustível: dados.combustivel
-    })
-    console.log(
-      "%c[Leilômetro] 🧮 CÁLCULOS",
-      "color: #22c55e; font-weight: bold;"
-    )
-    console.table({
-      "Custo Real": calc.custoReal,
-      "Preço Limite (Stop)": calc.precoLimite,
-      "Lances Possíveis": calc.lancesRestantes,
-      "Lucro Potencial": calc.potencialLucro,
-      "FIPE Utilizada": calc.fipe,
-      "Score Final": calc.score,
-      "Comissão Val": calc.comissao,
-      "Taxa Pátio Efetiva": calc.taxaPatioEfetiva
-    })
-    console.groupEnd()
-  }
-
-  // ─── DEBUG LEILO ───────────────────────────────────────────────────────────
-  function debugScrapeLeilo() {
-    if (!window.location.hostname.includes("leilo.com.br")) return
-
-    console.group(
-      "%c[Leilômetro] 🔬 SELETORES DOM — leilo.com.br",
-      "color:#38bdf8; font-weight:bold; font-size:12px;"
-    )
-    console.log("URL:", window.location.href)
-
-    function getByLabel(texto) {
-      for (const el of document.querySelectorAll(".label-categoria")) {
-        if (el.textContent.trim().toLowerCase() === texto.toLowerCase()) {
-          const p1 = el.parentElement?.parentElement?.querySelector("a p")
-          if (p1?.textContent?.trim()) return p1.textContent.trim()
-          const p2 = el.parentElement?.querySelector("p.text-categoria")
-          if (p2?.textContent?.trim()) return p2.textContent.trim()
-        }
-      }
-      return null
-    }
-
-    function getBySpanPrefix(prefixo) {
-      for (const s of document.querySelectorAll("span")) {
-        if (s.textContent.trim().startsWith(prefixo)) {
-          const valor = s
-            .closest('[class*="col-xs-5"], [class*="col-md-3"]')
-            ?.nextElementSibling?.querySelector("span")
-          return {
-            label: s.textContent.trim(),
-            valor: valor?.textContent?.trim() || null
-          }
-        }
-      }
-      return { label: null, valor: null }
-    }
-
-    const comissaoSpan = getBySpanPrefix("Comissão")
-
-    console.table({
-      "Lance (h3.valor-lote span)":
-        document.querySelector("h3.valor-lote span")?.textContent?.trim() ??
-        "❌ não encontrado",
-      "Modelo (h1.nome-veiculo)":
-        document.querySelector("h1.nome-veiculo")?.textContent?.trim() ??
-        "❌ não encontrado",
-      "Ano (label-categoria)": getByLabel("Ano") ?? "❌ não encontrado",
-      "KM (label-categoria)": getByLabel("Km") ?? "❌ não encontrado",
-      "Valor Mercado (label-categoria)":
-        getByLabel("Valor Mercado") ?? "❌ não encontrado",
-      "Combustível (label-categoria)":
-        getByLabel("Combustivel") ?? "❌ não encontrado",
-      "Comissão label (span)": comissaoSpan.label ?? "❌ não encontrado",
-      "Comissão valor (próximo irmão)":
-        comissaoSpan.valor ?? "❌ não encontrado",
-      "Depósito de Bens":
-        getBySpanPrefix("Depósito de Bens").valor ?? "❌ não encontrado",
-      Remoção: getBySpanPrefix("Remoção").valor ?? "❌ não encontrado",
-      Vistoria: getBySpanPrefix("Vistoria").valor ?? "❌ não encontrado"
-    })
-
-    console.log(
-      "window.__INITIAL_STATE__ presente:",
-      !!Array.from(document.querySelectorAll("script")).find((x) =>
-        x.textContent.includes("window.__INITIAL_STATE__")
-      )
-    )
-    console.log(
-      "window.__Q_META__ presente:",
-      typeof window.__Q_META__ !== "undefined"
-    )
-
-    console.groupEnd()
-  }
 
   // ─── SELETORES POR SITE ────────────────────────────────────────────────────
   const SITE_SELECTORS = {
@@ -652,39 +573,6 @@
     return Math.max(0, Math.min(100, score))
   }
 
-  function classifyKmAno(kmAno) {
-    if (!kmAno) return { label: "— Não calculado", color: "#888", emoji: "❓" }
-    if (kmAno < 10000)
-      return {
-        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Particular`,
-        color: "#22c55e",
-        emoji: "🟢"
-      }
-    if (kmAno < 15000)
-      return {
-        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Normal`,
-        color: "#86efac",
-        emoji: "🟢"
-      }
-    if (kmAno < 25000)
-      return {
-        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Possível Frota`,
-        color: "#f59e0b",
-        emoji: "🟡"
-      }
-    if (kmAno < 35000)
-      return {
-        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Intenso`,
-        color: "#f97316",
-        emoji: "🟠"
-      }
-    return {
-      label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Extremo/App`,
-      color: "#ef4444",
-      emoji: "🔴"
-    }
-  }
-
   function getScoreLabel(score) {
     if (score === null) return { label: "—", color: "#888" }
     if (score >= 80) return { label: "EXCELENTE", color: "#22c55e" }
@@ -724,7 +612,7 @@
 
     const panel = document.createElement("div")
     panel.id = "leilometro-panel"
-    panel.setAttribute("data-version", "3.3")
+    panel.setAttribute("data-version", "1.0.0")
     panel.setAttribute("data-lote-id", loteId)
 
     panel.innerHTML = `
@@ -822,7 +710,7 @@
               placeholder="${BRL(calc.fipe)}" value="${fipePanel ?? (calc.fipe || "")}"/>
             ${calc.fipe ? `<span class="li-fipe-preview ${dados.fipeScraped ? "li-auto-found" : ""}">${BRL(calc.fipe)}</span>` : ""}
           </div>
-          <span class="li-hint">tabela.fipe.org.br</span>
+          <span class="li-hint">veiculos.fipe.org.br</span>
         </div>
         <div class="li-margem-edit-box">
           <span class="li-item-label">Margem de Revenda <span class="li-hint-inline">— editável</span></span>
@@ -870,11 +758,23 @@
         <div class="li-grid">
           <div class="li-item">
             <span class="li-item-label">Ano do Veículo</span>
-            <span class="li-item-value">${dados.ano ?? "—"}</span>
+          ${
+            dados.ano
+              ? `<span class="li-item-value">${dados.ano}</span>`
+              : `<input id="lm-ano-input" class="li-fipe-input" type="number"
+                min="1990" max="2026" placeholder="Ex: 2020"
+                value="${loteData?.ano ?? ""}"/>`
+          }
           </div>
           <div class="li-item">
             <span class="li-item-label">KM Total ${dados.milesMode ? "(milhas→km)" : ""}</span>
-            <span class="li-item-value">${dados.km ? `${NUM(dados.km)} km` : "—"}</span>
+            ${
+              dados.km
+                ? `<span class="li-item-value">${NUM(dados.km)} km</span>`
+                : `<input id="lm-km-input" class="li-fipe-input" type="number"
+                placeholder="Ex: 74000"
+                value="${loteData?.km ?? ""}"/>`
+            }
           </div>
           <div class="li-item">
             <span class="li-item-label">Média Anual</span>
@@ -952,6 +852,10 @@
     const loteId = getLoteId()
     const loteData = loadLote(loteId)
     const dados = scrapePageData()
+
+    if (!dados.ano && loteData?.ano) dados.ano = parseInt(loteData.ano)
+    if (!dados.km && loteData?.km) dados.km = parseInt(loteData.km)
+
     const fipe = loteData?.fipe ?? dados.fipeScraped ?? CONFIG.fipeMock ?? null
     const marg = loteData?.marg ?? CONFIG.margemRevenda
     const incremento = loteData?.incremento ?? null
@@ -960,9 +864,6 @@
 
     document.body.appendChild(panel)
     attachEventListeners(panel, dados, calc, loteId)
-
-    debugLog(dados, calc, loteId)
-    debugScrapeLeilo()
   }
 
   // ─── EVENTOS ───────────────────────────────────────────────────────────────
@@ -973,7 +874,7 @@
     const body = panel.querySelector(".li-body")
 
     btnClose?.addEventListener("click", () => panel.remove())
-    btnRefresh?.addEventListener("click", () => renderPanel())
+    btnRefresh?.addEventListener("click", () => window.location.reload())
 
     let minimized = false
     btnMinimize?.addEventListener("click", () => {
@@ -1005,7 +906,9 @@
         marg: isNaN(margVal) ? CONFIG.margemRevenda : margVal / 100,
         incremento: isNaN(incrementoVal) ? null : incrementoVal,
         notas: notasVal,
-        modelo: dados.modelo
+        modelo: dados.modelo,
+        ano: panel.querySelector("#lm-ano-input")?.value || dados.ano || null,
+        km: panel.querySelector("#lm-km-input")?.value || dados.km || null
       })
 
       const st = panel.querySelector("#lm-save-status")
@@ -1027,7 +930,27 @@
         }
       }
     }
+    panel.querySelector("#lm-ano-input")?.addEventListener("change", () => {
+      const v = parseInt(panel.querySelector("#lm-ano-input").value)
+      if (v) {
+        dados.ano = v
+        dados.idadeVeiculo = Math.max(1, new Date().getFullYear() - v)
+      }
+      doSave()
+      renderPanel()
+    })
 
+    panel.querySelector("#lm-km-input")?.addEventListener("change", () => {
+      const v = parseInt(panel.querySelector("#lm-km-input").value)
+      if (v) {
+        dados.km = v
+        dados.kmAno = dados.idadeVeiculo
+          ? Math.round(v / dados.idadeVeiculo)
+          : null
+      }
+      doSave()
+      renderPanel()
+    })
     panel.querySelector("#lm-fipe-input")?.addEventListener("change", () => {
       doSave()
       renderPanel()
@@ -1138,7 +1061,7 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
   <tr><td>IPVA atrasado</td><td class="red">${BRL(CONFIG.custoIPVA)}</td></tr>
 </table></div>
 <div class="aviso">⚠️ Análise de apoio à decisão. Leia o edital completo e faça vistoria antes de arrematar.</div>
-<div class="footer"><span>Leilômetro v3.3 — ${window.location.href.slice(0, 60)}</span><span>${now}</span></div>
+<div class="footer"><span>Leilômetro v1.0.0 — ${window.location.href.slice(0, 60)}</span><span>${now}</span></div>
 <script>window.onload=()=>window.print();<\/script></body></html>`)
     win.document.close()
   }
@@ -1228,6 +1151,4 @@ ${notas ? `<div class="sec"><div class="stitle">Anotações do Avaliador</div><d
   } else {
     init()
   }
-
-  if (typeof window !== "undefined") window.classifyKmAno = classifyKmAno
 })()
