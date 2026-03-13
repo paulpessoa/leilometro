@@ -45,10 +45,6 @@
       "%c  v1.0.0 — Análise de leilões de veículos em tempo real",
       "color: #888; font-family: monospace; font-size: 11px;"
     )
-    console.log(
-      "%c  Desenvolvido por QiSites — qisites.com.br",
-      "color: #555; font-family: monospace; font-size: 11px;"
-    )
   })()
 
   // ─── CRUD LOCAL POR LOTE ───────────────────────────────────────────────────
@@ -59,7 +55,7 @@
   // ─── DETECÇÃO DE PÁGINA DE VEÍCULO ────────────────────────────────────────
   const VEHICLE_PAGE_PATTERNS = {
     "leilo.com.br":
-      /\/leilao\/.+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i
+      /\/leilao\/.+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i
   }
 
   function isVehiclePage() {
@@ -170,7 +166,7 @@
     custoIPVA: 1200,
     custoConserto: 2500,
     incrementoLance: 200,
-    fipeMock: 0
+    fipeMock: 45000
   }
 
   let CONFIG = { ...CONFIG_DEFAULTS }
@@ -193,7 +189,8 @@
         comissao: 'span[class*="comissao"], span',
         deposito: "span",
         remocao: "span",
-        vistoria: "span"
+        vistoria: "span",
+        despachante: "span"
       }
     },
     "vipleiloes.com.br": {
@@ -372,6 +369,7 @@
           const depositoBens = l.valor?.depositoDeBens || null
           const taxaRemocao = l.valor?.remocao || null
           const taxaVistoria = l.valor?.vistoria || null
+          const taxaDespachante = l.valor?.despachante || null
           const anoRaw = l.veiculo?.anoFabricacao || l.veiculo?.anoModelo
           const ano = anoRaw
             ? parseInt(String(anoRaw).match(/\d{4}/)?.[0])
@@ -398,6 +396,7 @@
             depositoBens,
             taxaRemocao,
             taxaVistoria,
+            taxaDespachante,
             milesMode: false,
             fonte: "__INITIAL_STATE__"
           }
@@ -436,6 +435,9 @@
       : null
     const taxaVistoria = selectors.custos?.vistoria
       ? extractNumber(trySelectors([selectors.custos.vistoria]))
+      : null
+    const taxaDespachante = selectors.custos?.despachante
+      ? extractNumber(trySelectors([selectors.custos.despachante]))
       : null
 
     if (!km) {
@@ -490,6 +492,7 @@
       depositoBens,
       taxaRemocao,
       taxaVistoria,
+      taxaDespachante,
       milesMode,
       fonte: "DOM"
     }
@@ -500,12 +503,18 @@
     dados,
     fipeOverride,
     margemOverride,
-    incrementoOverride
+    incrementoOverride,
+    custosOverride = {}
   ) {
     const { lance, fipeScraped } = dados
     const fipe = fipeOverride ?? fipeScraped ?? CONFIG.fipeMock
     const margem = margemOverride ?? CONFIG.margemRevenda
     const incremento = incrementoOverride ?? CONFIG.incrementoLance
+
+    const custoConserto = custosOverride.custoConserto ?? CONFIG.custoConserto
+    const custoDocumentacao =
+      custosOverride.custoDocumentacao ?? CONFIG.custoDocumentacao
+    const custoIPVA = custosOverride.custoIPVA ?? CONFIG.custoIPVA
 
     const comissaoPct =
       dados.comissaoAuto && dados.comissaoPage
@@ -517,17 +526,15 @@
     const extrasDetectados =
       (dados.depositoBens || 0) +
       (dados.taxaRemocao || 0) +
-      (dados.taxaVistoria || 0)
+      (dados.taxaVistoria || 0) +
+      (dados.taxaDespachante || 0)
     const taxaPatioEfetiva =
       extrasDetectados > 0 ? extrasDetectados : CONFIG.taxaPatio
 
     const custoReal = lance ? lance + comissao + taxaPatioEfetiva : 0
 
     const custosFixos =
-      CONFIG.custoDocumentacao +
-      CONFIG.custoIPVA +
-      CONFIG.custoConserto +
-      CONFIG.taxaPatio
+      custoDocumentacao + custoIPVA + custoConserto + CONFIG.taxaPatio
     const margemReais = fipe * margem
     const precoLimite = fipe - margemReais - custosFixos
 
@@ -535,11 +542,7 @@
     const lancesRestantes = Math.max(0, Math.floor(diferenca / incremento))
 
     const potencialLucro = lance
-      ? fipe -
-        custoReal -
-        CONFIG.custoConserto -
-        CONFIG.custoDocumentacao -
-        CONFIG.custoIPVA
+      ? fipe - custoReal - custoConserto - custoDocumentacao - custoIPVA
       : null
 
     const score = calcularScore(lance, precoLimite, dados.kmAno)
@@ -571,6 +574,39 @@
       else if (kmAno > 20000) score -= 10
     }
     return Math.max(0, Math.min(100, score))
+  }
+
+  function classifyKmAno(kmAno) {
+    if (!kmAno) return { label: "— Não calculado", color: "#888", emoji: "❓" }
+    if (kmAno < 10000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Particular`,
+        color: "#22c55e",
+        emoji: "🟢"
+      }
+    if (kmAno < 15000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Normal`,
+        color: "#86efac",
+        emoji: "🟢"
+      }
+    if (kmAno < 25000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Possível Frota`,
+        color: "#f59e0b",
+        emoji: "🟡"
+      }
+    if (kmAno < 35000)
+      return {
+        label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Intenso`,
+        color: "#f97316",
+        emoji: "🟠"
+      }
+    return {
+      label: `${kmAno.toLocaleString("pt-BR")} km/ano — Uso Extremo/App`,
+      color: "#ef4444",
+      emoji: "🔴"
+    }
   }
 
   function getScoreLabel(score) {
@@ -647,7 +683,11 @@
         <div class="li-divider"></div>
 
         <!-- VALORES -->
-        <div class="li-section-title">💰 VALORES</div>
+        <div class="li-section-header" data-section="valores">
+          <div class="li-section-title">💰 VALORES</div>
+          <span class="li-collapse-icon">▼</span>
+        </div>
+        <div class="li-section-content" data-section-content="valores">
         <div class="li-grid">
           <div class="li-item">
             <span class="li-item-label">Lance Atual</span>
@@ -685,6 +725,15 @@
               : ""
           }
           ${
+            dados.taxaDespachante
+              ? `
+          <div class="li-item">
+            <span class="li-item-label">Despachante <span class="li-auto-tag">auto</span></span>
+            <span class="li-item-value li-warn">+ ${BRL(dados.taxaDespachante)}</span>
+          </div>`
+              : ""
+          }
+          ${
             !dados.depositoBens && CONFIG.taxaPatio
               ? `
           <div class="li-item">
@@ -698,11 +747,16 @@
             <span class="li-item-value">${BRL(calc.custoReal)}</span>
           </div>
         </div>
+        </div>
 
         <div class="li-divider"></div>
 
         <!-- ANÁLISE FIPE -->
-        <div class="li-section-title">📊 ANÁLISE FIPE</div>
+        <div class="li-section-header" data-section="fipe">
+          <div class="li-section-title">📊 ANÁLISE FIPE</div>
+          <span class="li-collapse-icon">▼</span>
+        </div>
+        <div class="li-section-content" data-section-content="fipe">
         <div class="li-fipe-edit-box">
           <span class="li-item-label">FIPE Referência ${dados.fipeScraped ? '<span class="li-auto-tag">detectada</span>' : '<span class="li-hint-inline">— editável</span>'}</span>
           <div class="li-fipe-row">
@@ -750,11 +804,16 @@
             </div>
           </div>
         </div>
+        </div>
 
         <div class="li-divider"></div>
 
         <!-- DADOS DO VEÍCULO -->
-        <div class="li-section-title">🚗 DADOS DO VEÍCULO</div>
+        <div class="li-section-header" data-section="veiculo">
+          <div class="li-section-title">🚗 DADOS DO VEÍCULO</div>
+          <span class="li-collapse-icon">▼</span>
+        </div>
+        <div class="li-section-content" data-section-content="veiculo">
         <div class="li-grid">
           <div class="li-item">
             <span class="li-item-label">Ano do Veículo</span>
@@ -795,24 +854,37 @@
         <div class="li-km-explanation">
           💡 <strong>Como calculamos?</strong> Dividimos a KM total pela idade do veículo (${dados.idadeVeiculo || 1} anos). A média mensal é a anual dividida por 12. Isso ajuda a identificar se o carro era de frota, aplicativo ou uso particular.
         </div>
+        </div>
 
         <div class="li-divider"></div>
 
         <!-- CUSTOS ESTIMADOS -->
-        <div class="li-section-title">🔧 CUSTOS ESTIMADOS</div>
+        <div class="li-section-header" data-section="custos">
+          <div class="li-section-title">🔧 CUSTOS ESTIMADOS</div>
+          <span class="li-collapse-icon">▼</span>
+        </div>
+        <div class="li-section-content" data-section-content="custos">
         <div class="li-grid">
           <div class="li-item">
             <span class="li-item-label">Conserto</span>
-            <span class="li-item-value li-cost">${BRL(CONFIG.custoConserto)}</span>
+            <input id="lm-custo-conserto" class="li-fipe-input li-input-sm" type="number"
+              min="0" step="100" placeholder="${CONFIG.custoConserto}" 
+              value="${loteData?.custoConserto ?? CONFIG.custoConserto}"/>
           </div>
           <div class="li-item">
             <span class="li-item-label">Documentação</span>
-            <span class="li-item-value li-cost">${BRL(CONFIG.custoDocumentacao)}</span>
+            <input id="lm-custo-doc" class="li-fipe-input li-input-sm" type="number"
+              min="0" step="50" placeholder="${CONFIG.custoDocumentacao}" 
+              value="${loteData?.custoDocumentacao ?? CONFIG.custoDocumentacao}"/>
           </div>
           <div class="li-item">
             <span class="li-item-label">IPVA</span>
-            <span class="li-item-value li-cost">${BRL(CONFIG.custoIPVA)}</span>
+            <input id="lm-custo-ipva" class="li-fipe-input li-input-sm" type="number"
+              min="0" step="100" placeholder="${CONFIG.custoIPVA}" 
+              value="${loteData?.custoIPVA ?? CONFIG.custoIPVA}"/>
           </div>
+        </div>
+        <span class="li-hint">Ajuste os custos estimados conforme a condição real do veículo.</span>
         </div>
 
         <div class="li-divider"></div>
@@ -859,7 +931,18 @@
     const fipe = loteData?.fipe ?? dados.fipeScraped ?? CONFIG.fipeMock ?? null
     const marg = loteData?.marg ?? CONFIG.margemRevenda
     const incremento = loteData?.incremento ?? null
-    const calc = calcularOportunidade(dados, fipe, marg, incremento)
+    const custosOverride = {
+      custoConserto: loteData?.custoConserto,
+      custoDocumentacao: loteData?.custoDocumentacao,
+      custoIPVA: loteData?.custoIPVA
+    }
+    const calc = calcularOportunidade(
+      dados,
+      fipe,
+      marg,
+      incremento,
+      custosOverride
+    )
     const panel = createPanel(dados, calc, loteId, loteData)
 
     document.body.appendChild(panel)
@@ -885,6 +968,45 @@
 
     makeDraggable(panel)
 
+    // ─── COLLAPSE/EXPAND SEÇÕES ───────────────────────────────────────────────
+    const COLLAPSE_STORAGE_KEY = "lm_collapsed_sections"
+
+    // Carregar estado salvo
+    let collapsedSections = {}
+    try {
+      const saved = localStorage.getItem(COLLAPSE_STORAGE_KEY)
+      if (saved) collapsedSections = JSON.parse(saved)
+    } catch {}
+
+    // Aplicar estado inicial
+    const sectionHeaders = panel.querySelectorAll(".li-section-header")
+    sectionHeaders.forEach((header) => {
+      const sectionName = header.getAttribute("data-section")
+      const content = panel.querySelector(
+        `[data-section-content="${sectionName}"]`
+      )
+      const icon = header.querySelector(".li-collapse-icon")
+
+      if (collapsedSections[sectionName]) {
+        content?.classList.add("collapsed")
+        icon?.classList.add("collapsed")
+      }
+
+      header.addEventListener("click", () => {
+        const isCollapsed = content?.classList.toggle("collapsed")
+        icon?.classList.toggle("collapsed")
+
+        // Salvar estado
+        collapsedSections[sectionName] = isCollapsed
+        try {
+          localStorage.setItem(
+            COLLAPSE_STORAGE_KEY,
+            JSON.stringify(collapsedSections)
+          )
+        } catch {}
+      })
+    })
+
     panel
       .querySelectorAll(".li-btn-settings:not(.li-btn-print-footer)")
       .forEach((btn) => {
@@ -900,6 +1022,15 @@
         panel.querySelector("#lm-incremento-input")?.value
       )
       const notasVal = panel.querySelector("#lm-notas")?.value || ""
+      const custoConsertoVal = parseFloat(
+        panel.querySelector("#lm-custo-conserto")?.value
+      )
+      const custoDocVal = parseFloat(
+        panel.querySelector("#lm-custo-doc")?.value
+      )
+      const custoIpvaVal = parseFloat(
+        panel.querySelector("#lm-custo-ipva")?.value
+      )
 
       saveLote(loteId, {
         fipe: isNaN(fipeVal) ? null : fipeVal,
@@ -908,7 +1039,14 @@
         notas: notasVal,
         modelo: dados.modelo,
         ano: panel.querySelector("#lm-ano-input")?.value || dados.ano || null,
-        km: panel.querySelector("#lm-km-input")?.value || dados.km || null
+        km: panel.querySelector("#lm-km-input")?.value || dados.km || null,
+        custoConserto: isNaN(custoConsertoVal)
+          ? CONFIG.custoConserto
+          : custoConsertoVal,
+        custoDocumentacao: isNaN(custoDocVal)
+          ? CONFIG.custoDocumentacao
+          : custoDocVal,
+        custoIPVA: isNaN(custoIpvaVal) ? CONFIG.custoIPVA : custoIpvaVal
       })
 
       const st = panel.querySelector("#lm-save-status")
@@ -965,6 +1103,22 @@
         doSave()
         renderPanel()
       })
+
+    // Event listeners para custos estimados
+    panel
+      .querySelector("#lm-custo-conserto")
+      ?.addEventListener("change", () => {
+        doSave()
+        renderPanel()
+      })
+    panel.querySelector("#lm-custo-doc")?.addEventListener("change", () => {
+      doSave()
+      renderPanel()
+    })
+    panel.querySelector("#lm-custo-ipva")?.addEventListener("change", () => {
+      doSave()
+      renderPanel()
+    })
 
     let notasTimer
     panel.querySelector("#lm-notas")?.addEventListener("input", () => {
@@ -1042,6 +1196,7 @@ table{width:100%;border-collapse:collapse;}td{padding:7px 0;border-bottom:1px so
   ${dados.depositoBens ? `<tr><td>Depósito de Bens</td><td class="amber">+ ${BRL(dados.depositoBens)}</td></tr>` : ""}
   ${dados.taxaRemocao ? `<tr><td>Taxa de Remoção</td><td class="amber">+ ${BRL(dados.taxaRemocao)}</td></tr>` : ""}
   ${dados.taxaVistoria ? `<tr><td>Vistoria</td><td class="amber">+ ${BRL(dados.taxaVistoria)}</td></tr>` : ""}
+  ${dados.taxaDespachante ? `<tr><td>Despachante</td><td class="amber">+ ${BRL(dados.taxaDespachante)}</td></tr>` : ""}
   ${!dados.depositoBens && CONFIG.taxaPatio ? `<tr><td>Taxa de Pátio est.</td><td class="amber">+ ${BRL(CONFIG.taxaPatio)}</td></tr>` : ""}
   <tr class="hl"><td><strong>Custo Real</strong></td><td class="gold"><strong>${BRL(calc.custoReal)}</strong></td></tr>
 </table></div>

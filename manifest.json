@@ -26,7 +26,6 @@
         "*://*.leilo.com.br/*"
       ],
       "js": [
-        "utils.js",
         "content.js"
       ],
       "css": [

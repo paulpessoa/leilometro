@@ -584,3 +584,50 @@
 #leilometro-panel .li-save-btn:hover {
   background: #f5c842 !important;
 }
+
+/* ─── SEÇÕES COLAPSÁVEIS ─────────────────────────────────────────────────── */
+
+#leilometro-panel .li-section-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  padding: 4px 0 !important;
+  margin-bottom: 10px !important;
+  transition: opacity 0.15s !important;
+}
+
+#leilometro-panel .li-section-header:hover {
+  opacity: 0.8 !important;
+}
+
+#leilometro-panel .li-section-header .li-section-title {
+  margin-bottom: 0 !important;
+}
+
+#leilometro-panel .li-collapse-icon {
+  font-size: 12px !important;
+  color: #8b949e !important;
+  transition: transform 0.2s ease !important;
+  line-height: 1 !important;
+}
+
+#leilometro-panel .li-collapse-icon.collapsed {
+  transform: rotate(-90deg) !important;
+}
+
+#leilometro-panel .li-section-content {
+  max-height: 2000px !important;
+  overflow: hidden !important;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease !important;
+  opacity: 1 !important;
+}
+
+#leilometro-panel .li-section-content.collapsed {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  margin-bottom: 0 !important;
+}
