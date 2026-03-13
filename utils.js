@@ -3,7 +3,7 @@
  * @param {number} kmAno - Média de quilômetros rodados por ano.
  * @returns {object} Objeto contendo label, cor e emoji da classificação.
  */
-export function classifyKmAno(kmAno) {
+function classifyKmAno(kmAno) {
   if (!kmAno) return { label: "— Não calculado", color: "#888", emoji: "❓" }
   
   if (kmAno < 10000) {
