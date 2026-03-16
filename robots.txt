@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leilometro.com.br/sitemap.xml

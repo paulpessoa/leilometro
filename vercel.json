@@ -1,9 +1,4 @@
 {
   "cleanUrls": true,
-  "redirects": [
-    { "source": "/suporte", "destination": "/suporte.html" },
-    { "source": "/privacidade", "destination": "/privacidade.html" },
-    { "source": "/termos", "destination": "/termos.html" }
-  ]
+  "trailingSlash": false
 }
-
