@@ -17,6 +17,7 @@
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script type="text/javascript">
     (function (c, l, a, r, i, t, y) {
       c[a] =
@@ -39,15 +40,17 @@
 
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-  <nav class="nav-legal">
-    <a href="/" class="nav-logo">Leilômetro <span>| PRO</span></a>
-    <a href="/" class="nav-back">← Voltar ao início</a>
-  </nav>
+  <header>
+    <nav class="nav-legal">
+      <a href="/" class="nav-logo" aria-label="Leilômetro Home">Leilômetro <span>| PRO</span></a>
+      <a href="/" class="nav-back" aria-label="Voltar para a página inicial">← Voltar ao início</a>
+    </nav>
+  </header>
 
-  <div class="container container-legal">
+  <main class="container container-legal">
     <span class="page-tag">Legal</span>
     <h1>POLÍTICA DE<br />PRIVACIDADE</h1>
     <p class="updated">Última atualização: março de 2026</p>
@@ -58,101 +61,123 @@
       Todas as informações geradas pelo uso da extensão ficam exclusivamente no seu navegador.
     </div>
 
-    <h2>1. Quem somos</h2>
-    <p>
-      O Leilômetro é uma extensão para o navegador Google Chrome desenvolvida para auxiliar
-      compradores em leilões de veículos brasileiros. Esta Política de Privacidade descreve como
-      tratamos (ou melhor: como <em>não</em> tratamos) seus dados.
-    </p>
+    <section>
+      <h2>1. Quem somos</h2>
+      <p>
+        O Leilômetro é uma extensão para o navegador Google Chrome desenvolvida para auxiliar
+        compradores em leilões de veículos brasileiros. Esta Política de Privacidade descreve como
+        tratamos (ou melhor: como <em>não</em> tratamos) seus dados.
+      </p>
+    </section>
 
-    <h2>2. Dados que a extensão NÃO coleta</h2>
-    <p>O Leilômetro não coleta, não acessa e não transmite:</p>
-    <ul>
-      <li>Nome, e-mail, CPF ou qualquer dado de identificação pessoal</li>
-      <li>Credenciais de login nos sites de leilão</li>
-      <li>Histórico de navegação ou URLs visitadas além do necessário para funcionar</li>
-      <li>Informações financeiras ou bancárias</li>
-      <li>Dados de localização</li>
-      <li>Qualquer informação para servidores externos</li>
-    </ul>
+    <section>
+      <h2>2. Dados que a extensão NÃO coleta</h2>
+      <p>O Leilômetro não coleta, não acessa e não transmite:</p>
+      <ul>
+        <li>Nome, e-mail, CPF ou qualquer dado de identificação pessoal</li>
+        <li>Credenciais de login nos sites de leilão</li>
+        <li>Histórico de navegação ou URLs visitadas além do necessário para funcionar</li>
+        <li>Informações financeiras ou bancárias</li>
+        <li>Dados de localização</li>
+        <li>Qualquer informação para servidores externos</li>
+      </ul>
+    </section>
 
-    <h2>3. O que a extensão lê da página</h2>
-    <p>
-      Para funcionar, a extensão lê o <strong>conteúdo público visível na tela</strong> dos sites
-      de leilão suportados — especificamente os valores de lance, ano do veículo, quilometragem,
-      modelo e taxas do leiloeiro. Esses dados são processados localmente no seu navegador e
-      exibidos no painel de análise. Eles <strong>nunca saem do seu computador</strong>.
-    </p>
+    <section>
+      <h2>3. O que a extensão lê da página</h2>
+      <p>
+        Para funcionar, a extensão lê o <strong>conteúdo público visível na tela</strong> dos sites
+        de leilão suportados — especificamente os valores de lance, ano do veículo, quilometragem,
+        modelo e taxas do leiloeiro. Esses dados são processados localmente no seu navegador e
+        exibidos no painel de análise. Eles <strong>nunca saem do seu computador</strong>.
+      </p>
+    </section>
 
-    <h2>4. Armazenamento local</h2>
-    <p>
-      As configurações que você define (margem de revenda, custos estimados, valor FIPE) são
-      salvas localmente através da API <code>chrome.storage.sync</code> do Chrome. Se você
-      estiver logado na conta Google no Chrome, o Chrome pode sincronizar essas preferências
-      entre seus dispositivos — esse processo é feito pela Google, fora do controle do Leilômetro,
-      e está sujeito à
-      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidade da
-        Google</a>.
-    </p>
-    <p>
-      O histórico de lotes analisados (quando disponível) é armazenado via <code>localStorage</code>
-      do navegador, exclusivamente no seu dispositivo.
-    </p>
+    <section>
+      <h2>4. Armazenamento local</h2>
+      <p>
+        As configurações que você define (margem de revenda, custos estimados, valor FIPE) são
+        salvas localmente através da API <code>chrome.storage.sync</code> do Chrome. Se você
+        estiver logado na conta Google no Chrome, o Chrome pode sincronizar essas preferências
+        entre seus dispositivos — esse processo é feito pela Google, fora do controle do Leilômetro,
+        e está sujeito à
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" aria-label="Política de Privacidade da Google (abre em nova aba)">Política de Privacidade da
+          Google</a>.
+      </p>
+      <p>
+        O histórico de lotes analisados (quando disponível) é armazenado via <code>localStorage</code>
+        do navegador, exclusivamente no seu dispositivo.
+      </p>
+    </section>
 
-    <h2>5. Permissões declaradas no manifest</h2>
-    <p>A extensão solicita as seguintes permissões, todas com finalidade exclusiva de funcionamento:</p>
-    <ul>
-      <li><strong>storage</strong> — para salvar suas configurações localmente</li>
-      <li><strong>activeTab</strong> — para ler o conteúdo da aba atual nos sites de leilão</li>
-      <li><strong>host_permissions</strong> para os domínios dos leiloeiros — para injetar o painel de análise nesses
-        sites</li>
-    </ul>
-    <p class="muted">Nenhuma outra permissão é solicitada ou utilizada.</p>
+    <section>
+      <h2>5. Permissões declaradas no manifest</h2>
+      <p>A extensão solicita as seguintes permissões, todas com finalidade exclusiva de funcionamento:</p>
+      <ul>
+        <li><strong>storage</strong> — para salvar suas configurações localmente</li>
+        <li><strong>activeTab</strong> — para ler o conteúdo da aba atual nos sites de leilão</li>
+        <li><strong>host_permissions</strong> para os domínios dos leiloeiros — para injetar o painel de análise nesses
+          sites</li>
+      </ul>
+      <p class="muted">Nenhuma outra permissão é solicitada ou utilizada.</p>
+    </section>
 
-    <h2>6. Sem rastreamento, sem analytics</h2>
-    <p>
-      O Leilômetro não utiliza Google Analytics, Facebook Pixel, Hotjar, Sentry, ou qualquer
-      ferramenta de rastreamento ou monitoramento de uso. Não sabemos quantas vezes você usou
-      a extensão, em quais lotes, nem quanto você pagou.
-    </p>
+    <section>
+      <h2>6. Sem rastreamento, sem analytics</h2>
+      <p>
+        O Leilômetro não utiliza Google Analytics, Facebook Pixel, Hotjar, Sentry, ou qualquer
+        ferramenta de rastreamento ou monitoramento de uso. Não sabemos quantas vezes você usou
+        a extensão, em quais lotes, nem quanto você pagou.
+      </p>
+    </section>
 
-    <h2>7. Compartilhamento de dados</h2>
-    <p>
-      Não há dados coletados e, portanto, não há dados a compartilhar com terceiros.
-      Nunca vendemos, alugamos ou fornecemos informações de usuários a anunciantes ou parceiros.
-    </p>
+    <section>
+      <h2>7. Compartilhamento de dados</h2>
+      <p>
+        Não há dados coletados e, portanto, não há dados a compartilhar com terceiros.
+        Nunca vendemos, alugamos ou fornecemos informações de usuários a anunciantes ou parceiros.
+      </p>
+    </section>
 
-    <h2>8. Segurança</h2>
-    <p>
-      Como todos os dados ficam no seu próprio navegador, a segurança das suas informações
-      depende da segurança do seu dispositivo e da sua conta Google (para sincronização de
-      configurações). Recomendamos manter o Chrome e o sistema operacional sempre atualizados.
-    </p>
+    <section>
+      <h2>8. Segurança</h2>
+      <p>
+        Como todos os dados ficam no seu próprio navegador, a segurança das suas informações
+        depende da segurança do seu dispositivo e da sua conta Google (para sincronização de
+        configurações). Recomendamos manter o Chrome e o sistema operacional sempre atualizados.
+      </p>
+    </section>
 
-    <h2>9. Crianças</h2>
-    <p>
-      O Leilômetro é destinado a adultos que participam de leilões de veículos.
-      Não coletamos intencionalmente dados de menores de 18 anos.
-    </p>
+    <section>
+      <h2>9. Crianças</h2>
+      <p>
+        O Leilômetro é destinado a adultos que participam de leilões de veículos.
+        Não coletamos intencionalmente dados de menores de 18 anos.
+      </p>
+    </section>
 
-    <h2>10. Alterações nesta política</h2>
-    <p>
-      Se esta política for alterada de forma relevante, atualizaremos a data no topo da página
-      e, quando possível, comunicaremos aos usuários. O uso continuado da extensão após as
-      alterações implica aceitação da nova política.
-    </p>
+    <section>
+      <h2>10. Alterações nesta política</h2>
+      <p>
+        Se esta política for alterada de forma relevante, atualizaremos a data no topo da página
+        e, quando possível, comunicaremos aos usuários. O uso continuado da extensão após as
+        alterações implica aceitação da nova política.
+      </p>
+    </section>
 
-    <h2>11. Contato</h2>
-    <p>
-      Dúvidas, solicitações de remoção de dados ou qualquer questão relacionada à privacidade:
-      envie um e-mail para <a href="mailto:contato@qisites.com.br">contato@qisites.com.br</a>.
-    </p>
+    <section>
+      <h2>11. Contato</h2>
+      <p>
+        Dúvidas, solicitações de remoção de dados ou qualquer questão relacionada à privacidade:
+        envie um e-mail para <a href="mailto:contato@qisites.com.br" aria-label="Enviar e-mail para privacidade">contato@qisites.com.br</a>.
+      </p>
+    </section>
 
     <div class="divider"></div>
     <p class="muted">Esta política foi escrita em linguagem acessível com o objetivo de ser transparente com os
       usuários.
       Ela é válida para a extensão Leilômetro para Google Chrome e para este site de divulgação.</p>
-  </div>
+  </main>
 
   <footer>
     <div class="footer-logo">Leilômetro <span>| PRO</span></div>

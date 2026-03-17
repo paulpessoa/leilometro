@@ -7,10 +7,19 @@
   --dark4: #1e2733;
   --border: rgba(240, 180, 41, 0.12);
   --text: #e8edf2;
-  --muted: #6b7a8d;
+  --muted: #8ea1b8; /* Improved contrast from #6b7a8d */
   --green: #22c55e;
   --red: #ef4444;
   --amber: #f59e0b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 * {
@@ -28,7 +37,14 @@ body {
   color: var(--text);
   font-family: "DM Sans", sans-serif;
   overflow-x: hidden;
-  cursor: none;
+  cursor: default; /* Fallback */
+}
+
+/* Solo mostrar cursor custom en desktop y si no hay preferencia de reducción de movimiento */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
 }
 
 .ext-status-pill {
@@ -59,6 +75,7 @@ body {
   z-index: 9999;
   transition: transform 0.1s;
   mix-blend-mode: difference;
+  display: none; /* Hidden by default, shown via JS if desktop */
 }
 
 .cursor-ring {
@@ -76,9 +93,16 @@ body {
     width 0.2s,
     height 0.2s,
     border-color 0.2s;
+  display: none;
 }
 
-/* GRAIN */
+@media (hover: hover) and (pointer: fine) {
+  .cursor, .cursor-ring {
+    display: block;
+  }
+}
+
+/* GRAIN - Optimized with will-change and contained */
 body::after {
   content: "";
   position: fixed;
@@ -86,7 +110,8 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9990;
-  opacity: 0.6;
+  opacity: 0.4;
+  will-change: transform;
 }
 
 /* NAV - Default (Index & Suporte) */

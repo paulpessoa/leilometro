@@ -6,7 +6,11 @@ let my = 0
 let rx = 0
 let ry = 0
 
-if (cursor && ring) {
+// Only initialize custom cursor on desktop with fine pointer and no reduced motion
+const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+if (cursor && ring && isDesktop && !prefersReducedMotion) {
   document.addEventListener("mousemove", (e) => {
     mx = e.clientX
     my = e.clientY
@@ -14,6 +18,7 @@ if (cursor && ring) {
   })
 
   function animateRing() {
+    if (prefersReducedMotion) return // Stop loop if user changes preference
     rx += (mx - rx) * 0.12
     ry += (my - ry) * 0.12
     ring.style.transform = `translate(${rx - 16}px,${ry - 16}px)`
@@ -22,7 +27,7 @@ if (cursor && ring) {
 
   animateRing()
 
-  document.querySelectorAll("a,button").forEach((el) => {
+  document.querySelectorAll("a,button,[role='button']").forEach((el) => {
     el.addEventListener("mouseenter", () => {
       ring.style.width = "48px"
       ring.style.height = "48px"
@@ -48,15 +53,30 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el))
 
-// FAQ
+// FAQ with Accessibility
 document.querySelectorAll(".faq-q").forEach((q) => {
-  q.addEventListener("click", () => {
+  const toggleFAQ = () => {
     const item = q.closest(".faq-item")
     const wasOpen = item.classList.contains("open")
-    document
-      .querySelectorAll(".faq-item")
-      .forEach((i) => i.classList.remove("open"))
-    if (!wasOpen) item.classList.add("open")
+    
+    // Close others
+    document.querySelectorAll(".faq-item").forEach((i) => {
+      i.classList.remove("open")
+      i.querySelector(".faq-q").setAttribute("aria-expanded", "false")
+    })
+    
+    if (!wasOpen) {
+      item.classList.add("open")
+      q.setAttribute("aria-expanded", "true")
+    }
+  }
+
+  q.addEventListener("click", toggleFAQ)
+  q.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      toggleFAQ()
+    }
   })
 })
 

@@ -17,6 +17,7 @@
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script type="text/javascript">
     (function (c, l, a, r, i, t, y) {
       c[a] =
@@ -39,15 +40,17 @@
 
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-  <nav class="nav-legal">
-    <a href="/" class="nav-logo">Leilômetro <span>| PRO</span></a>
-    <a href="/" class="nav-back">← Voltar ao início</a>
-  </nav>
+  <header>
+    <nav class="nav-legal">
+      <a href="/" class="nav-logo" aria-label="Leilômetro Home">Leilômetro <span>| PRO</span></a>
+      <a href="/" class="nav-back" aria-label="Voltar para a página inicial">← Voltar ao início</a>
+    </nav>
+  </header>
 
-  <div class="container container-legal">
+  <main class="container container-legal">
     <span class="page-tag">Legal</span>
     <h1>TERMOS<br />DE USO</h1>
     <p class="updated">Última atualização: março de 2026</p>
@@ -58,112 +61,132 @@
       que você fornece. Sempre leia o edital do leilão e faça sua própria análise antes de lançar.
     </div>
 
-    <h2>1. Aceitação dos termos</h2>
-    <p>
-      Ao instalar e utilizar a extensão Leilômetro, você declara ter lido, compreendido e
-      concordado com estes Termos de Uso. Se não concordar com algum ponto, não instale ou
-      desinstale a extensão.
-    </p>
+    <section>
+      <h2>1. Aceitação dos termos</h2>
+      <p>
+        Ao instalar e utilizar a extensão Leilômetro, você declara ter lido, compreendido e
+        concordado com estes Termos de Uso. Se não concordar com algum ponto, não instale ou
+        desinstale a extensão.
+      </p>
+    </section>
 
-    <h2>2. Descrição do serviço</h2>
-    <p>
-      O Leilômetro é uma extensão para o Google Chrome que injeta um painel de análise em
-      sites de leilão de veículos. A extensão realiza as seguintes funções:
-    </p>
-    <ul>
-      <li>Leitura de dados públicos exibidos na tela dos sites de leilão (lance, KM, ano, modelo)</li>
-      <li>Cálculo estimado de custo real, preço limite, score de oportunidade e classificação de uso por KM/ano</li>
-      <li>Armazenamento local de configurações e anotações por lote</li>
-    </ul>
+    <section>
+      <h2>2. Descrição do serviço</h2>
+      <p>
+        O Leilômetro é uma extensão para o Google Chrome que injeta um painel de análise em
+        sites de leilão de veículos. A extensão realiza as seguintes funções:
+      </p>
+      <ul>
+        <li>Leitura de dados públicos exibidos na tela dos sites de leilão (lance, KM, ano, modelo)</li>
+        <li>Cálculo estimado de custo real, preço limite, score de oportunidade e classificação de uso por KM/ano</li>
+        <li>Armazenamento local de configurações e anotações por lote</li>
+      </ul>
+    </section>
 
-    <h2>3. Isenção de responsabilidade</h2>
-    <p>
-      O Leilômetro <strong>não garante a precisão dos dados</strong> extraídos automaticamente das
-      páginas dos leiloeiros, pois esses sites podem alterar sua estrutura a qualquer momento,
-      tornando a leitura temporariamente incorreta ou indisponível.
-    </p>
-    <p>
-      Os valores de FIPE, custos de conserto, documentação e IPVA são <strong>estimativas de
-        referência</strong>. O usuário é inteiramente responsável por verificar os valores reais
-      junto às fontes oficiais (tabela FIPE, DETRAN, editais do leilão) antes de tomar qualquer
-      decisão de compra.
-    </p>
-    <p>
-      <strong>Não nos responsabilizamos por perdas financeiras</strong>, negócios malsucedidos ou
-      decisões de compra tomadas com base, total ou parcial, nos cálculos e análises apresentados
-      pela extensão.
-    </p>
+    <section>
+      <h2>3. Isenção de responsabilidade</h2>
+      <p>
+        O Leilômetro <strong>não garante a precisão dos dados</strong> extraídos automaticamente das
+        páginas dos leiloeiros, pois esses sites podem alterar sua estrutura a qualquer momento,
+        tornando a leitura temporariamente incorreta ou indisponível.
+      </p>
+      <p>
+        Os valores de FIPE, custos de conserto, documentação e IPVA são <strong>estimativas de
+          referência</strong>. O usuário é inteiramente responsável por verificar os valores reais
+        junto às fontes oficiais (tabela FIPE, DETRAN, editais do leilão) antes de tomar qualquer
+        decisão de compra.
+      </p>
+      <p>
+        <strong>Não nos responsabilizamos por perdas financeiras</strong>, negócios malsucedidos ou
+        decisões de compra tomadas com base, total ou parcial, nos cálculos e análises apresentados
+        pela extensão.
+      </p>
+    </section>
 
-    <h2>4. Planos e pagamentos</h2>
-    <p>
-      O Leilômetro oferece um plano gratuito com funcionalidades básicas e planos pagos com
-      recursos adicionais. Os planos pagos são cobrados via plataformas de pagamento terceiras
-      (Hotmart, Kiwify ou similares), sujeitas às condições de cada plataforma.
-    </p>
-    <ul>
-      <li>O cancelamento pode ser feito a qualquer momento, sem multa</li>
-      <li>Não há reembolso de períodos já cobrados, exceto quando exigido por lei</li>
-      <li>O acesso às funcionalidades premium é encerrado ao fim do período pago</li>
-      <li>Podemos alterar os preços dos planos com aviso prévio de 30 dias</li>
-    </ul>
+    <section>
+      <h2>4. Planos e pagamentos</h2>
+      <p>
+        O Leilômetro oferece um plano gratuito com funcionalidades básicas e planos pagos com
+        recursos adicionais. Os planos pagos são cobrados via plataformas de pagamento terceiras
+        (Hotmart, Kiwify ou similares), sujeitas às condições de cada plataforma.
+      </p>
+      <ul>
+        <li>O cancelamento pode ser feito a qualquer momento, sem multa</li>
+        <li>Não há reembolso de períodos já cobrados, exceto quando exigido por lei</li>
+        <li>O acesso às funcionalidades premium é encerrado ao fim do período pago</li>
+        <li>Podemos alterar os preços dos planos com aviso prévio de 30 dias</li>
+      </ul>
+    </section>
 
-    <h2>5. Uso permitido</h2>
-    <p>Você pode:</p>
-    <ul>
-      <li>Usar a extensão para análise pessoal ou profissional de leilões de veículos</li>
-      <li>Compartilhar análises geradas pela extensão com terceiros, desde que com atribuição</li>
-    </ul>
-    <p>Você <strong>não pode</strong>:</p>
-    <ul>
-      <li>Reverter, descompilar ou reproduzir o código da extensão sem autorização</li>
-      <li>Redistribuir a extensão modificada como produto próprio</li>
-      <li>Usar a extensão para fins ilegais ou para prejudicar sites de leilão</li>
-      <li>Contornar mecanismos de licença ou acesso a funcionalidades premium</li>
-    </ul>
+    <section>
+      <h2>5. Uso permitido</h2>
+      <p>Você pode:</p>
+      <ul>
+        <li>Usar a extensão para análise pessoal ou profissional de leilões de veículos</li>
+        <li>Compartilhar análises geradas pela extensão com terceiros, desde que com atribuição</li>
+      </ul>
+      <p>Você <strong>não pode</strong>:</p>
+      <ul>
+        <li>Reverter, descompilar ou reproduzir o código da extensão sem autorização</li>
+        <li>Redistribuir a extensão modificada como produto próprio</li>
+        <li>Usar a extensão para fins ilegais ou para prejudicar sites de leilão</li>
+        <li>Contornar mecanismos de licença ou acesso a funcionalidades premium</li>
+      </ul>
+    </section>
 
-    <h2>6. Disponibilidade e suporte</h2>
-    <p>
-      Fornecemos a extensão "no estado em que se encontra" (<em>as is</em>). Não garantimos
-      disponibilidade ininterrupta, especialmente porque a extensão depende da estrutura de
-      HTML de sites de terceiros, que podem mudar sem aviso.
-    </p>
-    <p>
-      Nos comprometemos a corrigir incompatibilidades identificadas com os sites suportados
-      no menor prazo possível, mas não garantimos prazo máximo de correção.
-    </p>
+    <section>
+      <h2>6. Disponibilidade e suporte</h2>
+      <p>
+        Fornecemos a extensão "no estado em que se encontra" (<em>as is</em>). Não garantimos
+        disponibilidade ininterrupta, especialmente porque a extensão depende da estrutura de
+        HTML de sites de terceiros, que podem mudar sem aviso.
+      </p>
+      <p>
+        Nos comprometemos a corrigir incompatibilidades identificadas com os sites suportados
+        no menor prazo possível, mas não garantimos prazo máximo de correção.
+      </p>
+    </section>
 
-    <h2>7. Propriedade intelectual</h2>
-    <p>
-      O código, design, nome "Leilômetro" e demais elementos visuais da extensão são propriedade
-      dos seus criadores. O uso da extensão não transfere nenhum direito de propriedade intelectual
-      ao usuário.
-    </p>
+    <section>
+      <h2>7. Propriedade intelectual</h2>
+      <p>
+        O código, design, nome "Leilômetro" e demais elementos visuais da extensão são propriedade
+        dos seus criadores. O uso da extensão não transfere nenhum direito de propriedade intelectual
+        ao usuário.
+      </p>
+    </section>
 
-    <h2>8. Alterações nos termos</h2>
-    <p>
-      Podemos atualizar estes termos a qualquer momento. Alterações relevantes serão comunicadas
-      via atualização da extensão ou por e-mail (quando disponível). O uso continuado após as
-      alterações implica aceitação das novas condições.
-    </p>
+    <section>
+      <h2>8. Alterações nos termos</h2>
+      <p>
+        Podemos atualizar estes termos a qualquer momento. Alterações relevantes serão comunicadas
+        via atualização da extensão ou por e-mail (quando disponível). O uso continuado após as
+        alterações implica aceitação das novas condições.
+      </p>
+    </section>
 
-    <h2>9. Lei aplicável</h2>
-    <p>
-      Estes termos são regidos pelas leis da República Federativa do Brasil. O foro eleito
-      para resolução de disputas é o da comarca de domicílio do usuário, conforme previsto
-      pelo Código de Defesa do Consumidor.
-    </p>
+    <section>
+      <h2>9. Lei aplicável</h2>
+      <p>
+        Estes termos são regidos pelas leis da República Federativa do Brasil. O foro eleito
+        para resolução de disputas é o da comarca de domicílio do usuário, conforme previsto
+        pelo Código de Defesa do Consumidor.
+      </p>
+    </section>
 
-    <h2>10. Contato</h2>
-    <p>
-      Dúvidas sobre estes termos: <a href="mailto:contato@qisites.com.br">contato@qisites.com.br</a>
-    </p>
+    <section>
+      <h2>10. Contato</h2>
+      <p>
+        Dúvidas sobre estes termos: <a href="mailto:contato@qisites.com.br" aria-label="Enviar e-mail para jurídico">contato@qisites.com.br</a>
+      </p>
+    </section>
 
     <div class="divider"></div>
     <p class="muted">
       Estes termos complementam a <a href="/privacidade.html">Política de Privacidade</a>.
       Leia ambos os documentos antes de usar a extensão.
     </p>
-  </div>
+  </main>
 
   <footer>
     <div class="footer-logo">Leilômetro <span>| PRO</span></div>

@@ -27,6 +27,7 @@
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script type="text/javascript">
     (function (c, l, a, r, i, t, y) {
       c[a] =
@@ -53,72 +54,75 @@
   <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- NAV -->
-  <nav>
-    <a href="/" class="nav-logo">
-      Leilômetro <span>| PRO</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#como-funciona">Como Funciona</a></li>
-      <li><a href="#planos">Planos</a></li>
-      <li><a href="#depoimentos">Depoimentos</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="https://chromewebstore.google.com/detail/leilometro/oifmcimfbbbjenddghinhddmmihfolpi" class="nav-cta"
-          data-cta="nav-install">Instalar Grátis →</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-
-    <div class="hero-eyebrow">EXTENSÃO CHROME - Leilões de Carros e Motos</div>
-
-    <h1>NUNCA<br />PAGUE A<br /><em>MAIS</em></h1>
-
-    <p class="hero-sub">
-      Análise de oportunidade em tempo real, direto na tela do leilão.
-      Cálculo automático de taxas, KM/Ano e preço limite — antes do seu próximo lance.
-    </p>
-
-    <div class="hero-actions">
-      <a href="https://chromewebstore.google.com/detail/leilometro/oifmcimfbbbjenddghinhddmmihfolpi" class="btn-primary"
-        data-cta="hero-install">
-        ⬇ Instalar Grátis no Chrome
+  <header>
+    <nav>
+      <a href="/" class="nav-logo" aria-label="Leilômetro Home">
+        Leilômetro <span>| PRO</span>
       </a>
-      <a href="#como-funciona" class="btn-ghost" data-cta="hero-secondary">
-        Ver como funciona
-      </a>
-    </div>
+      <ul class="nav-links">
+        <li><a href="#como-funciona">Como Funciona</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://chromewebstore.google.com/detail/leilometro/oifmcimfbbbjenddghinhddmmihfolpi" class="nav-cta"
+            data-cta="nav-install" aria-label="Instalar extensão Leilômetro no Chrome">Instalar Grátis →</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div class="hero-sites">
-      <span class="hero-sites-label">FUNCIONA EM →</span>
-      <span class="site-chip">leilo.com.br</span>
-      <span class="site-chip">...em breve mais leiloeiros!</span>
-    </div>
-  </section>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
 
-  <!-- STATS -->
-  <div class="stats-bar">
-    <div class="stats-inner">
-      <div class="stat-item">
-        <span class="stat-num">5%</span>
-        <span class="stat-label">Comissão que você esquece de somar</span>
+      <div class="hero-eyebrow">EXTENSÃO CHROME - Leilões de Carros e Motos</div>
+
+      <h1>NUNCA<br />PAGUE A<br /><em>MAIS</em></h1>
+
+      <p class="hero-sub">
+        Análise de oportunidade em tempo real, direto na tela do leilão.
+        Cálculo automático de taxas, KM/Ano e preço limite — antes do seu próximo lance.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://chromewebstore.google.com/detail/leilometro/oifmcimfbbbjenddghinhddmmihfolpi" class="btn-primary"
+          data-cta="hero-install" aria-label="Instalar Leilômetro Grátis no Chrome Web Store">
+          ⬇ Instalar Grátis no Chrome
+        </a>
+        <a href="#como-funciona" class="btn-ghost" data-cta="hero-secondary">
+          Ver como funciona
+        </a>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">R$4k</span>
-        <span class="stat-label">Custo médio ignorado por arrematante</span>
+
+      <div class="hero-sites">
+        <span class="hero-sites-label">FUNCIONA EM →</span>
+        <span class="site-chip">leilo.com.br</span>
+        <span class="site-chip">...em breve mais leiloeiros!</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">8s</span>
-        <span class="stat-label">Tempo médio para decidir um lance</span>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-bar" aria-label="Estatísticas de leilão">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <span class="stat-num">5%</span>
+          <span class="stat-label">Comissão que você esquece de somar</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">R$4k</span>
+          <span class="stat-label">Custo médio ignorado por arrematante</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">8s</span>
+          <span class="stat-label">Tempo médio para decidir um lance</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">23%</span>
+          <span class="stat-label">Lotes com erro de cálculo pelo comprador</span>
+        </div>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">23%</span>
-        <span class="stat-label">Lotes com erro de cálculo pelo comprador</span>
-      </div>
-    </div>
-  </div>
+    </section>
 
   <!-- PROBLEM -->
   <section class="section">
@@ -154,7 +158,7 @@
   </section>
 
   <!-- MOCKUP + FEATURES -->
-  <div class="mockup-section" id="como-funciona">
+  <section class="mockup-section" id="como-funciona">
     <div class="mockup-inner">
       <div class="mockup-text">
         <span class="section-tag reveal">A solução</span>
@@ -175,7 +179,7 @@
       </div>
 
       <!-- PANEL MOCKUP -->
-      <div class="panel-mockup reveal">
+      <div class="panel-mockup reveal" aria-hidden="true">
         <div class="pm-header">
           <div class="pm-brand">Leilômetro <span>| PRO</span> <span class="pm-auto-tag"
               style="font-size:7px; vertical-align:middle">💾 SALVO</span></div>
@@ -228,7 +232,7 @@
 
           <div class="pm-input-box">
             <span class="pm-item-label">FIPE Referência <span class="pm-auto-tag">detectada</span></span>
-            <input type="number" class="pm-input" value="45000" disabled>
+            <input type="number" class="pm-input" value="45000" disabled aria-label="FIPE Referência">
           </div>
 
           <div class="pm-grid">
@@ -290,28 +294,28 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- HOW IT WORKS -->
-  <section class="how-section" id="como-funciona">
+  <section class="how-section" id="instalacao">
     <span class="section-tag reveal">Instalação</span>
     <h2 class="reveal">PRONTO EM<br />3 PASSOS.</h2>
     <div class="how-steps">
       <div class="how-step reveal">
         <div class="step-num">01</div>
-        <span class="step-icon">⬇️</span>
+        <span class="step-icon" aria-hidden="true">⬇️</span>
         <h3>Instale no Chrome</h3>
         <p>Baixe a extensão e carregue em <code>chrome://extensions</code>. Leva menos de 2 minutos. Sem cadastro.</p>
       </div>
       <div class="how-step reveal">
         <div class="step-num">02</div>
-        <span class="step-icon">⚙️</span>
+        <span class="step-icon" aria-hidden="true">⚙️</span>
         <h3>Configure uma vez</h3>
         <p>Defina sua margem de revenda desejada e custos típicos. O painel salva e reutiliza automaticamente.</p>
       </div>
       <div class="how-step reveal">
         <div class="step-num">03</div>
-        <span class="step-icon">🎯</span>
+        <span class="step-icon" aria-hidden="true">🎯</span>
         <h3>Lance com segurança</h3>
         <p>O painel aparece sozinho no leilão. Você vê o score, o custo real e quantos lances restam — em tempo real.
         </p>
@@ -330,7 +334,7 @@
       <!-- Grupo 1 -->
       <div class="testimonial-card">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=ricardo" alt="Ricardo S." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=ricardo" alt="Ricardo S." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Ricardo S.</h4>
             <p>São Paulo, SP</p>
@@ -352,7 +356,7 @@
 
       <div class="testimonial-card">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=tiago" alt="Tiago F." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=tiago" alt="Tiago F." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Tiago F.</h4>
             <p>Salvador, BA</p>
@@ -374,7 +378,7 @@
 
       <div class="testimonial-card">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno G." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno G." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Bruno G.</h4>
             <p>Belo Horizonte, MG</p>
@@ -396,7 +400,7 @@
 
       <div class="testimonial-card">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=camila" alt="Camila M." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=camila" alt="Camila M." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Camila M.</h4>
             <p>Curitiba, PR</p>
@@ -418,7 +422,7 @@
 
       <div class="testimonial-card">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=felipe" alt="Felipe A." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=felipe" alt="Felipe A." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Felipe A.</h4>
             <p>Rio de Janeiro, RJ</p>
@@ -440,7 +444,7 @@
 
       <div class="testimonial-card">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=juliana" alt="Juliana P." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=juliana" alt="Juliana P." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Juliana P.</h4>
             <p>Florianópolis, SC</p>
@@ -461,9 +465,9 @@
       </div>
 
       <!-- Grupo 2 (Cópia para efeito infinito) -->
-      <div class="testimonial-card">
+      <div class="testimonial-card" aria-hidden="true">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=ricardo" alt="Ricardo S." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=ricardo" alt="Ricardo S." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Ricardo S.</h4>
             <p>São Paulo, SP</p>
@@ -483,9 +487,9 @@
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card" aria-hidden="true">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=tiago" alt="Tiago F." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=tiago" alt="Tiago F." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Tiago F.</h4>
             <p>Salvador, BA</p>
@@ -505,9 +509,9 @@
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card" aria-hidden="true">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno G." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno G." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Bruno G.</h4>
             <p>Belo Horizonte, MG</p>
@@ -527,9 +531,9 @@
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card" aria-hidden="true">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=camila" alt="Camila M." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=camila" alt="Camila M." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Camila M.</h4>
             <p>Curitiba, PR</p>
@@ -549,9 +553,9 @@
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card" aria-hidden="true">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=felipe" alt="Felipe A." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=felipe" alt="Felipe A." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Felipe A.</h4>
             <p>Rio de Janeiro, RJ</p>
@@ -571,9 +575,9 @@
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card" aria-hidden="true">
         <div class="testimonial-header">
-          <img src="https://i.pravatar.cc/150?u=juliana" alt="Juliana P." class="testimonial-photo">
+          <img src="https://i.pravatar.cc/150?u=juliana" alt="Juliana P." class="testimonial-photo" loading="lazy">
           <div class="testimonial-info">
             <h4>Juliana P.</h4>
             <p>Florianópolis, SC</p>
@@ -613,14 +617,14 @@
         </div>
         <div class="price-note">Para sempre grátis</div>
         <ul class="price-features">
-          <li><span class="check">✓</span> Painel básico de análise</li>
-          <li><span class="check">✓</span> Cálculo de Custo Real</li>
-          <li><span class="check">✓</span> Classificação KM/Ano</li>
-          <li><span class="check">✓</span> Leilo + VIP Leilões</li>
-          <li class="off"><span class="cross">—</span> Score de Oportunidade</li>
-          <li class="off"><span class="cross">—</span> Histórico de análises</li>
-          <li class="off"><span class="cross">—</span> Exportar PDF / Imprimir</li>
-          <li class="off"><span class="cross">—</span> Todos os leiloeiros</li>
+          <li><span class="check" aria-hidden="true">✓</span> Painel básico de análise</li>
+          <li><span class="check" aria-hidden="true">✓</span> Cálculo de Custo Real</li>
+          <li><span class="check" aria-hidden="true">✓</span> Classificação KM/Ano</li>
+          <li><span class="check" aria-hidden="true">✓</span> Leilo + VIP Leilões</li>
+          <li class="off"><span class="cross" aria-hidden="true">—</span> Score de Oportunidade</li>
+          <li class="off"><span class="cross" aria-hidden="true">—</span> Histórico de análises</li>
+          <li class="off"><span class="cross" aria-hidden="true">—</span> Exportar PDF / Imprimir</li>
+          <li class="off"><span class="cross" aria-hidden="true">—</span> Todos os leiloeiros</li>
         </ul>
         <button class="btn-plan btn-plan-ghost" data-cta="pricing-free">Instalar Grátis</button>
       </div>
@@ -636,14 +640,14 @@
         </div>
         <div class="price-note" style="color:var(--gold)">≈ R$ 1,57/dia • Cancele quando quiser</div>
         <ul class="price-features">
-          <li><span class="check">✓</span> Tudo do plano Caçador</li>
-          <li><span class="check">✓</span> Score de Oportunidade (0–100)</li>
-          <li><span class="check">✓</span> Todos os 5 leiloeiros</li>
-          <li><span class="check">✓</span> Campo FIPE editável manual</li>
-          <li><span class="check">✓</span> Imprimir / Exportar análise</li>
-          <li><span class="check">✓</span> Histórico dos últimos 30 lotes</li>
-          <li><span class="check">✓</span> Alertas de taxa oculta detectada</li>
-          <li><span class="check">✓</span> Suporte por WhatsApp</li>
+          <li><span class="check" aria-hidden="true">✓</span> Tudo do plano Caçador</li>
+          <li><span class="check" aria-hidden="true">✓</span> Score de Oportunidade (0–100)</li>
+          <li><span class="check" aria-hidden="true">✓</span> Todos os 5 leiloeiros</li>
+          <li><span class="check" aria-hidden="true">✓</span> Campo FIPE editável manual</li>
+          <li><span class="check" aria-hidden="true">✓</span> Imprimir / Exportar análise</li>
+          <li><span class="check" aria-hidden="true">✓</span> Histórico dos últimos 30 lotes</li>
+          <li><span class="check" aria-hidden="true">✓</span> Alertas de taxa oculta detectada</li>
+          <li><span class="check" aria-hidden="true">✓</span> Suporte por WhatsApp</li>
         </ul>
         <button class="btn-plan btn-plan-primary">Assinar por R$ 47/mês</button>
       </div>
@@ -659,14 +663,14 @@
         </div>
         <div class="price-note">Até 5 usuários na mesma conta</div>
         <ul class="price-features">
-          <li><span class="check">✓</span> Tudo do Arrematante</li>
-          <li><span class="check">✓</span> Integração API FIPE automática</li>
-          <li><span class="check">✓</span> Relatórios mensais em PDF</li>
-          <li><span class="check">✓</span> Comparação de lotes side-by-side</li>
-          <li><span class="check">✓</span> 5 perfis de custo diferentes</li>
-          <li><span class="check">✓</span> Dashboard web de análises</li>
-          <li><span class="check">✓</span> Suporte prioritário</li>
-          <li><span class="check">✓</span> Acesso antecipado a novidades</li>
+          <li><span class="check" aria-hidden="true">✓</span> Tudo do Arrematante</li>
+          <li><span class="check" aria-hidden="true">✓</span> Integração API FIPE automática</li>
+          <li><span class="check" aria-hidden="true">✓</span> Relatórios mensais em PDF</li>
+          <li><span class="check" aria-hidden="true">✓</span> Comparação de lotes side-by-side</li>
+          <li><span class="check" aria-hidden="true">✓</span> 5 perfis de custo diferentes</li>
+          <li><span class="check" aria-hidden="true">✓</span> Dashboard web de análises</li>
+          <li><span class="check" aria-hidden="true">✓</span> Suporte prioritário</li>
+          <li><span class="check" aria-hidden="true">✓</span> Acesso antecipado a novidades</li>
         </ul>
         <button class="btn-plan btn-plan-ghost">Falar com a equipe →</button>
       </div>
@@ -685,21 +689,21 @@
       <div class="mono-grid">
         <div class="mono-card reveal">
           <span class="mono-phase">Fase 1 — Agora</span>
-          <span class="mono-icon">🔐</span>
+          <span class="mono-icon" aria-hidden="true">🔐</span>
           <h3>Freemium + Assinatura</h3>
           <p>Versão gratuita com funcionalidades básicas. Plano pago com score, histórico e todos os leiloeiros. Receita
             previsível e escalável.</p>
         </div>
         <div class="mono-card reveal">
           <span class="mono-phase">Fase 2 — 6 meses</span>
-          <span class="mono-icon">🏢</span>
+          <span class="mono-icon" aria-hidden="true">🏢</span>
           <h3>Licença para Despachantes</h3>
           <p>Despachantes e avaliadores usam a ferramenta com clientes. Licença B2B com múltiplos perfis e relatórios em
             PDF com marca própria.</p>
         </div>
         <div class="mono-card reveal">
           <span class="mono-phase">Fase 3 — 12 meses</span>
-          <span class="mono-icon">📊</span>
+          <span class="mono-icon" aria-hidden="true">📊</span>
           <h3>Dados Agregados (Anonimizados)</h3>
           <p>Tendências de preço por modelo, região e leiloeiro. Relatório mensal para financeiras e seguradoras que
             avaliam carteiras de veículos.</p>
@@ -714,23 +718,23 @@
     <h2>PERGUNTAS<br />FREQUENTES.</h2>
 
     <div class="faq-item">
-      <div class="faq-q">A extensão lê meus dados pessoais? <span class="faq-toggle">+</span></div>
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">A extensão lê meus dados pessoais? <span class="faq-toggle" aria-hidden="true">+</span></div>
       <div class="faq-a">Não. O Leilômetro lê apenas o conteúdo público visível na tela do leilão (preço, ano, km). Não
         acessa senhas, contas ou dados de login. Tudo roda localmente no seu Chrome.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Funciona em leilões ao vivo (tempo real)? <span class="faq-toggle">+</span></div>
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Funciona em leilões ao vivo (tempo real)? <span class="faq-toggle" aria-hidden="true">+</span></div>
       <div class="faq-a">Sim. A extensão observa mudanças na página via MutationObserver e atualiza o painel
         automaticamente quando o lance sobe. Você vê os lances restantes diminuindo em tempo real.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Posso confiar 100% nos cálculos? <span class="faq-toggle">+</span></div>
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Posso confiar 100% nos cálculos? <span class="faq-toggle" aria-hidden="true">+</span></div>
       <div class="faq-a">O Leilômetro é uma ferramenta de apoio à decisão — não substitui a leitura do edital e a
         vistoria presencial. Os custos de conserto, IPVA e documentação são estimativas; use-os como referência, não
         como valores definitivos.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Funciona no Mac e Windows? <span class="faq-toggle">+</span></div>
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Funciona no Mac e Windows? <span class="faq-toggle" aria-hidden="true">+</span></div>
       <div class="faq-a">Sim. É uma extensão Chrome (Manifest V3) — funciona em qualquer sistema operacional que rode o
         Chrome: Windows, Mac e Linux.</div>
     </div>
@@ -752,10 +756,11 @@
     <p data-cta="cta-final-text">Instale em 2 minutos. Sem cartão de crédito.<br />Sem cadastro para o plano gratuito.
     </p>
     <a href="https://chromewebstore.google.com/detail/leilometro/oifmcimfbbbjenddghinhddmmihfolpi" class="btn-primary"
-      data-cta="cta-final">
+      data-cta="cta-final" aria-label="Instalar Leilômetro Grátis">
       ⬇ Instalar Leilômetro Grátis
     </a>
   </section>
+  </main>
 
   <footer>
     <div class="footer-logo">Leilômetro <span>| PRO</span></div>
