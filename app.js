@@ -1,3 +1,51 @@
+function initClarityConsent() {
+  const CLARITY_ID = "vu7fr42vdt"
+  const consent = localStorage.getItem("clarity-consent")
+
+  const loadClarity = () => {
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) }
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y)
+    })(window, document, "clarity", "script", CLARITY_ID)
+  }
+
+  if (consent === "true") {
+    loadClarity()
+    return
+  } else if (consent === "false") {
+    return
+  }
+
+  // Inject banner if no consent yet
+  const banner = document.createElement("div")
+  banner.id = "cookie-banner"
+  banner.innerHTML = `
+    <p>Utilizamos o Microsoft Clarity para entender como você usa nosso site e melhorar sua experiência. Ao continuar,        
+      você concorda com a nossa <a href="/privacidade.html">Política de Privacidade</a>.</p>
+    <div class="cookie-actions">
+      <button id="decline-cookies" class="btn-ghost">Recusar</button>
+      <button id="accept-cookies" class="btn-primary">Aceitar</button>
+    </div>
+  `
+  document.body.appendChild(banner)
+  banner.style.display = "flex"
+
+  document.getElementById("accept-cookies").addEventListener("click", () => {
+    localStorage.setItem("clarity-consent", "true")
+    banner.style.display = "none"
+    loadClarity()
+  })
+
+  document.getElementById("decline-cookies").addEventListener("click", () => {
+    localStorage.setItem("clarity-consent", "false")
+    banner.style.display = "none"
+  })
+}
+
+// Initialize on load
+initClarityConsent()
+
 // Cursor
 const cursor = document.getElementById("cursor")
 const ring = document.getElementById("cursorRing")

@@ -118,8 +118,9 @@ body::after {
 nav {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -127,6 +128,7 @@ nav {
   padding: 20px 48px;
   background: linear-gradient(to bottom, rgba(8, 12, 16, 0.95), transparent);
   backdrop-filter: blur(2px);
+  max-width: 1200px;
 }
 
 .nav-logo {
@@ -456,9 +458,7 @@ nav.nav-legal {
 }
 
 main {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 80px 24px;
+  width: 100%;
 }
 
 .section-tag {
@@ -1769,6 +1769,60 @@ footer {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+}
+
+/* ============================================================
+   COOKIE / CONSENT BANNER
+   ============================================================ */
+#cookie-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: var(--dark2);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 24px;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(240, 180, 41, 0.1);
+  animation: fadeUp 0.5s ease forwards;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#cookie-banner p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+#cookie-banner p a {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.cookie-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  #cookie-banner {
+    flex-direction: column;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 12px 12px 0 0;
+    padding: 20px;
+    gap: 16px;
   }
 }
 
