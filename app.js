@@ -190,8 +190,7 @@ document.querySelectorAll(".faq-q").forEach((q) => {
 
   // IDs da extensão
   const EXTENSION_IDS = [
-    "oifmcimfbbbjenddghinhddmmihfolpi",
-    "pkbgjcipepjnjifgmkciplabdmckddmj"
+    "oifmcimfbbbjenddghinhddmmihfolpi"
   ]
 
   let resolved = false
