@@ -185,6 +185,9 @@ nav {
 /* NAV - Legal (Sticky) */
 nav.nav-legal {
   position: sticky;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
   background: rgba(8, 12, 16, 0.96);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(8px);
