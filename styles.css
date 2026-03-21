@@ -1491,7 +1491,7 @@ details[open] summary {
 }
 
 /* FOOTER */
-footer {
+.site-footer {
   border-top: 1px solid var(--border);
   padding: 24px 48px 16px;
   max-width: 1100px;
