@@ -155,12 +155,14 @@
         </p>
         <ul class="feature-list reveal">
           <li>Lê o lance atual, taxas e incremento automaticamente da página</li>
-          <li>Calcula o <strong>Custo Real</strong> com todas as taxas do leiloeiro</li>
-          <li>Mostra quantos lances restam até o seu <strong>Preço Limite</strong></li>
-          <li>Classifica o KM/Ano em Particular, Frota, Aplicativo ou Extremo</li>
-          <li>Campo editável de FIPE quando não está na página</li>
+          <li>Calcula o <strong>Custo Real</strong> com todas as taxas (comissão, pátio, remoção, vistoria)</li>
+          <li>Mostra quantos lances restam até o seu <strong>Preço Limite</strong> com transparência da fórmula</li>
+          <li><strong>Tooltips Interativos:</strong> passe o mouse para entender a matemática exata sem poluir a tela</li>
+          <li>Classifica a <strong>KM/Ano</strong> em Particular, Frota, Aplicativo ou Extremo</li>
+          <li><strong>Scraping Resiliente:</strong> suporta layouts modernos (Quasar 2026) e continua operando mesmo se a KM for inacessível</li>
+          <li><strong>Inputs com visual moderno de formulário:</strong> ajuste margem, conserto e FIPE num clique</li>
           <li>Botão de imprimir análise completa para registrar a pesquisa</li>
-          <li>Painel arrastável, minimizável, sem atrapalhar o leilão</li>
+          <li>Painel arrastável, minimizável e com salvamento automático por lote</li>
         </ul>
       </div>
 
@@ -218,12 +220,18 @@
 
           <div class="pm-input-box">
             <span class="pm-item-label">FIPE Referência <span class="pm-auto-tag">detectada</span></span>
-            <input type="number" class="pm-input" value="45000" disabled aria-label="FIPE Referência">
+            <input type="text" class="pm-input" value="R$ 45.000,00" readonly aria-label="FIPE Referência">
           </div>
 
           <div class="pm-grid">
             <div class="pm-item">
-              <span class="pm-item-label">Preço Limite</span>
+              <span class="pm-item-label">
+                Preço Limite
+                <span class="pm-tooltip-wrap">
+                  <span class="pm-tooltip-icon">ℹ️</span>
+                  <span class="pm-tooltip-box"><strong>Fórmula:</strong><br/>(FIPE - Margem) - Custos = Preço Limite</span>
+                </span>
+              </span>
               <span class="pm-item-val gold">R$ 34.000</span>
             </div>
             <div class="pm-item">
@@ -249,7 +257,13 @@
               <span class="pm-item-val">13.400/ano</span>
             </div>
             <div class="pm-item full">
-              <span class="pm-item-label">Intensidade de Uso</span>
+              <span class="pm-item-label">
+                Classificação de Uso
+                <span class="pm-tooltip-wrap">
+                  <span class="pm-tooltip-icon">❓</span>
+                  <span class="pm-tooltip-box"><strong>Como calculamos?</strong> Dividimos a KM total pela idade do veículo. Média mensal = anual / 12.</span>
+                </span>
+              </span>
               <span class="pm-km-badge">🟢 Uso Normal</span>
             </div>
           </div>
@@ -258,12 +272,12 @@
           <div class="pm-stitle">🔧 Custos Estimados</div>
           <div class="pm-grid">
             <div class="pm-item">
-              <span class="pm-item-label">Conserto Est.</span>
-              <span class="pm-item-val red">R$ 2.500</span>
+              <span class="pm-item-label">Conserto</span>
+              <input type="text" class="pm-input" value="R$ 2.500" readonly aria-label="Conserto Estimado">
             </div>
             <div class="pm-item">
               <span class="pm-item-label">IPVA / Doc.</span>
-              <span class="pm-item-val red">R$ 1.800</span>
+              <input type="text" class="pm-input" value="R$ 2.000" readonly aria-label="IPVA e Documentação">
             </div>
           </div>
 
@@ -275,7 +289,7 @@
           <div class="pm-footer-btns">
             <button class="pm-btn gold">🖨️ Imprimir</button>
             <button class="pm-btn">🗑️ Reset</button>
-            <button class="pm-btn">⚙️ Config</button>
+            <button class="pm-btn">💾 Salvar</button>
           </div>
         </div>
       </div>
@@ -703,6 +717,14 @@
     <span class="section-tag" style="display:block;text-align:center">Dúvidas</span>
     <h2>PERGUNTAS<br />FREQUENTES.</h2>
 
+    <div class="faq-item">
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Como o Leilômetro calcula o Preço Limite? <span class="faq-toggle" aria-hidden="true">+</span></div>
+      <div class="faq-a">A fórmula é 100% transparente: <strong>(FIPE - Margem de Revenda) - Custos Estimados = Preço Limite</strong>. Você pode passar o mouse sobre o ícone informativo ℹ️ no painel a qualquer momento para conferir a regra. Todos os custos (conserto, documentação, IPVA e taxas do pátio) são descontados da margem que você deseja obter.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">E se o lote não tiver KM ou o hodômetro for inacessível? <span class="faq-toggle" aria-hidden="true">+</span></div>
+      <div class="faq-a">Nossa arquitetura de scraping é resiliente e isolada. Se a quilometragem não for informada no edital ou constar como "hodômetro inacessível", a extensão continua capturando o lance atual, ano, taxas e FIPE normalmente, sem travar o painel. Você ainda pode digitar a KM manualmente no campo dedicado se quiser calcular as médias.</div>
+    </div>
     <div class="faq-item">
       <div class="faq-q" role="button" aria-expanded="false" tabindex="0">A extensão lê meus dados pessoais? <span class="faq-toggle" aria-hidden="true">+</span></div>
       <div class="faq-a">Não. O Leilômetro lê apenas o conteúdo público visível na tela do leilão (preço, ano, km). Não

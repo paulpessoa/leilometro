@@ -1,104 +1,29 @@
-# Leilômetro — Extensão Chrome para Análise de Leilões
+# Leilômetro — Landing Page & Portal Oficial
 
-> Camada de inteligência injetada em sites de leilão de veículos.  
-> Calcule o preço ideal, comissões e KM/Ano em tempo real — sem erros matemáticos no calor do lance.
-
----
-
-## 📦 Como Instalar
-
-1. **Abra o Chrome** e acesse: `chrome://extensions/`
-2. Ative o **"Modo do desenvolvedor"** (toggle no canto superior direito)
-3. Clique em **"Carregar sem compactação"**
-4. Selecione a pasta **`leilometro/`** (esta pasta)
-5. O ícone aparecerá na barra do Chrome — pronto!
+> Landing page oficial e central de suporte do **Leilômetro**, a extensão Chrome que atua como co-piloto financeiro em leilões de veículos em tempo real.  
+> Deploy em produção: [leilometro.com.br](https://leilometro.com.br)
 
 ---
 
-## 🌐 Sites Suportados
+## 🎯 Sobre o Projeto
 
-| Site                    | Status         |
-| ----------------------- | -------------- |
-| leilo.com.br            | ✅ Configurado |
-| vipleiloes.com.br       | ✅ Configurado |
-| copart.com.br           | ✅ Configurado |
-| guariglialeiloes.com.br | ✅ Configurado |
-| freitasleiloeiro.com.br | ✅ Configurado |
-| copart.com (US)         | ✅ Configurado |
+O portal **leilometro.com.br** apresenta a proposta de valor da extensão, demonstra visualmente seu painel de inteligência em tempo real, disponibiliza links para a Chrome Web Store e oferece centrais de suporte, termos de uso e política de privacidade.
+
+O código-fonte da extensão Chrome encontra-se no repositório dedicado:  
+👉 **[paulpessoa/leilometro-extensao](https://github.com/paulpessoa/leilometro-extensao)**
 
 ---
 
-## ⚙️ Configuração Inicial (Importante!)
+## 🚀 Recursos Destacados no Portal
 
-Antes de usar, clique no ícone da extensão e configure:
-
-1. **Valor FIPE** do veículo que está analisando (consulte veiculos.fipe.org.br)
-2. **Margem de revenda** desejada (padrão: 15%)
-3. **Custos estimados** de conserto, documentação e IPVA
-
----
-
-## 📊 O que o Painel Mostra
-
-```
-┌─────────────────────────────────┐
-│ Leilômetro          [−][×] │
-├─────────────────────────────────┤
-│ HONDA CIVIC EXL 2019            │
-│                                 │
-│  [SCORE: 75]  OPORTUNIDADE BOA  │
-├─────────────────────────────────┤
-│ 💰 VALORES                      │
-│  Lance Atual       R$ 28.000    │
-│  + Comissão (5%)  + R$ 1.400    │
-│  + Taxa Pátio Est.+ R$ 350      │
-│  Custo Real        R$ 29.750    │
-├─────────────────────────────────┤
-│ 📊 ANÁLISE FIPE                 │
-│  FIPE Referência   R$ 45.000    │
-│  Preço Limite      R$ 33.200    │
-│  Margem            14 lances    │
-│  Potencial de Lucro R$ 7.450    │
-├─────────────────────────────────┤
-│ 🚗 DADOS DO VEÍCULO             │
-│  Ano: 2019    KM: 67.000        │
-│  Combustível: ✅ Flex           │
-│  🟡 11.167 km/ano — Uso Normal  │
-└─────────────────────────────────┘
-```
-
----
-
-## 🔢 Lógica de Cálculo
-
-```
-Custo Real     = Lance + (Lance × 5%) + Taxa Pátio
-
-Preço Limite   = FIPE - (FIPE × Margem%)
-                 - Custo Conserto
-                 - Documentação
-                 - IPVA Atrasado
-
-Lances Restantes = (Preço Limite - Lance) / Incremento
-
-Score (0-100):
-  < 70% do limite  → 95 pts (EXCELENTE)
-  70-85% do limite → 75 pts (BOA)
-  85-95% do limite → 55 pts (REGULAR)
-  95-99% do limite → 35 pts (ARRISCADA)
-  ≥ 100% do limite → 10 pts (EVITAR)
-```
-
----
-
-## ⌨️ Atalhos
-
-| Atalho               | Ação                         |
-| -------------------- | ---------------------------- |
-| `Ctrl+Shift+L`       | Abre / fecha o painel        |
-| Arrastar o cabeçalho | Move o painel na tela        |
-| Botão `↻`            | Atualiza a leitura dos dados |
-| Botão `−`            | Minimiza o painel            |
+- **Painel Interativo em Tempo Real**: Demonstração visual do painel com score de oportunidade (0–100), taxas detalhadas e margem de lances.
+- **Transparência Matemática (Tooltips Interativos)**:
+  - **Fórmula do Preço Limite**: `(FIPE - Margem de Revenda) - Custos Estimados = Preço Limite`.
+  - **Classificação de Uso**: Cálculo de KM/Ano e média mensal para identificar uso particular, frota ou aplicativo.
+- **Scraping Resiliente & Tolerante a Falhas**: Apoio completo a leilões com layouts dinâmicos (como Leilo.com.br Quasar 2026) e operação contínua mesmo quando a quilometragem não consta ou o hodômetro é inacessível.
+- **Campos de Formulário Modernos**: Edição rápida de FIPE de referência, margem de revenda, consertos e documentação.
+- **Detecção Automática da Extensão**: O site detecta via `chrome.runtime.sendMessage` se o usuário já tem o Leilômetro instalado no navegador, transformando o botão de instalação em um indicador de status ativo.
+- **Conformidade LGPD**: Banner de consentimento com suporte a Microsoft Clarity e política de privacidade transparente.
 
 ---
 
@@ -106,29 +31,25 @@ Score (0-100):
 
 ```
 leilometro/
-├── manifest.json          # Manifest V3
-├── content.js             # Scraping + cálculos + UI injetada
-├── styles.css             # Estilos do painel (dark, premium)
-├── icons/
-│   ├── icon16.png
-│   ├── icon48.png
-│   └── icon128.png
-└── popup/
-    ├── popup.html         # Tela de configurações
-    └── popup.js           # Salva/carrega configurações
+├── index.html            # Landing page principal com mockup interativo e planos
+├── suporte.html          # Central de suporte com FAQ detalhado
+├── privacidade.html      # Política de privacidade compatível com LGPD / Chrome Web Store
+├── termos.html           # Termos de uso do serviço
+├── styles.css            # Design system dark theme, tipografia Bebas Neue & DM Sans
+├── app.js                # Lógica do cursor, animações de scroll, FAQ e detecção de extensão
+├── vercel.json           # Configuração de deploy, rotas e headers de segurança na Vercel
+├── robots.txt            # Regras para indexadores de busca
+├── sitemap.xml           # Mapa do site para SEO
+├── favicon/              # Pacote completo de favicons e webmanifest
+└── icons/                # Ícones da marca em alta resolução
 ```
 
 ---
 
-## 🛠️ Próximos Passos (Roadmap)
+## 🌐 Deploy e Publicação
 
-- [ ] Integração real com API FIPE (fipe.parallelum.com.br)
-- [ ] Histórico de leilões analisados
-- [ ] Exportação de análise em PDF
-- [ ] Alertas de preço por e-mail/WhatsApp
-- [ ] Comparação com preços de mercado (OLX, Webmotors)
-- [ ] Suporte a mais leiloeiros
+Este repositório está configurado para deploy contínuo na **Vercel**. Cada commit na branch `main` gera uma nova versão de produção em `leilometro.com.br`.
 
 ---
 
-_Leilômetro v1.0.0 — Manifest V3 — Desenvolvido para compradores inteligentes_
+_Leilômetro — Seu próximo lance começa aqui._

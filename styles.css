@@ -837,14 +837,78 @@ main {
 }
 
 .pm-input {
-  background: #0d1117;
+  box-sizing: border-box;
+  background: #21262d;
   border: 1px solid #30363d;
-  border-radius: 5px;
-  padding: 4px 8px;
-  color: #e6edf3;
-  width: 100%;
+  border-radius: 6px;
+  padding: 5px 8px;
+  color: #f0ba32;
+  font-family: "DM Mono", monospace;
   font-size: 11px;
+  font-weight: 600;
+  width: 100%;
   margin-top: 4px;
+  transition: all 0.2s ease;
+}
+
+.pm-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: #161b22;
+}
+
+/* Tooltips interativos no Mockup */
+.pm-tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+  margin-left: 4px;
+}
+
+.pm-tooltip-icon {
+  font-size: 10px;
+  opacity: 0.8;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.pm-tooltip-wrap:hover .pm-tooltip-icon {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.pm-tooltip-box {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #1c2128;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 6px 8px;
+  color: #e6edf3;
+  font-size: 9px;
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.35;
+  width: max-content;
+  max-width: 190px;
+  white-space: normal;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.pm-tooltip-box strong {
+  color: var(--gold);
+}
+
+.pm-tooltip-wrap:hover .pm-tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
 .pm-textarea {
