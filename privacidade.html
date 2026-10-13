@@ -10,7 +10,7 @@
   <meta property="og:title" content="Política de Privacidade — Leilômetro" />
   <link rel="canonical" href="https://leilometro.com.br/privacidade" />
   <meta property="og:description"
-    content="Sua privacidade em primeiro lugar. O Leilômetro não coleta nem armazena seus dados de navegação." />
+    content="Sua privacidade em primeiro lugar. O Leilômetro não coleta seus dados: tudo fica no seu navegador, e a IA é opcional e usa a sua própria chave." />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
@@ -39,12 +39,13 @@
   <main class="container container-legal">
     <span class="page-tag">Legal</span>
     <h1>POLÍTICA DE<br />PRIVACIDADE</h1>
-    <p class="updated">Última atualização: março de 2026</p>
+    <p class="updated">Última atualização: outubro de 2026 (extensão v1.1.0)</p>
 
     <div class="highlight-box">
-      <strong>Resumo direto:</strong> o Leilômetro <strong>não coleta, não armazena e não transmite nenhum dado
-        pessoal</strong>.
-      Todas as informações geradas pelo uso da extensão ficam exclusivamente no seu navegador.
+      <strong>Resumo direto:</strong> o Leilômetro <strong>não coleta, não armazena em servidores e não vende nenhum dado
+        pessoal</strong>. Tudo o que a extensão gera fica no seu navegador. A única exceção é o
+      <strong>assistente de IA, que é opcional</strong>: se você ativá-lo com a sua própria chave, os dados do lote são enviados
+      ao provedor que você escolheu, e só quando você faz uma pergunta.
     </div>
 
     <section>
@@ -62,54 +63,84 @@
       <ul>
         <li>Nome, e-mail, CPF ou qualquer dado de identificação pessoal</li>
         <li>Credenciais de login nos sites de leilão</li>
-        <li>Histórico de navegação ou URLs visitadas além do necessário para funcionar</li>
+        <li>Histórico de navegação ou URLs visitadas além da página do lote em que o painel é exibido</li>
         <li>Informações financeiras ou bancárias</li>
         <li>Dados de localização</li>
-        <li>Qualquer informação para servidores externos</li>
+        <li>Dados para servidores do Leilômetro. Não temos servidor que receba dados da extensão.</li>
       </ul>
     </section>
 
     <section>
-      <h2>3. O que a extensão lê da página</h2>
+      <h2>3. O que a extensão lê</h2>
       <p>
-        Para funcionar, a extensão lê o <strong>conteúdo público visível na tela</strong> dos sites
-        de leilão suportados — especificamente os valores de lance, ano do veículo, quilometragem,
-        modelo e taxas do leiloeiro. Esses dados são processados localmente no seu navegador e
-        exibidos no painel de análise. Eles <strong>nunca saem do seu computador</strong>.
+        Para funcionar, a extensão lê <strong>dados públicos do lote</strong> nos sites de leilão suportados: lance atual,
+        quantidade de lances, comissão, taxas do leiloeiro, incremento, ano, quilometragem, modelo, valor de mercado,
+        laudo cautelar, local e horário de encerramento. No leilo.com.br esses dados vêm da página e da mesma interface
+        pública (<code>api.leilo.com.br</code>) que o próprio site usa para exibi-los. A leitura acontece no seu navegador.
+        O apelido de quem deu o último lance, que o site já exibe mascarado, não é usado.
       </p>
     </section>
 
     <section>
       <h2>4. Armazenamento local</h2>
+      <ul>
+        <li>
+          <strong>Configurações</strong> (margem de revenda, custos padrão, preferências de alerta) ficam em
+          <code>chrome.storage.sync</code>. Se você estiver logado na conta Google no Chrome, o próprio Chrome pode
+          sincronizá-las entre seus dispositivos. Esse processo é feito pela Google, fora do controle do Leilômetro, e está sujeito à
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" aria-label="Política de Privacidade da Google (abre em nova aba)">Política de Privacidade da Google</a>.
+        </li>
+        <li>
+          <strong>Lotes salvos</strong> (suas edições, anotações, alertas, histórico de lances acompanhado e respostas da IA)
+          ficam em <code>chrome.storage.local</code>, só neste dispositivo, até você apagá-los.
+        </li>
+        <li>
+          <strong>Chave de API da IA</strong>, se você configurar, fica em <code>chrome.storage.local</code>. Ela não é
+          sincronizada, não entra no backup exportado e só é lida pelo service worker da extensão, nunca pela página do leiloeiro.
+        </li>
+      </ul>
       <p>
-        As configurações que você define (margem de revenda, custos estimados, valor FIPE) são
-        salvas localmente através da API <code>chrome.storage.sync</code> do Chrome. Se você
-        estiver logado na conta Google no Chrome, o Chrome pode sincronizar essas preferências
-        entre seus dispositivos — esse processo é feito pela Google, fora do controle do Leilômetro,
-        e está sujeito à
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" aria-label="Política de Privacidade da Google (abre em nova aba)">Política de Privacidade da
-          Google</a>.
-      </p>
-      <p>
-        O histórico de lotes analisados (quando disponível) é armazenado via <code>localStorage</code>
-        do navegador, exclusivamente no seu dispositivo.
+        Em Configurações › Dados você pode exportar um backup, importar ou apagar todos os lotes. Desinstalar a extensão
+        também apaga os dados locais.
       </p>
     </section>
 
     <section>
-      <h2>5. Permissões declaradas no manifest</h2>
+      <h2>5. Assistente de IA (opcional)</h2>
+      <p>
+        O assistente de IA vem <strong>desligado</strong>. Ele só funciona se você colar a sua própria chave de API da
+        <strong>OpenAI</strong> ou do <strong>Google (Gemini)</strong> em Configurações › IA e autorizar o acesso quando o
+        Chrome pedir. Com ele ativo:
+      </p>
+      <ul>
+        <li>os dados só são enviados quando <strong>você</strong> faz uma pergunta, gera um parecer ou pede uma análise no comparador;</li>
+        <li>o que vai é o resumo do lote (veículo, valores, taxas, sua margem e seus custos, histórico de lances acompanhado) e,
+          se você deixar marcada a opção, as suas anotações daquele lote;</li>
+        <li>nenhum dado pessoal, de login ou da sua conta no site de leilão é enviado;</li>
+        <li>o envio vai direto do seu navegador para o provedor escolhido, sem passar por servidores do Leilômetro;</li>
+        <li>o tratamento desses dados segue a política do provedor:
+          <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI</a> ou
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google</a>.
+        </li>
+      </ul>
+      <p>Você pode apagar a chave e revogar o acesso a qualquer momento em Configurações › IA.</p>
+    </section>
+
+    <section>
+      <h2>6. Permissões declaradas no manifest</h2>
       <p>A extensão solicita as seguintes permissões, todas com finalidade exclusiva de funcionamento:</p>
       <ul>
-        <li><strong>storage</strong> — para salvar suas configurações localmente</li>
-        <li><strong>activeTab</strong> — para ler o conteúdo da aba atual nos sites de leilão</li>
-        <li><strong>host_permissions</strong> para os domínios dos leiloeiros — para injetar o painel de análise nesses
-          sites</li>
+        <li><strong>storage</strong>: salvar configurações, lotes e anotações no seu navegador</li>
+        <li><strong>notifications</strong>: mostrar os alertas de lance do Modo Leilão, que só acontecem quando você ativa o rastreio</li>
+        <li><strong>Acesso a <code>*.leilo.com.br</code></strong>: exibir o painel na página do lote e ler os dados públicos do lote</li>
+        <li><strong>Acesso opcional a <code>api.openai.com</code> ou <code>generativelanguage.googleapis.com</code></strong>:
+          pedido só quando você ativa o assistente de IA, para enviar as suas perguntas ao provedor escolhido</li>
       </ul>
       <p class="muted">Nenhuma outra permissão é solicitada ou utilizada.</p>
     </section>
 
     <section>
-      <h2>6. Uso do site (Landing Page)</h2>
+      <h2>7. Uso do site (Landing Page)</h2>
       <p>
         Diferente da extensão, o nosso site (leilometro.com.br) utiliza o <strong>Microsoft Clarity</strong>
         para capturar como você interage com nossa página através de métricas comportamentais, mapas de calor e
@@ -124,24 +155,26 @@
     </section>
 
     <section>
-      <h2>7. Compartilhamento de dados</h2>
+      <h2>8. Compartilhamento de dados</h2>
       <p>
-        Não há dados coletados e, portanto, não há dados a compartilhar com terceiros.
-        Nunca vendemos, alugamos ou fornecemos informações de usuários a anunciantes ou parceiros.
+        O Leilômetro não recebe dados da extensão e, portanto, não tem dados a compartilhar com terceiros.
+        Nunca vendemos, alugamos ou fornecemos informações de usuários a anunciantes ou parceiros. O único envio
+        a terceiros é o do assistente de IA descrito na seção 5, feito por você, com a sua chave, para o provedor que você escolheu.
       </p>
     </section>
 
     <section>
-      <h2>8. Segurança</h2>
+      <h2>9. Segurança</h2>
       <p>
-        Como todos os dados ficam no seu próprio navegador, a segurança das suas informações
-        depende da segurança do seu dispositivo e da sua conta Google (para sincronização de
-        configurações). Recomendamos manter o Chrome e o sistema operacional sempre atualizados.
+        Como os dados ficam no seu próprio navegador, a segurança das suas informações depende da segurança do seu
+        dispositivo e da sua conta Google (para sincronização de configurações). Trate a sua chave de API como uma senha:
+        não a compartilhe e, se suspeitar de vazamento, revogue-a no painel do provedor. Recomendamos manter o Chrome e o
+        sistema operacional sempre atualizados.
       </p>
     </section>
 
     <section>
-      <h2>9. Crianças</h2>
+      <h2>10. Crianças</h2>
       <p>
         O Leilômetro é destinado a adultos que participam de leilões de veículos.
         Não coletamos intencionalmente dados de menores de 18 anos.
@@ -149,7 +182,7 @@
     </section>
 
     <section>
-      <h2>10. Alterações nesta política</h2>
+      <h2>11. Alterações nesta política</h2>
       <p>
         Se esta política for alterada de forma relevante, atualizaremos a data no topo da página
         e, quando possível, comunicaremos aos usuários. O uso continuado da extensão após as
@@ -158,7 +191,7 @@
     </section>
 
     <section>
-      <h2>11. Contato</h2>
+      <h2>12. Contato</h2>
       <p>
         Dúvidas, solicitações de remoção de dados ou qualquer questão relacionada à privacidade:
         envie um e-mail para <a href="mailto:contato@qisites.com.br" aria-label="Enviar e-mail para privacidade">contato@qisites.com.br</a>.

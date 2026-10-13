@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Leilômetro — Seu próximo lance começa aqui!</title>
   <meta name="description"
-    content="O Leilômetro é o seu co-piloto financeiro para leilões de veículos. Calcule o custo real, score de oportunidade e analise KM/Ano em tempo real." />
+    content="O Leilômetro é o seu co-piloto financeiro para leilões de veículos. Custo real, preço limite, alertas sonoros de lance, comparador de veículos e assistente de IA, direto na tela do leilão." />
   <meta name="keywords"
-    content="leilão de carros, leilão de motos, cálculo de leilão, fipe, score de oportunidade, investimento em leilão" />
+    content="leilão de carros, leilão de motos, cálculo de leilão, fipe, score de oportunidade, alerta de lance, comparar veículos de leilão, investimento em leilão" />
   <meta name="author" content="Leilômetro" />
   <meta property="og:title" content="Leilômetro — Análise de Leilões em Tempo Real" />
   <meta property="og:description"
@@ -48,6 +48,7 @@
       <ul class="nav-links">
         <li><a href="#como-funciona">Como Funciona</a></li>
         <li><a href="#planos">Planos</a></li>
+        <li><a href="#recursos">Recursos</a></li>
         <li><a href="#depoimentos">Depoimentos</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="https://chromewebstore.google.com/detail/leil%C3%B4metro-%E2%80%94-an%C3%A1lise-de-o/oifmcimfbbbjenddghinhddmmihfolpi" class="nav-cta"
@@ -68,7 +69,7 @@
 
       <p class="hero-sub">
         Análise de oportunidade em tempo real, direto na tela do leilão.
-        Cálculo automático de taxas, KM/Ano e preço limite — antes do seu próximo lance.
+        Custo real com taxas, KM/Ano e preço limite antes do seu próximo lance, e um apito quando o lance chegar no seu teto.
       </p>
 
       <div class="hero-actions">
@@ -154,32 +155,27 @@
           Sem abrir planilha. Sem calculadora. Tudo automático — você só decide.
         </p>
         <ul class="feature-list reveal">
-          <li>Lê o lance atual, taxas e incremento automaticamente da página</li>
-          <li>Calcula o <strong>Custo Real</strong> com todas as taxas (comissão, pátio, remoção, vistoria)</li>
-          <li>Mostra quantos lances restam até o seu <strong>Preço Limite</strong> com transparência da fórmula</li>
-          <li><strong>Tooltips Interativos:</strong> passe o mouse para entender a matemática exata sem poluir a tela</li>
-          <li>Classifica a <strong>KM/Ano</strong> em Particular, Frota, Aplicativo ou Extremo</li>
-          <li><strong>Scraping Resiliente:</strong> suporta layouts modernos (Quasar 2026) e continua operando mesmo se a KM for inacessível</li>
-          <li><strong>Inputs com visual moderno de formulário:</strong> ajuste margem, conserto e FIPE num clique</li>
-          <li>Botão de imprimir análise completa para registrar a pesquisa</li>
-          <li>Painel arrastável, minimizável e com salvamento automático por lote</li>
+          <li><span>Lê lance, comissão, taxas, incremento, FIPE, laudo e horário de encerramento direto do leiloeiro</span></li>
+          <li><span>Calcula o <strong>Custo no Leilão</strong> (lance + comissão + taxas), que bate com o "total a pagar" do site</span></li>
+          <li><span>Mostra o <strong>Preço Limite</strong> já descontando comissão, taxas e custos de conserto, documentação e IPVA, e quantos lances ainda cabem até ele</span></li>
+          <li><span>Defina <strong>Meu Teto</strong>, o quanto você topa pagar, e use-o nos alertas</span></li>
+          <li><span><strong>Modo Leilão:</strong> ative o rastreio e receba um <strong>apito</strong> e uma notificação quando o lance chegar perto ou passar do seu teto</span></li>
+          <li><span>Classifica a <strong>KM/Ano</strong> em Particular, Frota, Aplicativo ou Extremo</span></li>
+          <li><span><strong>Comparador</strong> de veículos lado a lado e <strong>relatório</strong> para imprimir, salvar em PDF ou mandar no WhatsApp</span></li>
+          <li><span><strong>Assistente de IA</strong> opcional, com a sua chave da OpenAI ou do Gemini: veredito, riscos, teto sugerido e checklist de vistoria</span></li>
+          <li><span>Painel arrastável, com modo compacto para o pregão e salvamento automático por lote</span></li>
         </ul>
       </div>
 
       <!-- PANEL MOCKUP -->
       <div class="panel-mockup reveal" aria-hidden="true">
         <div class="pm-header">
-          <div class="pm-brand">Leilômetro <span>| PRO</span> <span class="pm-auto-tag"
-              style="font-size:7px; vertical-align:middle">💾 SALVO</span></div>
-          <div class="pm-dots">
-            <div class="pm-dot" style="background:#ef4444"></div>
-            <div class="pm-dot" style="background:#f59e0b"></div>
-            <div class="pm-dot" style="background:#22c55e"></div>
-          </div>
+          <div class="pm-brand">Leilômetro <span class="pm-auto-tag" style="font-size:7px; vertical-align:middle">SALVO</span></div>
+          <div class="pm-icons">▭ 📄 ↻ − ×</div>
         </div>
         <div class="pm-body">
           <div class="pm-vehicle" style="margin-bottom:2px">Honda Civic EXL 2.0 — 2019/2020</div>
-          <div class="pm-lote-id">🔑 LOT-88291-BR</div>
+          <div class="pm-lote-id">2020 · 67.000 km · São Paulo/SP · Lote 14<br />⏱ Encerra em 4m12s</div>
 
           <div class="pm-score-row">
             <div class="pm-ring">
@@ -195,23 +191,33 @@
           </div>
 
           <div class="pm-div"></div>
+          <div class="pm-stitle">🔔 Modo Leilão</div>
+          <div class="pm-live">■ Parar rastreio</div>
+          <div class="pm-live-status"><span class="pm-rec">●</span> Rastreando · atualizado agora</div>
+          <div class="pm-live-rules">
+            <span>☑ faltarem <b>3</b> lances para o teto</span>
+            <span>☑ o lance passar do teto <em>(som crítico)</em></span>
+            <span class="pm-live-alvo">🔔 R$ 30.000 <em>faltam R$ 6.000</em></span>
+          </div>
+
+          <div class="pm-div"></div>
           <div class="pm-stitle">💰 Valores</div>
           <div class="pm-grid">
-            <div class="pm-item">
+            <div class="pm-item full">
               <span class="pm-item-label">Lance Atual</span>
-              <span class="pm-item-val">R$ 28.000</span>
+              <span class="pm-item-val gold" style="font-size:15px">R$ 24.000</span>
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">+ Comissão 5% <span class="pm-auto-tag">auto</span></span>
-              <span class="pm-item-val amber">+ R$ 1.400</span>
+              <span class="pm-item-label">Comissão 5% <span class="pm-auto-tag">auto</span></span>
+              <span class="pm-item-val amber">+ R$ 1.200</span>
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">+ Taxa Pátio <span class="pm-auto-tag">auto</span></span>
+              <span class="pm-item-label">Taxas do leilão <span class="pm-auto-tag">auto</span></span>
               <span class="pm-item-val amber">+ R$ 350</span>
             </div>
-            <div class="pm-item highlight">
-              <span class="pm-item-label">Custo Real</span>
-              <span class="pm-item-val gold">R$ 29.750</span>
+            <div class="pm-item highlight full">
+              <span class="pm-item-label">Custo no Leilão</span>
+              <span class="pm-item-val gold">R$ 25.550</span>
             </div>
           </div>
 
@@ -219,8 +225,8 @@
           <div class="pm-stitle">📊 Análise FIPE</div>
 
           <div class="pm-input-box">
-            <span class="pm-item-label">FIPE Referência <span class="pm-auto-tag">detectada</span></span>
-            <input type="text" class="pm-input" value="R$ 45.000,00" readonly aria-label="FIPE Referência">
+            <span class="pm-item-label">FIPE de referência <span class="pm-auto-tag">auto</span></span>
+            <input type="text" class="pm-input" value="R$ 45.000" readonly aria-label="FIPE de referência">
           </div>
 
           <div class="pm-grid">
@@ -229,24 +235,24 @@
                 Preço Limite
                 <span class="pm-tooltip-wrap">
                   <span class="pm-tooltip-icon">ℹ️</span>
-                  <span class="pm-tooltip-box"><strong>Fórmula:</strong><br/>(FIPE - Margem) - Custos = Preço Limite</span>
+                  <span class="pm-tooltip-box"><strong>Maior lance que ainda dá a sua margem:</strong><br/>(FIPE × (1 − margem) − taxas − custos) ÷ (1 + comissão)</span>
                 </span>
               </span>
-              <span class="pm-item-val gold">R$ 34.000</span>
+              <span class="pm-item-val gold">R$ 31.809</span>
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">Potencial Lucro</span>
-              <span class="pm-item-val green">R$ 4.250</span>
+              <span class="pm-item-label">Lucro Potencial</span>
+              <span class="pm-item-val green">R$ 14.950</span>
             </div>
             <div class="pm-item full">
-              <span class="pm-item-label">Margem até o limite</span>
-              <span class="pm-item-val green" style="font-size:16px">21 lances <span
-                  style="font-size:10px; color:#8b949e; font-weight:normal">disp.</span></span>
+              <span class="pm-item-label">Até o preço limite (incremento R$ 200)</span>
+              <span class="pm-item-val green" style="font-size:16px">39 lances <span
+                  style="font-size:10px; color:#8b949e; font-weight:normal">R$ 7.809 de folga</span></span>
             </div>
           </div>
 
           <div class="pm-div"></div>
-          <div class="pm-stitle">🚗 Dados do Veículo</div>
+          <div class="pm-stitle">🚗 Veículo</div>
           <div class="pm-grid">
             <div class="pm-item">
               <span class="pm-item-label">KM Total</span>
@@ -261,7 +267,7 @@
                 Classificação de Uso
                 <span class="pm-tooltip-wrap">
                   <span class="pm-tooltip-icon">❓</span>
-                  <span class="pm-tooltip-box"><strong>Como calculamos?</strong> Dividimos a KM total pela idade do veículo. Média mensal = anual / 12.</span>
+                  <span class="pm-tooltip-box"><strong>Como calculamos?</strong> KM total ÷ idade do veículo. Média mensal = anual ÷ 12.</span>
                 </span>
               </span>
               <span class="pm-km-badge">🟢 Uso Normal</span>
@@ -269,29 +275,58 @@
           </div>
 
           <div class="pm-div"></div>
-          <div class="pm-stitle">🔧 Custos Estimados</div>
+          <div class="pm-stitle">🔧 Custos pós-arremate</div>
           <div class="pm-grid">
             <div class="pm-item">
               <span class="pm-item-label">Conserto</span>
-              <input type="text" class="pm-input" value="R$ 2.500" readonly aria-label="Conserto Estimado">
+              <input type="text" class="pm-input" value="R$ 2.500" readonly aria-label="Conserto estimado">
             </div>
             <div class="pm-item">
-              <span class="pm-item-label">IPVA / Doc.</span>
-              <input type="text" class="pm-input" value="R$ 2.000" readonly aria-label="IPVA e Documentação">
+              <span class="pm-item-label">Documentação + IPVA</span>
+              <input type="text" class="pm-input" value="R$ 2.000" readonly aria-label="Documentação e IPVA">
             </div>
           </div>
 
           <div class="pm-div"></div>
-          <div class="pm-stitle">📝 Anotações</div>
-          <div class="pm-textarea">Para-choque dianteiro com pequeno ralado. Interior em ótimo estado. Sem chave
-            reserva.</div>
-
-          <div class="pm-footer-btns">
-            <button class="pm-btn gold">🖨️ Imprimir</button>
-            <button class="pm-btn">🗑️ Reset</button>
-            <button class="pm-btn">💾 Salvar</button>
+          <div class="pm-footer-btns" style="padding-right:46px">
+            <button class="pm-btn">➕ Comparar</button>
+            <button class="pm-btn gold">📄 Relatório</button>
           </div>
         </div>
+        <div class="pm-fab">🤖</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOVIDADES -->
+  <section class="section" id="recursos">
+    <span class="section-tag reveal">Novo na versão 1.1</span>
+    <h2 class="reveal">FEITO PARA<br />A HORA DO PREGÃO.</h2>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <span class="problem-icon">🔔</span>
+        <h3>Modo Leilão com apito</h3>
+        <p>Clique em “Ativar rastreio” e o Leilômetro acompanha cada lance. Ele apita quando faltarem poucos lances para o seu teto,
+          quando passar do teto, quando chegar no valor que você escolher e 1 minuto antes do encerramento. Também avisa por notificação se você estiver em outra aba.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="problem-icon">⚖️</span>
+        <h3>Comparador de veículos</h3>
+        <p>Marque vários lotes e veja tudo lado a lado: custo no leilão, preço limite, lucro, KM/ano, laudo e score, com o melhor
+          e o pior de cada item destacados. Exporta para planilha (CSV).</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="problem-icon">🤖</span>
+        <h3>Assistente de IA (sua chave)</h3>
+        <p>Conecte sua chave da OpenAI ou do Gemini e pergunte “vale a pena?”, “quais os riscos?”, “quanto dar no máximo?”. A IA usa
+          os números do painel e também ranqueia os lotes do comparador.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="problem-icon">📄</span>
+        <h3>Relatório em um clique</h3>
+        <p>Gere a análise completa do lote com histórico de lances e parecer da IA para imprimir, salvar em PDF ou copiar um resumo
+          pronto para o WhatsApp.</p>
       </div>
     </div>
   </section>
@@ -305,19 +340,19 @@
         <div class="step-num">01</div>
         <span class="step-icon" aria-hidden="true">⬇️</span>
         <h3>Instale no Chrome</h3>
-        <p>Baixe a extensão e carregue em <code>chrome://extensions</code>. Leva menos de 2 minutos. Sem cadastro.</p>
+        <p>Adicione pela Chrome Web Store em um clique. Leva menos de 2 minutos e não precisa de cadastro.</p>
       </div>
       <div class="how-step reveal">
         <div class="step-num">02</div>
         <span class="step-icon" aria-hidden="true">⚙️</span>
         <h3>Configure uma vez</h3>
-        <p>Defina sua margem de revenda desejada e custos típicos. O painel salva e reutiliza automaticamente.</p>
+        <p>Na página de boas-vindas, defina sua margem de revenda e seus custos típicos. O painel salva e reutiliza tudo automaticamente.</p>
       </div>
       <div class="how-step reveal">
         <div class="step-num">03</div>
         <span class="step-icon" aria-hidden="true">🎯</span>
         <h3>Lance com segurança</h3>
-        <p>O painel aparece sozinho no leilão. Você vê o score, o custo real e quantos lances restam — em tempo real.
+        <p>O painel aparece sozinho no lote. No pregão, ative o rastreio: você vê quantos lances restam e ouve um apito antes de passar do seu teto.
         </p>
       </div>
     </div>
@@ -719,7 +754,7 @@
 
     <div class="faq-item">
       <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Como o Leilômetro calcula o Preço Limite? <span class="faq-toggle" aria-hidden="true">+</span></div>
-      <div class="faq-a">A fórmula é 100% transparente: <strong>(FIPE - Margem de Revenda) - Custos Estimados = Preço Limite</strong>. Você pode passar o mouse sobre o ícone informativo ℹ️ no painel a qualquer momento para conferir a regra. Todos os custos (conserto, documentação, IPVA e taxas do pátio) são descontados da margem que você deseja obter.</div>
+      <div class="faq-a">O Preço Limite é o maior lance em que você ainda lucra a margem desejada. A fórmula é <strong>(FIPE × (1 − margem) − taxas do leilão − custos pós-arremate) ÷ (1 + comissão)</strong>. A divisão pela comissão existe porque ela cresce junto com o lance. Passe o mouse no ícone ℹ️ do painel para ver a conta com os números do lote. Se você definir “Meu Teto”, os lances restantes e os alertas passam a usar o seu teto.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" role="button" aria-expanded="false" tabindex="0">E se o lote não tiver KM ou o hodômetro for inacessível? <span class="faq-toggle" aria-hidden="true">+</span></div>
@@ -727,13 +762,22 @@
     </div>
     <div class="faq-item">
       <div class="faq-q" role="button" aria-expanded="false" tabindex="0">A extensão lê meus dados pessoais? <span class="faq-toggle" aria-hidden="true">+</span></div>
-      <div class="faq-a">Não. O Leilômetro lê apenas o conteúdo público visível na tela do leilão (preço, ano, km). Não
-        acessa senhas, contas ou dados de login. Tudo roda localmente no seu Chrome.</div>
+      <div class="faq-a">Não. O Leilômetro lê apenas os dados públicos do lote (preço, ano, km, taxas). Não
+        acessa senhas, contas ou dados de login. Tudo roda localmente no seu Chrome. A única exceção é o assistente de IA,
+        que é opcional: se você conectar a sua chave, os dados do lote vão para o provedor escolhido (OpenAI ou Google) só quando você faz uma pergunta.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Funciona em leilões ao vivo (tempo real)? <span class="faq-toggle" aria-hidden="true">+</span></div>
-      <div class="faq-a">Sim. A extensão observa mudanças na página via MutationObserver e atualiza o painel
-        automaticamente quando o lance sobe. Você vê os lances restantes diminuindo em tempo real.</div>
+      <div class="faq-a">Sim. O painel acompanha o lance na tela automaticamente. No pregão, clique em <strong>“Ativar
+        rastreio”</strong> no Modo Leilão: o Leilômetro consulta o lote a cada poucos segundos e apita quando faltarem poucos
+        lances para o seu teto, quando passar do teto ou quando chegar no valor que você escolher. Também envia uma notificação se você estiver em outra
+        aba. Deixe a aba do lote aberta.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Preciso pagar para usar a IA? <span class="faq-toggle" aria-hidden="true">+</span></div>
+      <div class="faq-a">O assistente de IA é opcional e usa a sua própria chave da OpenAI ou do Google Gemini, configurada
+        em Configurações › IA. As consultas são cobradas pelo provedor direto na sua conta, geralmente centavos por pergunta. Respostas
+        repetidas para o mesmo lote ficam salvas e não são cobradas de novo.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Posso confiar 100% nos cálculos? <span class="faq-toggle" aria-hidden="true">+</span></div>

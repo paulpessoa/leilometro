@@ -38,7 +38,7 @@
       "color: #f0ba32; font-family: monospace; font-size: 11px; line-height: 1.4;"
     )
     console.log(
-      "%c  v1.0.1 — Análise de leilões de veículos em tempo real",
+      "%c  v1.1.0 — Análise de leilões de veículos em tempo real",
       "color: #888; font-family: monospace; font-size: 11px;"
     )
   })()

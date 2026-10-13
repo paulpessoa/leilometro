@@ -49,74 +49,147 @@
             <details open>
                 <summary>Como instalo o Leilômetro?</summary>
                 <div class="faq-body">
-                    O Leilômetro é uma extensão para Google Chrome. Basta baixar o arquivo da extensão e arrastá-lo para
-                    a página <code>chrome://extensions</code> (com o Modo do Desenvolvedor ativado). Uma vez instalado,
-                    o painel aparecerá automaticamente ao entrar em qualquer lote de um site suportado.
+                    O Leilômetro é uma extensão para Google Chrome. Instale pela
+                    <a href="https://chromewebstore.google.com/detail/leil%C3%B4metro-%E2%80%94-an%C3%A1lise-de-o/oifmcimfbbbjenddghinhddmmihfolpi" target="_blank" rel="noopener">Chrome Web Store</a>
+                    clicando em “Usar no Chrome”. Ao instalar, abre uma página de boas-vindas para você definir sua margem
+                    e seus custos. Depois disso, o painel aparece sozinho quando você abre um lote em um site suportado.
                 </div>
             </details>
 
             <details>
                 <summary>O painel não apareceu no site. O que faço?</summary>
                 <div class="faq-body">
-                    1. Certifique-se de que o site está na lista de suportados.<br>
-                    2. Recarregue a página (F5).<br>
-                    3. Tente o atalho <code>Ctrl+Shift+L</code> para forçar a abertura.<br>
-                    4. Verifique se a extensão está ativada no menu do Chrome.
+                    1. Confira se você está na página de um lote. No leilo.com.br o endereço é <code>leilo.com.br/lote/…</code>.<br>
+                    2. Atualize a extensão para a versão 1.1.0 ou mais nova. Em outubro de 2026 o leilo.com.br mudou o endereço dos lotes, e as versões antigas deixaram de reconhecer a página.<br>
+                    3. Recarregue a página (F5) e espere alguns segundos.<br>
+                    4. Use o atalho <code>Ctrl+Shift+L</code> para abrir ou fechar o painel.<br>
+                    5. Em <code>chrome://extensions</code>, verifique se a extensão está ativada e se não há duas cópias instaladas.
                 </div>
             </details>
 
             <details>
                 <summary>Como funciona o Preço Limite e qual é a fórmula?</summary>
                 <div class="faq-body">
-                    O Preço Limite é o teto máximo que você pode pagar no lance para não comprometer a sua margem de lucro. <br><br>
-                    <strong>Fórmula:</strong> <code>(FIPE - Margem de Revenda) - Custos Estimados = Preço Limite</code><br><br>
-                    Os Custos Estimados englobam consertos previstos, documentação, IPVA e taxas de pátio/leilão. O painel inclui um ícone informativo ℹ️ com tooltip para você consultar essa conta a qualquer momento no leilão.
+                    O Preço Limite é o maior lance em que você ainda lucra a margem desejada. <br><br>
+                    <strong>Fórmula:</strong> <code>(FIPE × (1 − margem) − taxas do leilão − custos pós-arremate) ÷ (1 + comissão)</code><br><br>
+                    As <strong>taxas do leilão</strong> (depósito de bens, remoção, vistoria, despachante) e a <strong>comissão</strong> são lidas do lote.
+                    Os <strong>custos pós-arremate</strong> são o conserto, a documentação e o IPVA estimados por você.
+                    A conta divide pela comissão porque ela cresce junto com o lance. O ícone ℹ️ do painel mostra a conta com os números do lote.
+                </div>
+            </details>
+
+            <details>
+                <summary>O que é o “Custo no Leilão”?</summary>
+                <div class="faq-body">
+                    É o que você paga ao leiloeiro se arrematar no lance atual: <code>lance + comissão + taxas do leilão</code>.
+                    No leilo.com.br esse valor bate com o “total a pagar” informado pelo próprio site. O lucro potencial ainda desconta os
+                    custos pós-arremate (conserto, documentação e IPVA).
+                </div>
+            </details>
+
+            <details>
+                <summary>O que é “Meu Teto”?</summary>
+                <div class="faq-body">
+                    É um limite pessoal opcional: o quanto você topa pagar naquele lote. Se ficar vazio, o teto é o Preço Limite calculado.
+                    A contagem de lances restantes, o modo compacto e os alertas do Modo Leilão usam o seu teto.
+                </div>
+            </details>
+
+            <details>
+                <summary>Como uso o Modo Leilão e os alertas sonoros?</summary>
+                <div class="faq-body">
+                    Durante o pregão, abra o lote e clique em <strong>▶ Ativar rastreio</strong> na seção “Modo Leilão” do painel.
+                    O Leilômetro passa a acompanhar cada lance e avisa quando:<br><br>
+                    • faltarem poucos lances para o seu teto (você escolhe quantos);<br>
+                    • o lance passar do teto (com um som diferente, mais forte);<br>
+                    • o lance chegar em um valor que você cadastrar;<br>
+                    • faltar 1 minuto para o encerramento previsto do lote.<br><br>
+                    O aviso tem apito, painel piscando, título da aba e notificação do Windows/Mac, que funciona mesmo em outra aba.
+                    Use o botão 🔊 para testar o som e regule volume e notificações em Configurações › Alertas.
+                    <strong>Deixe a aba do lote aberta</strong>, mesmo que em segundo plano. Os alertas são uma ajuda e não substituem a sua atenção ao pregão.
+                </div>
+            </details>
+
+            <details>
+                <summary>Para que serve o modo compacto?</summary>
+                <div class="faq-body">
+                    O botão <code>▭</code> no topo do painel reduz tudo a uma barra com lance, teto, lances restantes e score. A barra fica
+                    verde, amarela perto do teto e vermelha acima dele. É o modo pensado para acompanhar o pregão sem tampar a tela.
+                </div>
+            </details>
+
+            <details>
+                <summary>Como comparo vários veículos?</summary>
+                <div class="faq-body">
+                    Em cada lote que interessar, clique em <strong>➕ Comparar</strong> no painel. Depois abra o comparador pelo botão ⚖️
+                    do painel ou do ícone da extensão. Ele mostra os veículos lado a lado, destaca o melhor e o pior de cada item, permite
+                    editar FIPE, teto e conserto direto na tabela, atualiza os lances e exporta para CSV (Excel).
+                </div>
+            </details>
+
+            <details>
+                <summary>Como funciona o assistente de IA?</summary>
+                <div class="faq-body">
+                    É opcional. Em Configurações › IA, escolha OpenAI ou Google Gemini, cole a sua chave de API e clique em
+                    “Salvar e autorizar”. O Chrome vai pedir permissão para a extensão acessar o provedor. Depois use o botão 🤖 do painel
+                    para perguntar “Vale a pena?”, “Riscos”, “Quanto dar no máximo?”, “O que checar na vistoria” ou “Comparar com meus salvos”.
+                    No comparador, a IA também ranqueia os lotes.<br><br>
+                    As consultas são cobradas pelo provedor direto na sua conta. A chave fica só no seu navegador e é usada apenas pela
+                    extensão, nunca pela página do leiloeiro. Respostas da IA podem conter erros: confira os números.
+                </div>
+            </details>
+
+            <details>
+                <summary>Como gero um relatório?</summary>
+                <div class="faq-body">
+                    Clique em <strong>📄 Relatório</strong> no painel. Abre uma página com toda a análise do lote, o histórico de lances
+                    acompanhado e, se você usar a IA, um parecer. Dali dá para imprimir, salvar em PDF ou copiar um resumo para o WhatsApp.
                 </div>
             </details>
 
             <details>
                 <summary>E se o lote não tiver KM ou o hodômetro for inacessível?</summary>
                 <div class="faq-body">
-                    Nossa tecnologia de scraping é 100% isolada e resiliente. Se um lote não tiver quilometragem ou constar "hodômetro inacessível", o Leilômetro não trava nem zera a tela: ele continua calculando o lance atual, taxas, FIPE e Preço Limite normalmente. O campo de KM exibe um input para você digitar o valor manualmente caso obtenha essa informação durante a vistoria.
+                    O Leilômetro continua calculando lance, taxas, FIPE e Preço Limite normalmente. O campo de KM vira um input
+                    para você digitar o valor, se conseguir essa informação na vistoria.
                 </div>
             </details>
 
             <details>
                 <summary>Como funciona o Score de Oportunidade?</summary>
                 <div class="faq-body">
-                    O Score (0–100) é nossa métrica proprietária que cruza: <br><br>
-                    • Distância entre Custo Real e Preço Limite (FIPE).<br>
-                    • Intensidade de uso do veículo (KM/Ano).<br>
-                    • Taxas estimadas e histórico do modelo.<br><br>
-                    Quanto maior o score, maior sua margem de segurança no arremate.
+                    O Score (0–100) mede o quanto o lance atual está abaixo do Preço Limite. Quanto mais abaixo, maior o score. <br><br>
+                    • Lance abaixo de 70% do limite: 95 pontos. Até 85%: 75. Até 95%: 55. Até 100%: 35. Acima do limite: 10.<br>
+                    • KM/ano acima de 20.000 tira 10 pontos; acima de 30.000, tira 20.<br><br>
+                    Sem FIPE não há score: o painel pede que você informe o valor.
                 </div>
             </details>
 
             <details>
                 <summary>Como o Leilômetro obtém o valor da FIPE?</summary>
                 <div class="faq-body">
-                    O Leilômetro tenta detectar o valor de mercado (FIPE) automaticamente diretamente na página do lote.
-                    Caso o site não forneça essa informação ou você queira usar uma base diferente, basta digitar o
-                    valor no campo <code>FIPE Referência</code> no painel. Todos os cálculos de Preço Limite, Lances
-                    Restantes e Score serão atualizados instantaneamente e salvos para aquele lote.
+                    No leilo.com.br, o Leilômetro usa o valor de mercado informado no lote e mostra o modelo e o código FIPE de referência
+                    (com botão para copiar). Se o site não informar ou você preferir outra base, digite o valor no campo
+                    <code>FIPE de referência</code>. Os cálculos são atualizados na hora e o valor fica salvo para aquele lote.
+                    O Leilômetro nunca inventa uma FIPE: sem ela, o painel avisa que falta o valor.
                 </div>
             </details>
 
             <details>
                 <summary>A comissão do leiloeiro é sempre 5%?</summary>
                 <div class="faq-body">
-                    Não. A extensão tenta ler a comissão específica de cada lote diretamente da página (no site Leilo,
-                    por exemplo, pode variar entre 4% e 5%). Quando não detectada, o Leilômetro aplica o valor definido
-                    por você nas configurações (padrão: 5%). Recomendamos sempre conferir o edital.
+                    Não. A extensão lê a comissão de cada lote direto do leiloeiro, inclusive comissões extras. Quando não consegue ler,
+                    usa o valor definido nas Configurações (padrão: 5%) e marca o campo como “padrão”. Recomendamos sempre conferir o edital.
                 </div>
             </details>
 
             <details>
-                <summary>Meus dados de navegação estão seguros?</summary>
+                <summary>Meus dados estão seguros? Posso fazer backup?</summary>
                 <div class="faq-body">
-                    Absolutamente. O Leilômetro roda 100% localmente no seu computador. Não enviamos seus lances,
-                    anotações ou histórico para nenhum servidor externo. Seus dados são salvos apenas no seu próprio
-                    navegador.
+                    O Leilômetro roda localmente no seu computador. Seus lotes, anotações, alertas e histórico de lances ficam só no seu
+                    navegador e não vão para nenhum servidor nosso. A única exceção é o assistente de IA, se você ativar: aí os dados do lote vão
+                    para o provedor que você escolheu, só quando você faz uma pergunta.<br><br>
+                    Em Configurações › Dados você exporta um backup (.json) e importa em outro computador. A chave de IA não entra no backup.
                 </div>
             </details>
         </section>
