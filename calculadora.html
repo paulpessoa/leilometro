@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Lance Máximo — Leilômetro</title>
+    <meta name="description"
+        content="Calculadora grátis de leilão de carros: descubra o custo real (lance + comissão + taxas) e o lance máximo para ainda lucrar. Funciona no celular, sem cadastro." />
+    <meta property="og:title" content="Calculadora de Lance Máximo para Leilão de Carros" />
+    <meta property="og:description"
+        content="Custo real, lance máximo e KM/ano em segundos. Grátis, no celular ou no computador." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://leilometro.com.br/calculadora" />
+    <link rel="canonical" href="https://leilometro.com.br/calculadora" />
+    <meta property="og:image" content="https://leilometro.com.br/marketing/posts/img/post11-calculadora-celular.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora de Lance Máximo — Leilômetro",
+      "url": "https://leilometro.com.br/calculadora",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "pt-BR",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+      "description": "Calcula o custo real e o lance máximo de um veículo em leilão a partir da FIPE, comissão, taxas e margem desejada."
+    }
+    </script>
+    <style>
+        .calc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 32px; }
+        .calc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+        .calc-form fieldset { grid-column: 1 / -1; border: 0; display: contents; }
+        .calc-form legend { grid-column: 1 / -1; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-top: 10px; }
+        .calc-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+        .calc-field label { font-size: 14px; color: var(--muted); }
+        .calc-field input { width: 100%; background: var(--dark3); border: 1px solid var(--dark4); color: var(--text); border-radius: 10px; padding: 12px 14px; font: 500 16px "DM Sans", sans-serif; font-variant-numeric: tabular-nums; }
+        .calc-field input:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: transparent; }
+        .calc-field small { font-size: 12px; color: var(--muted); }
+        .calc-out { position: sticky; top: 24px; background: var(--dark2); border: 1px solid var(--border); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+        .calc-row { display: flex; justify-content: space-between; gap: 16px; font-size: 15px; }
+        .calc-row span { color: var(--muted); }
+        .calc-row b { font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+        .calc-big { font-family: "Bebas Neue", sans-serif; font-size: 56px; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+        .calc-sep { height: 1px; background: var(--border); }
+        .calc-verdict { border-radius: 12px; padding: 12px 14px; font-weight: 700; font-size: 15px; }
+        .calc-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .calc-actions button, .calc-actions a { flex: 1 1 160px; text-align: center; border-radius: 10px; padding: 12px 14px; font: 700 14px "DM Sans", sans-serif; cursor: pointer; border: 1px solid var(--gold); background: transparent; color: var(--gold); text-decoration: none; }
+        .calc-actions .solid { background: var(--gold); color: var(--dark); }
+        .calc-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+        #calc-toast { font-size: 13px; color: var(--green); min-height: 18px; }
+        @media (max-width: 820px) { .calc-grid { grid-template-columns: 1fr; } .calc-out { position: static; } }
+        @media (max-width: 420px) { .calc-form { grid-template-columns: 1fr; } }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <header>
+        <nav class="nav-legal">
+            <a href="/" class="nav-logo" aria-label="Leilômetro Home">Leilômetro <span>| PRO</span></a>
+            <a href="/" class="nav-back" aria-label="Voltar para a página inicial">← Voltar ao início</a>
+        </nav>
+    </header>
+
+    <main class="container container-legal">
+        <span class="page-tag">Grátis · funciona no celular</span>
+        <h1>CALCULADORA DE<br />LANCE MÁXIMO</h1>
+        <p class="updated">Descubra quanto o carro custa de verdade e até quanto vale dar lance para ainda lucrar a margem que você quer.
+            Os números de exemplo são de um Onix 2021. Troque pelos do seu lote.</p>
+
+        <div class="calc-grid">
+            <form class="calc-form" id="calc-form" autocomplete="off">
+                <fieldset>
+                    <legend>Veículo</legend>
+                    <div class="calc-field"><label for="c-fipe">Valor FIPE (R$)</label><input id="c-fipe" inputmode="numeric" value="62.000" /></div>
+                    <div class="calc-field"><label for="c-lance">Lance atual (R$)</label><input id="c-lance" inputmode="numeric" value="32.000" /></div>
+                    <div class="calc-field"><label for="c-ano">Ano do modelo</label><input id="c-ano" inputmode="numeric" value="2021" /></div>
+                    <div class="calc-field"><label for="c-km">Quilometragem</label><input id="c-km" inputmode="numeric" value="68.000" /></div>
+                </fieldset>
+                <fieldset>
+                    <legend>Leilão</legend>
+                    <div class="calc-field"><label for="c-comissao">Comissão do leiloeiro (%)</label><input id="c-comissao" inputmode="decimal" value="5" /></div>
+                    <div class="calc-field"><label for="c-taxas">Taxas do leilão (R$)</label><input id="c-taxas" inputmode="numeric" value="1.650" /><small>Pátio, remoção, vistoria, despachante</small></div>
+                </fieldset>
+                <fieldset>
+                    <legend>Depois do arremate</legend>
+                    <div class="calc-field"><label for="c-conserto">Conserto estimado (R$)</label><input id="c-conserto" inputmode="numeric" value="2.500" /></div>
+                    <div class="calc-field"><label for="c-doc">Documentação (R$)</label><input id="c-doc" inputmode="numeric" value="1.200" /></div>
+                    <div class="calc-field"><label for="c-ipva">IPVA e débitos (R$)</label><input id="c-ipva" inputmode="numeric" value="1.800" /></div>
+                    <div class="calc-field"><label for="c-margem">Margem desejada (% da FIPE)</label><input id="c-margem" inputmode="decimal" value="15" /></div>
+                </fieldset>
+            </form>
+
+            <section class="calc-out" aria-live="polite" aria-label="Resultado">
+                <div class="calc-row"><span>Custo no leilão</span><b id="r-leilao">—</b></div>
+                <div class="calc-row"><span>Custo real total</span><b id="r-total">—</b></div>
+                <div class="calc-row"><span>Acima do lance</span><b id="r-acima">—</b></div>
+                <div class="calc-sep"></div>
+                <span style="font-size:14px;color:var(--muted)">Seu lance máximo</span>
+                <span class="calc-big" id="r-limite">—</span>
+                <div class="calc-verdict" id="r-veredito">—</div>
+                <div class="calc-row"><span>Lucro estimado no lance atual</span><b id="r-lucro">—</b></div>
+                <div class="calc-row"><span>KM/ano</span><b id="r-km">—</b></div>
+                <div class="calc-sep"></div>
+                <div class="calc-actions">
+                    <button type="button" class="solid" id="b-ia">🤖 Perguntar ao ChatGPT</button>
+                    <a id="b-whats" href="#" target="_blank" rel="noopener">Enviar no WhatsApp</a>
+                </div>
+                <div id="calc-toast" role="status"></div>
+                <p class="calc-note">No computador, a <a href="https://chromewebstore.google.com/detail/leil%C3%B4metro-%E2%80%94-an%C3%A1lise-de-o/oifmcimfbbbjenddghinhddmmihfolpi?utm_source=site&utm_medium=calculadora" target="_blank" rel="noopener">extensão grátis do Leilômetro</a>
+                    preenche tudo sozinha a partir da página do lote e avisa durante o pregão quando o lance chega no seu teto.</p>
+            </section>
+        </div>
+
+        <section style="margin-top:56px;max-width:720px">
+            <span class="section-tag">Como a conta é feita</span>
+            <p style="color:var(--muted);line-height:1.7;margin-top:12px">
+                <strong>Custo no leilão</strong> = lance + comissão + taxas do leilão.<br />
+                <strong>Lance máximo</strong> = (FIPE × (1 − margem) − taxas − custos pós-arremate) ÷ (1 + comissão).
+                A divisão aparece porque a comissão cresce junto com o lance.<br />
+                <strong>KM/ano</strong> = quilometragem ÷ idade do carro. Acima de 25 mil km/ano costuma indicar frota ou aplicativo.<br /><br />
+                A calculadora é uma estimativa. Leia o edital, confira os débitos do veículo e, se puder, faça a vistoria antes de dar o lance.
+            </p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-row">
+            <div class="footer-logo">Leilômetro <span>| PRO</span></div>
+            <div class="footer-links">
+                <a href="/suporte">Suporte</a>
+                <a href="/privacidade">Privacidade</a>
+                <a href="/termos">Termos de Uso</a>
+            </div>
+            <div class="footer-note">© 2026 Leilômetro · Não afiliado a nenhum leiloeiro</div>
+        </div>
+    </footer>
+
+    <script src="./calculadora.js"></script>
+    <script src="./app.js"></script>
+</body>
+
+</html>

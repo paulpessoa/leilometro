@@ -18,6 +18,11 @@
       "permanent": true
     },
     {
+      "source": "/calculadora.html",
+      "destination": "/calculadora",
+      "permanent": true
+    },
+    {
       "source": "/suporte.html",
       "destination": "/suporte",
       "permanent": true
