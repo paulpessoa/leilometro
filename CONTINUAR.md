@@ -30,12 +30,18 @@ preciso fazer manualmente (chaves, deploy, Chrome Web Store, publicar posts).
 Seja didático e objetivo comigo.
 ```
 
-## Estado em que a sessão anterior deixou (atualizado ao final de cada etapa)
+## Estado (21/10, manhã)
 
-- [ ] Site: plano de marketing e negócios
-- [ ] Site: posts + imagens/GIFs
-- [ ] Site: roteiro YouTube
-- [ ] Extensão: IA sem chave
-- [ ] Extensão: multi-leiloeiras (beta)
-- [ ] API: /ia/analisar
-- [ ] PRs abertos
+- [x] Site: plano de marketing e negócios (`marketing/PLANO_MARKETING_E_NEGOCIOS.md`)
+- [x] Site: 12 posts + artes PNG/GIF/MP4 (`marketing/posts/`)
+- [x] Site: roteiro YouTube (`marketing/YOUTUBE.md`)
+- [x] Site: calculadora web (`calculadora.html`)
+- [x] Extensão: IA sem chave no painel (`lib/prompt.js`, `content/assistant.js`) + base do modo servidor em `lib/ai.js`
+- [ ] Extensão: seletor de modo de IA em `options/` (externo | leilometro | chave). Hoje o modo padrão já é "externo"
+- [ ] Extensão: comparador (`compare/`) e relatório (`report/`) no modo sem chave
+- [ ] Extensão: multi-leiloeiras beta (`lib/sites.js`, `optional_host_permissions` + `chrome.scripting.registerContentScripts`) + `docs/PLANO_MULTI_LEILOEIRAS.md`
+- [ ] API: `POST /ia/analisar` (contrato esperado pela extensão: body `{instalacao, versao, tarefa, contexto, pergunta, historico}` → `{texto, json?, modelo, restantes}`; 429 com `{detail:{mensagem}}` quando acabar a cota) + `docs/IA_GERENCIADA.md` + testes
+- [ ] `marketing/plano.html` visual (opcional)
+- PRs: site e extensão abertos para `main`; a API ainda não tem commits nesta branch
+
+Dica de economia: as tarefas de opções, comparador/relatório e o endpoint da API são bem definidas e podem rodar no Sonnet.
